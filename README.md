@@ -1,9 +1,9 @@
 # vue--node-mongodb-wzry
 vue + node (Express + ElementUI) +mongodb全栈开发王者荣耀手机端官网和管理后台
-## 一、 入门
-1. 项目介绍
+## 一、 准备
 1. 工具安装和环境搭建(nodejs,npm,mongodb)
-1. 初始化项目
+1. 初始化项目（通过vue-cli3创建两个vue项目（admin和web））；server数据接口安装express框架
+
 
 ## 二、 管理后台
 1. 基于Element UI的后台管理基础界面搭建
@@ -12,7 +12,7 @@ vue + node (Express + ElementUI) +mongodb全栈开发王者荣耀手机端官网
 1. 分类列表
 1. 修改分类
 1. 删除分类
-1. 子分类
+1. 子分类增删改查
 
 1. **通用 CRUD 接口**
 

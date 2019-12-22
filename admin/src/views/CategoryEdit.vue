@@ -37,10 +37,19 @@ export default {
     }
       
       this.$router.push('/categories/list')
-      this.$message({
+      if(this.id){
+ this.$message({
+        type: 'success',
+        message: '修改成功'
+      })
+      }else{
+        this.$message({
         type: 'success',
         message: '保存成功'
       })
+      }
+
+      
     },
 // 向后台请求需要编辑的数据
    async fetch(){

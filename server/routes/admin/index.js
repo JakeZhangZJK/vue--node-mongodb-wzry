@@ -24,10 +24,20 @@ module.exports = app => {
         res.send(items)// 将模板发送出去（客户端）
 
     });
+    
      // 根据ID获取一条分类数据
      router.get('/categories/:id', async (req, res) => { 
         const model = await Category.findById(req.params.id)
         res.send(model)
+
+     });
+    
+     // 根据id删除一个分类
+     router.delete('/categories/:id', async (req, res) => { 
+        await Category.findByIdAndDelete(req.params.id)
+         res.send({
+             success:true
+         })
 
     });
     
