@@ -20,7 +20,7 @@ module.exports = app => {
 
     // 获取分类列表
     router.get('/categories', async (req, res) => { 
-        const items = await Category.find().limit(10) //  限制一个页面放10条数据
+        const items = await Category.find().populate('parent').limit(20) //  限制一个页面放20条数据
         res.send(items)// 将模板发送出去（客户端）
 
     });
