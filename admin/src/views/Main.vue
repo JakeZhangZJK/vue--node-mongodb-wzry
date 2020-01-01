@@ -8,9 +8,14 @@
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-menu"></i>内容管理</template>
         <el-menu-item-group>
-          <template slot="title">分类管理</template>
+          <template slot="title">分类</template>
           <el-menu-item index="/categories/create">新建分类</el-menu-item>
           <el-menu-item index="/categories/list">分类列表</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group>
+          <template slot="title">装备</template>
+          <el-menu-item index="/items/create">添加装备</el-menu-item>
+          <el-menu-item index="/items/list">装备列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
    
