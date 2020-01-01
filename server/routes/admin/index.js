@@ -45,5 +45,16 @@ module.exports = app => {
       const modelName = require('inflection').classify(req.params.resource)// 请求动态资源  这里需要安装一个inflection依赖包，用于类名转换
       req.Model = require(`../../models/${modelName}`)
       next()
-    } , router)
+    }, router)
+  
+  
+  
+  
+  const multer = require('multer')// 导入上传文件中间件的依赖包，需要先安装
+  const upload = multer({dest:__dirname + '/../../uploads'})// 上传中间件
+  app.post('/admin/api/upload',upload.single('file'), async (req, res) => { 
+    const file = req.file
+    file.url = `http://localhost:3000/uploads/${file.filename}`
+    res.send(file)
+  })
   }

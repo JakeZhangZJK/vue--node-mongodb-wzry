@@ -1,19 +1,19 @@
 <!--新建和编辑分类公用这一个页面-->
 <template>
   <div class="about">
-    <h1>{{id?'编辑':'新建'}}装备</h1>
+    <h1>{{id?'编辑':'添加'}}英雄</h1>
     <el-form label-width="80px" @submit.native.prevent="save">
 
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>
       </el-form-item>
-      <el-form-item label="图标">
+      <el-form-item label="头像">
         <el-upload class="avatar-uploader" 
           :action="$http.defaults.baseURL + '/upload'" 
           :show-file-list="false"
           :on-success="afterUpload" 
           :before-upload="beforeAvatarUpload">
-          <img v-if="model.icon" :src="model.icon" class="avatar">
+          <img v-if="model.avatar" :src="model.avatar" class="avatar">
 
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -31,13 +31,16 @@
     },
     data() {
       return {
-        model: {},
+        model: {
+          name:'',
+          avatar:''
+        },
       };
     },
     methods: {
 
       afterUpload(res) {
-        this.$set(this.model,'icon',res.url)
+        this.model.avatar = res.url
        
       },
       beforeAvatarUpload(file) {
@@ -59,16 +62,16 @@
       async save() {
         let res
         if (this.id) {
-          res = await this.$http.put(`rest/items/${this.id}`, this.model);
+          res = await this.$http.put(`rest/heroes/${this.id}`, this.model);
           this.model = res.data;
 
         } else {
-          res = await this.$http.post('rest/items', this.model)
+          res = await this.$http.post('rest/heroes', this.model)
           this.model = res.data;
 
         }
 
-        this.$router.push('/items/list')
+        this.$router.push('/heroes/list')
         if (this.id) {
           this.$message({
             type: 'success',
@@ -85,7 +88,7 @@
       },
       // 向后台请求需要编辑的数据
       async fetch() {
-        const res = await this.$http.get(`rest/items/${this.id}`);
+        const res = await this.$http.get(`rest/heroes/${this.id}`);
         this.model = res.data;
 
 
