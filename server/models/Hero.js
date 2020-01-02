@@ -4,7 +4,7 @@ const schema = new mongoose.Schema({
   name: { type: String },// 名称
   avatar: { type: String },// 头像
   title: { type: String },
-  categoies: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }],// 所属分类
+  categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }],// 所属分类
   scores: {// 英雄评分
     difficult: { type: Number },// 难度
     skills: { type: Number },// 技能
@@ -26,8 +26,8 @@ const schema = new mongoose.Schema({
   battleTips: { type: String },// 对抗技巧
   teamTips: { type: String },// 团战思路
   partner: [{// 最佳搭档
-    hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },
-    description: {type:String},
+    hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },// 搭档英雄
+    description: {type:String},// 搭档英雄的描述
   }],
   
 })

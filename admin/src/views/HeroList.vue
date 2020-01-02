@@ -5,6 +5,7 @@
     <el-table :data="heroes" border  stripe>
       <el-table-column prop="_id" label="ID" width="230"></el-table-column>
       <el-table-column prop="name" label="英雄名称"></el-table-column>
+      <el-table-column prop="title" label="英雄称号"></el-table-column>
        <el-table-column prop="avatar" label="英雄头像">
           <template slot-scope="scope">
         <img :src="scope.row.avatar" alt=""  style="height:3rem;">
