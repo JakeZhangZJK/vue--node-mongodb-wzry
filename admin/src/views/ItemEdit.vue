@@ -5,7 +5,7 @@
     <el-form label-width="80px" @submit.native.prevent="save">
 
       <el-form-item label="名称">
-        <el-input v-model="model.name"></el-input>
+        <el-input v-model="model.name" clearable maxlength="10"></el-input>
       </el-form-item>
       <el-form-item label="图标">
         <el-upload class="avatar-uploader" 
@@ -99,31 +99,3 @@
   };
 </script>
 
-<style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #a39d9d;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 5rem;
-    height: 5rem;
-    line-height: 5rem;
-    text-align: center;
-  }
-
-  .avatar {
-    width: 5rem;
-    height: 5rem;
-    display: block;
-  }
-</style>

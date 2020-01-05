@@ -8,7 +8,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="标题">
-        <el-input v-model="model.title"></el-input>
+        <el-input v-model="model.title" clearable maxlength="25"></el-input>
       </el-form-item>
       <el-form-item label="正文">
         <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="model.body"></vue-editor>

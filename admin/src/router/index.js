@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '../views/Main.vue'
+import Login from '../views/Login.vue'
 
 import CategoryEdit from '../views/CategoryEdit.vue'
 import CategoryList from '../views/CategoryList.vue'
@@ -9,14 +10,20 @@ import ItemList from '../views/ItemList.vue'
 import HeroEdit from '../views/HeroEdit.vue'
 import HeroList from '../views/HeroList.vue'
 import ArticleEdit from '../views/ArticleEdit.vue'
-import ArticleList from '../views/ArticleList.vue'
+import ArticleList from '../views/ArticleList.vue'      
+import AdEdit from '../views/AdEdit.vue'
+import AdList from '../views/AdList.vue'  
+import AdminUserEdit from '../views/AdminUserEdit.vue'
+import AdminUserList from '../views/AdminUserList.vue'                                                                                     
 
-
+                                    
 
 Vue.use(Router)
 
-export default new Router({
-  routes: [{
+export default new Router({               
+  routes: [
+  
+    {
     path: '/',
     name: 'main',
     component: Main,
@@ -41,7 +48,19 @@ export default new Router({
        { path: '/articles/create', component: ArticleEdit },
        { path: '/articles/edit/:id', component: ArticleEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
        { path: '/articles/list', component: ArticleList },
+       
+       // 广告路由
+       { path: '/ads/create', component: AdEdit },
+       { path: '/ads/edit/:id', component: AdEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
+       { path: '/ads/list', component: AdList },
+       
+      // 管理员路由
+      { path: '/admin_users/create', component: AdminUserEdit },
+      { path: '/admin_users/edit/:id', component: AdminUserEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
+      { path: '/admin_users/list', component: AdminUserList },
     ]
 
-  }]
+    },
+    { path: '/login', name: 'login', component: Login },
+  ]
 })
