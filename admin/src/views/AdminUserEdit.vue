@@ -1,16 +1,13 @@
-<!--新建和编辑分类公用这一个页面-->
 <template>
   <div class="about">
-    <h1>{{id?'编辑':'新建'}}分类</h1>
+    <h1>{{id?'编辑':'新建'}}管理员</h1>
     <el-form label-width="80px" @submit.native.prevent="save">
-      <el-form-item label="上级分类">
-        <el-select v-model="model.parent">
-          <el-option v-for="item in parents" :key="item._id"
-          :label="item.name" :value="item._id"></el-option>
-        </el-select>
+      
+      <el-form-item label="用户名">
+        <el-input v-model="model.username" clearable></el-input>
       </el-form-item>
-      <el-form-item label="名称">
-        <el-input v-model="model.name" clearable maxlength="10"></el-input>
+      <el-form-item label="密码">
+        <el-input  v-model="model.password" show-password clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -26,7 +23,6 @@
     data() {
       return {
         model: {},
-        parents: []
       };
     },
     methods: {
@@ -34,13 +30,13 @@
       async save() {
         let res
         if (this.id) {
-          res = await this.$http.put(`rest/categories/${this.id}`, this.model);
+          res = await this.$http.put(`rest/admin_users/${this.id}`, this.model);
           this.model = res.data;
         } else {
-          res = await this.$http.post('rest/categories', this.model)
+          res = await this.$http.post('rest/admin_users', this.model)
           this.model = res.data;
         }
-        this.$router.push('/categories/list')
+        this.$router.push('/admin_users/list')
         if (this.id) {
           this.$message({
             type: 'success',
@@ -55,17 +51,12 @@
       },
       // 向后台请求需要编辑的数据
       async fetch() {
-        const res = await this.$http.get(`rest/categories/${this.id}`);
+        const res = await this.$http.get(`rest/admin_users/${this.id}`);
         this.model = res.data;
       },
-      // 获取父级分类列表
-      async fetchParents() {
-        const res = await this.$http.get(`rest/categories`);
-        this.parents = res.data;
-      }
+     
     },
     created() {
-        this.fetchParents();
       this.id && this.fetch(); // 
     
     }

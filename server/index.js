@@ -1,6 +1,7 @@
 const express = require("express")
 
 const app = express()
+app.set('secret','fghjlgllghgf')
 
 app.use(require('cors')())// 引入跨域模块
 app.use(express.json()) // 引入express框架

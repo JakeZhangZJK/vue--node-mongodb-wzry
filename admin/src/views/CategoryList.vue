@@ -1,3 +1,4 @@
+
 <!---->
 <template>
   <div>
@@ -30,7 +31,6 @@ export default {
         }
     },
     methods:{
-
       // 获取分类列表
       async  fetch(){
             const res = await this.$http.get('rest/categories');
@@ -46,19 +46,15 @@ export default {
           const res = await this.$http.delete(`rest/categories/${row._id}`)
           
           res 
-
           this.$message({
             type: 'success',
             message: '删除成功!'
           });
-
           this.fetch();// 刷新列表
         }).catch(() => {
                   
         });
      }
-
-
     },
     created(){
         this.fetch();// 在列表组件渲染成功后自动执行该方法获取数据库数据

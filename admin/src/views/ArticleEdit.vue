@@ -8,7 +8,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="标题">
-        <el-input v-model="model.title"></el-input>
+        <el-input v-model="model.title" clearable maxlength="25"></el-input>
       </el-form-item>
       <el-form-item label="正文">
         <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="model.body"></vue-editor>
@@ -69,7 +69,6 @@
         const res = await this.$http.get(`rest/categories`)
         this.categories = res.data
       },
-
       //在富文本编辑中上传图片
       async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
         const formData = new FormData();
@@ -78,7 +77,6 @@
         Editor.insertEmbed(cursorLocation, "image", res.data.url);
         resetUploader();
       }
-
     },
     created() {
       this.fetchCatgories()

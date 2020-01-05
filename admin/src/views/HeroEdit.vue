@@ -1,17 +1,16 @@
-<!--新建和编辑分类公用这一个页面-->
 <template>
   <div class="about">
     <h1>{{id?'编辑':'添加'}}英雄</h1>
     <el-form label-width="80px" @submit.native.prevent="save">
 
-      <el-tabs value="skills" type="border-card">
+      <el-tabs value="basic" type="border-card">
         <!-- 基本信息tab -->
         <el-tab-pane label="基本信息" name="basic">
           <el-form-item label="名称">
-            <el-input v-model="model.name"></el-input>
+            <el-input v-model="model.name" clearable maxlength="4" show-word-limit></el-input>
           </el-form-item>
           <el-form-item label="称号">
-            <el-input v-model="model.title"></el-input>
+            <el-input v-model="model.title" clearable maxlength="4" show-word-limit></el-input>
           </el-form-item>
           <el-form-item label="定位">
             <el-select v-model="model.categories" multiple>
@@ -49,13 +48,13 @@
             </el-select>
           </el-form-item>
           <el-form-item label="使用技巧">
-            <el-input type="textarea" v-model="model.usageTips"></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.usageTips" clearable maxlength="500" show-word-limit></el-input>
           </el-form-item>
           <el-form-item label="对抗技巧">
-            <el-input type="textarea" v-model="model.battleTips"></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.battleTips" clearable maxlength="500" show-word-limit></el-input>
           </el-form-item>
           <el-form-item label="团战思路">
-            <el-input type="textarea" v-model="model.teamTips"></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.teamTips" clearable maxlength="500" show-word-limit></el-input>
           </el-form-item>
 
         </el-tab-pane>
@@ -65,7 +64,7 @@
           <el-row type="flex" style="flex-wrap:wrap;">
             <el-col :md="12" v-for="(item,i) in model.skills" :key="i">
               <el-form-item label="名称">
-                <el-input v-model="item.name"></el-input>
+                <el-input v-model="item.name" clearable maxlength="4" show-word-limit></el-input>
               </el-form-item>
               <el-form-item label="图标">
                 <el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false"
@@ -76,10 +75,10 @@
                 </el-upload>
               </el-form-item>
               <el-form-item label="描述">
-                <el-input type="textarea" v-model="item.description"></el-input>
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.description" clearable maxlength="100" show-word-limit></el-input>
               </el-form-item>
               <el-form-item label="小提示">
-                <el-input type="textarea" v-model="item.tips"></el-input>
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.tips" clearable maxlength="50" show-word-limit></el-input>
               </el-form-item>
               <el-form-item >
                <el-button size="small" type="danger"
@@ -118,21 +117,16 @@
             survive: 0
           },
           skills:[],
-
-
         },
       };
     },
     methods: {
-
       afterUpload(res) {
         this.model.avatar = res.url
-
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG 格式!');
         }
@@ -141,22 +135,16 @@
         }
         return isJPG && isLt2M;
       },
-
-
-
       // 编辑/保存数据
       async save() {
         let res
         if (this.id) {
           res = await this.$http.put(`rest/heroes/${this.id}`, this.model);
           this.model = res.data;
-
         } else {
           res = await this.$http.post('rest/heroes', this.model)
           this.model = res.data;
-
         }
-
         this.$router.push('/heroes/list')
         if (this.id) {
           this.$message({
@@ -169,66 +157,27 @@
             message: '保存成功'
           })
         }
-
-
       },
       // 向后台请求需要编辑的数据
       async fetch() {
         const res = await this.$http.get(`rest/heroes/${this.id}`);
         this.model = res.data;
-
-
       },
       // 获取英雄分类列表（后期做优化）
       async getCategories() {
         const res = await this.$http.get(`rest/categories`);
         this.categories = res.data;
-
-
       },
       // 装备列表（后期做优化）
       async geItems() {
         const res = await this.$http.get(`rest/items`);
         this.items = res.data;
-
-
       },
-
     },
     created() {
       this.geItems();
       this.getCategories();
       this.id && this.fetch(); // 
-
     }
   };
 </script>
-
-<style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #a39d9d;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 5rem;
-    height: 5rem;
-    line-height: 5rem;
-    text-align: center;
-  }
-
-  .avatar {
-    width: 5rem;
-    height: 5rem;
-    display: block;
-  }
-</style>

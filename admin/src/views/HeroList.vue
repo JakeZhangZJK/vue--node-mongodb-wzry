@@ -1,4 +1,3 @@
-<!---->
 <template>
   <div>
     <h1>英雄列表</h1>
@@ -35,7 +34,6 @@ export default {
         }
     },
     methods:{
-
       // 获取分类列表
       async  fetch(){
             const res = await this.$http.get('rest/heroes');
@@ -43,7 +41,7 @@ export default {
 },
      // 删除分类
      async remove (row) {
-        this.$confirm(`是否删除分类"${row.name}"`, '提示', {
+        this.$confirm(`是否删除英雄"${row.name}"`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -51,19 +49,15 @@ export default {
           const res = await this.$http.delete(`rest/heroes/${row._id}`)
           
           res 
-
           this.$message({
             type: 'success',
             message: '删除成功!'
           });
-
           this.fetch();// 刷新列表
         }).catch(() => {
                   
         });
      }
-
-
     },
     created(){
         this.fetch();// 在列表组件渲染成功后自动执行该方法获取数据库数据
