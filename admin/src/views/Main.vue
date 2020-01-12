@@ -59,10 +59,10 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>查看</el-dropdown-item>
               <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item >退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span>王小虎</span>
+          <span>jake</span>
         </el-header>
 
         <el-main>
@@ -74,7 +74,24 @@
   </div>
 </template>
 
+<script>
+   export default {
+        data() {
+            return {
+                model: {
+                  username:''
+                },
 
+            }
+        },
+        methods: {
+        
+        },
+        created() {  
+    
+    }
+    }
+</script>
 <style>
   .el-header {
     background-color: #B3C0D1;

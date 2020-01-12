@@ -11,6 +11,7 @@
         <el-input v-model="model.title" clearable maxlength="25"></el-input>
       </el-form-item>
       <el-form-item label="正文">
+
         <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="model.body"></vue-editor>
       </el-form-item>
       <el-form-item>
@@ -22,9 +23,7 @@
 
 <script>
   // 导入富文本编辑器
-  import {
-    VueEditor
-  } from "vue2-editor";
+  import {VueEditor } from "vue2-editor";
   export default {
     props: {
       id: {}

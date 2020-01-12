@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '../views/Main.vue'
 import Login from '../views/Login.vue'
+import Login2 from '../views/Login2.vue'
 
 import CategoryEdit from '../views/CategoryEdit.vue'
 import CategoryList from '../views/CategoryList.vue'
@@ -20,11 +21,13 @@ import AdminUserList from '../views/AdminUserList.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   routes: [
     // 登录路由
-    { path: '/login', name: 'login', component: Login },
+    { path: '/login', name: 'login', component: Login, meta: { isPublic: true } },
+    { path: '/login2', name: 'login2', component: Login2, meta: { isPublic: true } },
     {
+      
     path: '/',
     name: 'main',
     component: Main,
@@ -62,3 +65,12 @@ export default new Router({
 
   }]
 })
+
+//路由守卫
+router.beforeEach((to, from ,next) => {
+  if (!to.meta.isPublic && !localStorage.token) {
+    return next('/login')
+  }
+  next()
+})
+export default router

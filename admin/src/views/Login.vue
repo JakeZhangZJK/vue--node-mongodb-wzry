@@ -1,12 +1,14 @@
 <template>
-    <div class="login-container">
+<el-container class="longin-main" style="height: 100vh; ">
+  <el-main>
+  <div class="login-container">
         <el-card header="管理员登录" class="login-card">
             <el-form @submit.native.prevent="login">
                 <el-form-item>
-                    <el-input  v-model="model.username" prefix-icon="el-icon-user"></el-input>
+                    <el-input class="login-inputorbuttom" v-model="model.username" prefix-icon="el-icon-user"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input type="password" v-model="model.password" prefix-icon="el-icon-unlock" show-password>
+                    <el-input class="login-inputorbuttom" type="password" v-model="model.password" prefix-icon="el-icon-unlock" show-password>
                     </el-input>
                 </el-form-item>
                 <el-form-item>
@@ -15,6 +17,10 @@
             </el-form>
         </el-card>
     </div>
+  </el-main>
+</el-container>
+
+  
 </template>
 <script>
     export default {
@@ -40,9 +46,12 @@
     }
 </script>
 <style scoped>
+.longin-main{
+    background-image: url('../assets/images/back.jpg')
+}
     .login-card {
         width: 25rem;
-        margin: 8rem auto;
+        margin: 0 auto;
         margin-top: 10rem;
         box-shadow: 1rem;
     }
@@ -50,4 +59,5 @@
     .login-card .login-btn {
         width: 22.5rem;
     }
+   
 </style>

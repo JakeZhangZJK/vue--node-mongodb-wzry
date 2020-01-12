@@ -8,7 +8,8 @@
       </el-form-item>
       <el-form-item label="图标">
         <el-upload class="avatar-uploader" 
-          :action="$http.defaults.baseURL + '/upload'" 
+          :action="upLoadUrl" 
+          :headers="getAuthHeaders()" 
           :show-file-list="false"
           :on-success="afterUpload" 
           :before-upload="beforeAvatarUpload">
