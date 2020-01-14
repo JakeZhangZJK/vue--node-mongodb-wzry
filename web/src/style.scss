@@ -1,0 +1,170 @@
+//reset
+*{
+    box-sizing: border-box;//盒子模型
+    outline: none;// 取消高亮
+}
+html{
+    font-size: 13px;
+}
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.2em;
+    background: #f1f1f1;
+}
+a{
+    color: #999;
+}
+// colors
+$colors:(
+    "primary":#db9e3f,
+    "white":#fff,
+    "light":#f9f9f9,
+    "grey":#999,
+    "dark-1":#343440,
+    "dark":#222,
+    "black":#000,
+    
+   
+
+);
+@each $colorkey,$color in $colors {
+    .text-#{$colorkey}{
+        color: $color;
+    }
+    .bg-#{$colorkey}{
+        background-color: $color;
+    }
+    
+}
+
+//text
+@each $var in (left,center,right) {
+    .text-#{$var}{
+        text-align: $var;
+    }
+    
+}
+// font-size
+$base-font-size:1rem;
+$font-sizes:(
+    xxs:0.6154,// 8px
+    xs:0.7692,// 10px
+    sm:0.9231,// 12px
+    md:1,     // 13px
+    lg:1.0769,// 14px
+    xl:1.2308,// 16px
+
+
+);
+@each $sizekey,$size in $font-sizes {
+    
+    .fs-#{$sizekey}{
+        font-size: $size * $base-font-size ;
+    }
+}
+
+// flex
+.d-flex{
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
+}
+
+$flex-jc:(
+    start:flex-start,
+    end:flex-end,
+    center:center,
+    between:space-between,
+    around:space-around,
+);
+@each $key,$value in $flex-jc {
+    .jc-#{$key}{
+        justify-content:$value;
+    }
+}
+
+$flex-ai:(
+    start:flex-start,
+    end:flex-end,
+    center:center,
+    stretch:stretch
+);
+@each $key,$value in $flex-ai {
+    .ai-#{$key}{
+        align-items:$value;
+    }
+}
+.flex-1{
+    flex: 1;
+}
+.flex-grow-1{
+    flex-grow: 1;
+}
+
+// spacing
+$spacing-types:(
+    m:margin,
+    p:padding
+);
+$spacing-directions:(
+    t:top,
+    r:right,
+    b:bottom,
+    l:left
+);
+$spacing-base-size:1rem;
+$spacing-sizes:(
+    0:0,
+    1:0.25,
+    2:0.5,
+    3:1,
+    4:1.5,
+    5:3
+
+);
+@each $typekey,$type in $spacing-types {
+    // m-1
+    @each $sizekey,$size in $spacing-sizes {
+        .#{$typekey}-#{$sizekey}{
+            #{$type}:$size * $spacing-base-size;
+    
+    
+        }
+        
+    }
+     // mx-1,my-1
+     @each $sizekey,$size in $spacing-sizes {
+        .#{$typekey}x-#{$sizekey}{
+            #{$type}-left:$size * $spacing-base-size;
+            #{$type}-right:$size * $spacing-base-size;
+    
+    
+        }
+        .#{$typekey}y-#{$sizekey}{
+            #{$type}-top:$size * $spacing-base-size;
+            #{$type}-bottom:$size * $spacing-base-size;
+    
+    
+        }
+        
+    }
+
+    // mt-1
+    @each $directionkey,$direction in $spacing-directions {
+        @each $sizekey,$size in $spacing-sizes {
+            .#{$typekey}#{$directionkey}-#{$sizekey}{
+                #{$type}-#{$direction}:$size * $spacing-base-size;
+        
+        
+            }
+            
+        }
+        
+    }
+
+
+  
+    
+}
