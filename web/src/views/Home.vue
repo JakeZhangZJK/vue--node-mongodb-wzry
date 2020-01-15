@@ -1,7 +1,18 @@
 <!---->
 <template>
     <div>
-      首页
+     <swiper>
+         <swiper-slide>
+             <img src="../assets/logo.png" alt="">
+         </swiper-slide>
+         <swiper-slide>
+             <img src="../assets/logo.png" alt="">
+         </swiper-slide>
+         <swiper-slide>
+             <img src="../assets/logo.png" alt="">
+         </swiper-slide>
+     </swiper>
+
     </div>
 </template>
 <script>

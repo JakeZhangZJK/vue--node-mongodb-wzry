@@ -11,6 +11,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.2em;
     background: #f1f1f1;
+    -webkit-font-smoothing:antialiased;//字体平滑
 }
 a{
     color: #999;
@@ -21,6 +22,7 @@ $colors:(
     "white":#fff,
     "light":#f9f9f9,
     "grey":#999,
+    "grey-1":#666,
     "dark-1":#343440,
     "dark":#222,
     "black":#000,
@@ -159,12 +161,28 @@ $spacing-sizes:(
         
         
             }
-            
         }
-        
-    }
-
-
-  
     
+    }
+    
+}
+// button
+.btn{
+    border: none;
+    border-radius: 0.1538rem;//2px
+    font-size: map-get($map:$font-sizes , $key:'xs' ) * $base-font-size;
+    padding: 0.4rem 0.8rem;
+}
+
+// nav
+.nav{
+    .nav-item{
+        border-bottom: 3px solid transparent;
+        padding-bottom: 0.2rem;
+        &.active{
+            border-bottom: 0.2308rem solid #fff;
+        }
+
+    }
+   
 }

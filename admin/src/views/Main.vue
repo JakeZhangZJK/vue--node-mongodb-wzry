@@ -93,7 +93,7 @@
     data() {
       return {
         model: {
-          username:'',
+          username:'111',
         },
       }
     },
@@ -103,7 +103,11 @@
         // sessionStorage.token = res.data.token
         this.model.username = res.data.user.username;
 
-      }
+      },
+      created() {  
+        this.login()
+    
+    }
     }
   }
 </script>
