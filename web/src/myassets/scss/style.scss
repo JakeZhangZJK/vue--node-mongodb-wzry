@@ -1,4 +1,6 @@
+@import './variables';
 //reset
+
 *{
     box-sizing: border-box;//盒子模型
     outline: none;// 取消高亮
@@ -16,20 +18,7 @@ body{
 a{
     color: #999;
 }
-// colors
-$colors:(
-    "primary":#db9e3f,
-    "white":#fff,
-    "light":#f9f9f9,
-    "grey":#999,
-    "grey-1":#666,
-    "dark-1":#343440,
-    "dark":#222,
-    "black":#000,
-    
-   
 
-);
 @each $colorkey,$color in $colors {
     .text-#{$colorkey}{
         color: $color;
@@ -43,27 +32,24 @@ $colors:(
 //text
 @each $var in (left,center,right) {
     .text-#{$var}{
-        text-align: $var;
+        text-align: $var !important;
     }
     
 }
-// font-size
-$base-font-size:1rem;
-$font-sizes:(
-    xxs:0.6154,// 8px
-    xs:0.7692,// 10px
-    sm:0.9231,// 12px
-    md:1,     // 13px
-    lg:1.0769,// 14px
-    xl:1.2308,// 16px
 
-
-);
 @each $sizekey,$size in $font-sizes {
     
     .fs-#{$sizekey}{
         font-size: $size * $base-font-size ;
     }
+}
+
+//width,height
+.w-100{
+    width: 100%;
+}
+.h-100{
+    height: 100%;
 }
 
 // flex
@@ -73,26 +59,18 @@ $font-sizes:(
 .flex-column{
     flex-direction: column;
 }
+.flex-wrap{
+    flex-wrap: wrap;
+}
 
-$flex-jc:(
-    start:flex-start,
-    end:flex-end,
-    center:center,
-    between:space-between,
-    around:space-around,
-);
+
 @each $key,$value in $flex-jc {
     .jc-#{$key}{
         justify-content:$value;
     }
 }
 
-$flex-ai:(
-    start:flex-start,
-    end:flex-end,
-    center:center,
-    stretch:stretch
-);
+
 @each $key,$value in $flex-ai {
     .ai-#{$key}{
         align-items:$value;
@@ -105,27 +83,7 @@ $flex-ai:(
     flex-grow: 1;
 }
 
-// spacing
-$spacing-types:(
-    m:margin,
-    p:padding
-);
-$spacing-directions:(
-    t:top,
-    r:right,
-    b:bottom,
-    l:left
-);
-$spacing-base-size:1rem;
-$spacing-sizes:(
-    0:0,
-    1:0.25,
-    2:0.5,
-    3:1,
-    4:1.5,
-    5:3
 
-);
 @each $typekey,$type in $spacing-types {
     // m-1
     @each $sizekey,$size in $spacing-sizes {
@@ -185,4 +143,94 @@ $spacing-sizes:(
 
     }
    
+}
+// sprite
+.sprite {
+	background: url('../images/index.png') no-repeat 0 0;
+    background-size: 28.8462rem ;
+    display: inline-block;
+	&.sprite-news{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 63.546% 15.517%;
+    
+    }
+    &.sprite-arrow{
+        width: 0.7692rem;
+        height: 0.7692rem;
+        background-position: 38.577% 52.076%;
+    
+    }
+    &.sprite-stories{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 90.483% 15.614%;
+    
+    }
+    &.sprite-shop{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 36.746% 0.924%;
+    
+    }
+    &.sprite-experience{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 10.408% 15.517%;
+    
+    }
+    &.sprite-newcomer{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 89.733% 1.266%;
+    
+    }
+    &.sprite-glory{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position:  36.467% 15.287%;
+    
+    }
+    &.sprite-resources{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 9.302% 0.813%;
+    
+    }
+    &.sprite-camp{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 63.3% 0.927%;
+    
+    }
+    &.sprite-wechat{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 0 96.207%;
+    
+    }
+    &.sprite-version{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 63.3% 0.927%;
+    
+    }
+    &.sprite-match{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 63.3% 0.927%;
+    
+    }
+    &.sprite-unlimited{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 63.3% 0.927%;
+    
+    }
+    &.sprite-creative{
+        width: 1.7692rem;
+        height: 1.5385rem;
+        background-position: 63.3% 0.927%;
+    
+    }
 }

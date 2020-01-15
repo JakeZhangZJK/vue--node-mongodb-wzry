@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './style.scss'
+import './myassets/scss/style.scss'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
