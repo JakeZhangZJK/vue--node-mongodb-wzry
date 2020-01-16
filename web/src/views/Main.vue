@@ -7,10 +7,10 @@
           <div class="text-white ">王者荣耀</div> 
           <div class="text-grey-1 fs-xxs">团队成就更多</div>
         </div>
-        <button class="btn bg-primary">立即下载</button>
+        <button class="btn bg-primary text-dark">立即下载</button>
       </div>
     <div class="bg-primary pt-3 pb-2">
-        <div class="nav d-flex text-white jc-around pb-1">
+        <div class="nav nav-inverse pb-1 jc-around">
         <div class="nav-item active">
           <router-link class="nav-link" tag="div" to="/">首页</router-link>
         </div>

@@ -1,236 +1,322 @@
 @import './variables';
 //reset
 
-*{
-    box-sizing: border-box;//盒子模型
-    outline: none;// 取消高亮
+* {
+    box-sizing: border-box; //盒子模型
+    outline: none; // 取消高亮
 }
-html{
+
+html {
     font-size: 13px;
 }
-body{
+
+body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.2em;
     background: #f1f1f1;
-    -webkit-font-smoothing:antialiased;//字体平滑
+    -webkit-font-smoothing: antialiased; //字体平滑
+    
 }
-a{
+
+a {
     color: #999;
 }
 
-@each $colorkey,$color in $colors {
-    .text-#{$colorkey}{
+@each $colorkey,
+$color in $colors {
+    .text-#{$colorkey} {
         color: $color;
     }
-    .bg-#{$colorkey}{
+
+    .bg-#{$colorkey} {
         background-color: $color;
     }
-    
+
 }
 
 //text
-@each $var in (left,center,right) {
-    .text-#{$var}{
+@each $var in (left, center, right) {
+    .text-#{$var} {
         text-align: $var !important;
     }
-    
+
 }
 
-@each $sizekey,$size in $font-sizes {
-    
-    .fs-#{$sizekey}{
-        font-size: $size * $base-font-size ;
+@each $sizekey,
+$size in $font-sizes {
+
+    .fs-#{$sizekey} {
+        font-size: $size * $base-font-size;
     }
 }
 
 //width,height
-.w-100{
+.w-100 {
     width: 100%;
 }
-.h-100{
+
+.h-100 {
     height: 100%;
 }
 
 // flex
-.d-flex{
+.d-flex {
     display: flex;
 }
-.flex-column{
+
+.flex-column {
     flex-direction: column;
 }
-.flex-wrap{
+
+.flex-wrap {
     flex-wrap: wrap;
 }
 
 
-@each $key,$value in $flex-jc {
-    .jc-#{$key}{
-        justify-content:$value;
+@each $key,
+$value in $flex-jc {
+    .jc-#{$key} {
+        justify-content: $value;
     }
 }
 
 
-@each $key,$value in $flex-ai {
-    .ai-#{$key}{
-        align-items:$value;
+@each $key,
+$value in $flex-ai {
+    .ai-#{$key} {
+        align-items: $value;
     }
 }
-.flex-1{
+
+.flex-1 {
     flex: 1;
 }
-.flex-grow-1{
+
+.flex-grow-1 {
     flex-grow: 1;
 }
 
 
-@each $typekey,$type in $spacing-types {
+@each $typekey,
+$type in $spacing-types {
+
     // m-1
-    @each $sizekey,$size in $spacing-sizes {
-        .#{$typekey}-#{$sizekey}{
-            #{$type}:$size * $spacing-base-size;
-    
-    
+    @each $sizekey,
+    $size in $spacing-sizes {
+        .#{$typekey}-#{$sizekey} {
+            #{$type}: $size * $spacing-base-size;
+
+
         }
-        
+
     }
-     // mx-1,my-1
-     @each $sizekey,$size in $spacing-sizes {
-        .#{$typekey}x-#{$sizekey}{
-            #{$type}-left:$size * $spacing-base-size;
-            #{$type}-right:$size * $spacing-base-size;
-    
-    
+
+    // mx-1,my-1
+    @each $sizekey,
+    $size in $spacing-sizes {
+        .#{$typekey}x-#{$sizekey} {
+            #{$type}-left: $size * $spacing-base-size;
+            #{$type}-right: $size * $spacing-base-size;
+
+
         }
-        .#{$typekey}y-#{$sizekey}{
-            #{$type}-top:$size * $spacing-base-size;
-            #{$type}-bottom:$size * $spacing-base-size;
-    
-    
+
+        .#{$typekey}y-#{$sizekey} {
+            #{$type}-top: $size * $spacing-base-size;
+            #{$type}-bottom: $size * $spacing-base-size;
+
+
         }
-        
+
     }
 
     // mt-1
-    @each $directionkey,$direction in $spacing-directions {
-        @each $sizekey,$size in $spacing-sizes {
-            .#{$typekey}#{$directionkey}-#{$sizekey}{
-                #{$type}-#{$direction}:$size * $spacing-base-size;
-        
-        
+    @each $directionkey,
+    $direction in $spacing-directions {
+
+        @each $sizekey,
+        $size in $spacing-sizes {
+            .#{$typekey}#{$directionkey}-#{$sizekey} {
+                #{$type}-#{$direction}: $size * $spacing-base-size;
+
+
             }
         }
-    
+
     }
-    
+
 }
+
 // button
-.btn{
+.btn {
     border: none;
-    border-radius: 0.1538rem;//2px
-    font-size: map-get($map:$font-sizes , $key:'xs' ) * $base-font-size;
+    border-radius: 0.1538rem; //2px
+    font-size: map-get($map:$font-sizes, $key:'xs') * $base-font-size;
     padding: 0.4rem 0.8rem;
 }
 
 // nav
-.nav{
-    .nav-item{
-        border-bottom: 3px solid transparent;
+.nav {
+    display: flex;
+
+    .nav-item {
+        border-bottom: 0.2308rem solid transparent;
         padding-bottom: 0.2rem;
-        &.active{
-            border-bottom: 0.2308rem solid #fff;
-        }
+
+        &.active {
+            color: map-get($map: $colors, $key:'primary');
+            border-bottom-color: map-get($map: $colors, $key:'primary');
+          }
+
 
     }
-   
+    &.nav-inverse {
+        .nav-item {
+            color: map-get($map: $colors, $key:'white');
+    
+            &.active {
+    
+                border-bottom-color:  map-get($map: $colors, $key:'white');
+            }
+    
+    
+        }
+    }
+
 }
+
+
+
 // sprite
 .sprite {
-	background: url('../images/index.png') no-repeat 0 0;
-    background-size: 28.8462rem ;
+    background: url('../images/index.png') no-repeat 0 0;
+    background-size: 28.8462rem;
     display: inline-block;
-	&.sprite-news{
+
+    &.sprite-news {
+        // 爆料站
         width: 1.7692rem;
         height: 1.5385rem;
         background-position: 63.546% 15.517%;
-    
+
     }
-    &.sprite-arrow{
+
+    &.sprite-arrow {
         width: 0.7692rem;
         height: 0.7692rem;
         background-position: 38.577% 52.076%;
-    
+
     }
-    &.sprite-stories{
+
+    &.sprite-stories {
+        // 故事站
         width: 1.7692rem;
         height: 1.5385rem;
         background-position: 90.483% 15.614%;
-    
+
     }
-    &.sprite-shop{
-        width: 1.7692rem;
-        height: 1.5385rem;
+
+    &.sprite-shop {
+        // 商城周边
+        width: 1.4615rem;
+        height: 1.6923rem;
         background-position: 36.746% 0.924%;
-    
+
     }
-    &.sprite-experience{
-        width: 1.7692rem;
+
+    &.sprite-experience {
+        // 体验服
+        width: 1.5385rem;
         height: 1.5385rem;
         background-position: 10.408% 15.517%;
-    
+
     }
-    &.sprite-newcomer{
-        width: 1.7692rem;
-        height: 1.5385rem;
-        background-position: 89.733% 1.266%;
-    
+
+    &.sprite-newcomer {
+        // 新人专区
+        width: 1.847rem;
+        height: 1.847rem;
+        background-position: 89.733% 1%;
+
     }
-    &.sprite-glory{
-        width: 1.7692rem;
-        height: 1.5385rem;
-        background-position:  36.467% 15.287%;
-    
+
+    &.sprite-glory {
+        // 荣耀传承
+        width: 1.8462rem;
+        height: 1.8462rem;
+        background-position: 36.467% 15%;
+
     }
-    &.sprite-resources{
-        width: 1.7692rem;
-        height: 1.5385rem;
+
+    &.sprite-resources {
+        // 模拟战资料库
+        width: 2.3846rem;
+        height: 1.9220rem;
         background-position: 9.302% 0.813%;
-    
+
     }
-    &.sprite-camp{
-        width: 1.7692rem;
-        height: 1.5385rem;
+
+    &.sprite-camp {
+        // 王者营地 
+        width: 1.8462rem;
+        height: 1.8462rem;
         background-position: 63.3% 0.927%;
-    
+
     }
-    &.sprite-wechat{
-        width: 1.7692rem;
+
+    &.sprite-wechat {
+        // 微信公众号
+        width: 1.8462rem;
         height: 1.5385rem;
         background-position: 0 96.207%;
-    
+
     }
-    &.sprite-version{
-        width: 1.7692rem;
-        height: 1.5385rem;
-        background-position: 63.3% 0.927%;
-    
+
+    &.sprite-version {
+        // 版本
+        background: url('../images/version-icon.png') 50% 0% no-repeat;
+        width: 100%;
+        height: 100%;
+        background-size: 1.85rem;
+        margin-bottom: -1.9rem;
+
+
     }
-    &.sprite-match{
-        width: 1.7692rem;
-        height: 1.5385rem;
-        background-position: 63.3% 0.927%;
-    
+
+    &.sprite-djhj {
+        // 对局环境
+        background: url('../images/djhj.png') 50% 5% no-repeat;
+        width: 100%;
+        height: 100%;
+        background-size: 2.6rem;
+        margin-bottom: -1.9rem;
+
     }
-    &.sprite-unlimited{
-        width: 1.7692rem;
-        height: 1.5385rem;
-        background-position: 63.3% 0.927%;
-    
+
+    &.sprite-wxwzt {
+        // 无限王者团
+        background: url('../images/wxwzt.png') 50% 12% no-repeat;
+        width: 100%;
+        height: 100%;
+        background-size: 3.55rem;
+        margin-bottom: -1.9rem;
+
     }
-    &.sprite-creative{
-        width: 1.7692rem;
-        height: 1.5385rem;
-        background-position: 63.3% 0.927%;
-    
+
+    &.sprite-cyhdy {
+        // 创意互动营
+        background: url('../images/cyhdy.png') 50% 0% no-repeat;
+        width: 100%;
+        height: 100%;
+        background-size: 2.2rem;
+        margin-bottom: -1.2rem;
+
     }
+}
+//span time
+.time{
+    position:absolute;
+    right: .5rem;
+    color: map-get($map: $colors, $key:'grey-2' );
 }

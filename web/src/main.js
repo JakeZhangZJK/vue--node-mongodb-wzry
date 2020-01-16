@@ -3,9 +3,14 @@ import App from './App.vue'
 import './myassets/scss/style.scss'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-
 // require swiper styles
 import 'swiper/dist/css/swiper.css'
+// Introduce font icon
+import './myassets/iconfont/iconfont.css'
+
+// Introduce card component
+import Card from './components/Card'
+Vue.component('m-card',Card)
 
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
 
