@@ -40,12 +40,6 @@
     }
 </script>
 <style scoped>
-.login-container{
-  border:1px solid white;
-  overflow: hidden;
-  z-index: 999 !important;
-
-}
     .login-card {
         width: 25rem;
         margin: 8rem auto;
