@@ -317,6 +317,6 @@ $type in $spacing-types {
 //span time
 .time{
     position:absolute;
-    right: .5rem;
+    right: .01rem;
     color: map-get($map: $colors, $key:'grey-2' );
 }

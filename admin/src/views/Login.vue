@@ -3,10 +3,10 @@
         <el-card header="管理员登录" class="login-card">
             <el-form @submit.native.prevent="login">
                 <el-form-item>
-                    <el-input  v-model="model.username" prefix-icon="el-icon-user"></el-input>
+                    <el-input class="login-input"  v-model="model.username" prefix-icon="el-icon-user" clearable></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input type="password" v-model="model.password" prefix-icon="el-icon-unlock" show-password>
+                    <el-input type="password" class="login-input"  v-model="model.password" prefix-icon="el-icon-unlock" show-password>
                     </el-input>
                 </el-form-item>
                 <el-form-item>
@@ -40,14 +40,22 @@
     }
 </script>
 <style scoped>
+.login-container{
+  border:1px solid white;
+  overflow: hidden;
+  z-index: 999 !important;
+
+}
     .login-card {
         width: 25rem;
         margin: 8rem auto;
         margin-top: 10rem;
         box-shadow: 1rem;
+      
     }
+   .login-btn {
+        width: 22.5rem ;  
+        
 
-    .login-card .login-btn {
-        width: 22.5rem;
     }
 </style>

@@ -78,10 +78,10 @@
                 </el-upload>
               </el-form-item>
               <el-form-item label="描述">
-                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.description" clearable maxlength="100" show-word-limit></el-input>
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.description" clearable maxlength="500" show-word-limit></el-input>
               </el-form-item>
               <el-form-item label="小提示">
-                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.tips" clearable maxlength="50" show-word-limit></el-input>
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.tips" clearable maxlength="100" show-word-limit></el-input>
               </el-form-item>
               <el-form-item >
                <el-button size="small" type="danger"

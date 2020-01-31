@@ -33,7 +33,7 @@ module.exports = app => {
         if (req.Model.modelName === 'Category') {
           queryOptions.populate = 'parent'
         }
-        const items = await req.Model.find().setOptions(queryOptions).limit(30)
+        const items = await req.Model.find().setOptions(queryOptions).limit(300)
         res.send(items)
       })
   // 通用获取一条数据接口
@@ -99,9 +99,7 @@ module.exports = app => {
 
     const token = jwt.sign({
       id: user._id
-    }, app.get('secret'), {
-      expiresIn: '12h'
-    }) // 通过调用 sign 方法, 把 **用户信息**、**密钥** 生成token，并设置过期时间 
+    }, app.get('secret'), { expiresIn: '9999h'}) // 通过调用 sign 方法, 把 **用户信息**、**密钥** 生成token，并设置过期时间 
     res.send({
       user,
       token

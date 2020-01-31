@@ -1,0 +1,51 @@
+{
+  "name": "vue--node-mongodb-wzry",
+  "version": "1.0.0",
+  "eslintConfig": {
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/essential"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+      "vue"
+    ],
+  "rules": {
+    "async-await/space-after-async": 2,
+    "async-await/space-after-await": 2,
+    "no-console": 0,
+    "no-cond-assign": 0,
+    "no-unused-vas":0
+    }
+},
+  "description": "vue + node (Express + ElementUI) +mongodb全栈开发王者荣耀手机端官网和管理后台\r ## 一、 准备\r 1. 工具安装和环境搭建(nodejs,npm,mongodb)\r 1. 初始化项目（通过vue-cli3创建两个vue项目（admin和web））；server数据接口安装express框架",
+  "main": "index.js",
+  "dependencies": {
+    "eslint-plugin-async-await": "0.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeZhangZJK/vue--node-mongodb-wzry.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeZhangZJK/vue--node-mongodb-wzry/issues"
+  },
+  "homepage": "https://github.com/JakeZhangZJK/vue--node-mongodb-wzry#readme"
+}

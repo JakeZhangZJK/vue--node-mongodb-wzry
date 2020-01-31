@@ -21,7 +21,7 @@
             <div class="d-flex flex-wrap">
                 <div class="nav-item mb-3" v-for="(value,key) in icons" :key="key">
                     <i class="sprite" :class="value.icon"></i>
-                    <div class="py-1">{{value.title}}</div>
+                    <div class="py-1 fs-sm">{{value.title}}</div>
                 </div>
             </div>
             <div class="bg-light py-2 fs-sm">
@@ -30,38 +30,23 @@
             </div>
         </div>
         <!-- end of nav icons -->
-        <!-- m-card component -->
-        <m-card icon="menu" title="新闻资讯">
-            <div class="nav jc-between">
-                <div class="nav-item active">
-                    <div class="nav-link">热门</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-link">新闻</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-link">公告</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-link">活动</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-link">赛事</div>
-                </div>
+
+        <!-- m-card component newsCats-->
+        <m-list-card icon="menu" title="新闻资讯" :categories="newsCats">
+            <template #items="{category}">
+                <div class="py-2 " v-for="(news,i) in category.newsList" :key="i">
+                <span class="text-dark-2">[{{news.categoryName}}]</span>
+                <span>|</span>
+                <span class="text-dark">{{news.title}}</span>
+                <span class="time">{{news.date}}</span>
             </div>
-            <div class="pt-3">
-                <swiper>
-                    <swiper-slide v-for="m in 5" :key="m">
-                        <div class="py-2 " v-for="n in 7" :key="n">
-                            <span class="text-dark-2">[热门]</span>
-                            <span>|</span>
-                            <span class="text-dark">嬴政小头像不显示问题说明</span>
-                            <span class="time">1/16</span>
-                        </div>
-                    </swiper-slide>
-                </swiper>
-            </div>
-        </m-card>
+            </template>
+        </m-list-card>
+
+        <m-card icon="menu" title="英雄列表"></m-card>
+    <m-card icon="menu" title="精彩视频"></m-card>
+    <m-card icon="menu" title="图文攻略"></m-card>
+      
 
 
 
@@ -73,6 +58,155 @@
     export default {
         data() {
             return {
+                newsCats:[
+                    {
+                        name:"热门",
+                        newsList:[
+                            {
+                                categoryName:"公告",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"活动",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            ]
+                    },
+                     {
+                        name:"新闻",
+                        newsList:[
+                            {
+                                categoryName:"公告",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"活动",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            ]
+                    },
+                     {
+                        name:"公告",
+                        newsList:[
+                            {
+                                categoryName:"公告",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"活动",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            ]
+                    },
+                     {
+                        name:"活动",
+                        newsList:[
+                            {
+                                categoryName:"公告",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"活动",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            ]
+                    },
+                     {
+                        name:"赛事",
+                        newsList:[
+                            {
+                                categoryName:"公告",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"新闻",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            {
+                                categoryName:"活动",
+                                title:"1月16日不更新公告",
+                                date:"01/16"
+
+                            },
+                            ]
+                    },
+                 
+                     ],
+
                 icons: [{
                         'icon': 'sprite-news',
                         'title': '爆料站'
@@ -145,11 +279,9 @@
             border-radius: 0.1538rem;
             opacity: 1;
             background: map-get($map: $colors, $key: "white");
-            //   background-color: #fff;
 
             &.swiper-pagination-bullet-active {
                 background: map-get($map: $colors, $key: "info");
-                //    background-color: #4b67af;
 
             }
         }

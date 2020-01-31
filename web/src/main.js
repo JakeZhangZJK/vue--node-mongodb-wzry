@@ -10,7 +10,11 @@ import './myassets/iconfont/iconfont.css'
 
 // Introduce card component
 import Card from './components/Card'
-Vue.component('m-card',Card)
+Vue.component('m-card', Card)
+
+// Introduce ListCard component
+import ListCard from './components/ListCard'
+Vue.component('m-list-card',ListCard)
 
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
 
