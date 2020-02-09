@@ -33,7 +33,7 @@
     }
 </script>
 <style lang='scss'>
-@import '../myassets/scss/_variables';
+@import '../assets/scss/_variables';
     .card {
         border-bottom: 1px solid $border-color;
 

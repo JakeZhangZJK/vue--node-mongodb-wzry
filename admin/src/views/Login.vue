@@ -1,55 +1,100 @@
 <template>
-    <div class="login-container">
-        <el-card header="管理员登录" class="login-card">
-            <el-form @submit.native.prevent="login">
-                <el-form-item>
-                    <el-input class="login-input"  v-model="model.username" prefix-icon="el-icon-user" clearable></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-input type="password" class="login-input"  v-model="model.password" prefix-icon="el-icon-unlock" show-password>
-                    </el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button class="login-btn" type="primary" native-type="submit">登录</el-button>
-                </el-form-item>
-            </el-form>
-        </el-card>
-    </div>
+  <div class="login-container">
+    
+    <div class="overlay"></div>
+    <el-card header="管理员登录" class="login-card">
+      <el-form @submit.native.prevent="login">
+        <el-form-item>
+          <el-input class="login-input" v-model="model.username" prefix-icon="el-icon-user" clearable></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="password" class="login-input" v-model="model.password" prefix-icon="el-icon-unlock"
+            show-password>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button class="login-btn" type="primary" native-type="submit">登录</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+    
+  </div>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                model: {},
+  export default {
+    data() {
+      return {
+        model: {},
 
-            }
-        },
-        methods: {
-            async login() {
-                const res = await this.$http.post('login', this.model)
-                // sessionStorage.token = res.data.token
-                localStorage.token = res.data.token;
-                const username = res.data.user.username;
-                this.$router.push('/')
-                this.$message({
-                    type: 'success',
-                    message: username + '，欢迎您！'
-                })
-            }
-        }
+      }
+    },
+    methods: {
+      async login() {
+        const res = await this.$http.post('login', this.model)
+        // sessionStorage.token = res.data.token
+        localStorage.token = res.data.token;
+        const username = res.data.user.username;
+        this.$router.push('/')
+        this.$message({
+          type: 'success',
+          message: username + '，欢迎您！'
+        })
+      }
     }
+  }
 </script>
-<style scoped>
-    .login-card {
-        width: 25rem;
-        margin: 8rem auto;
-        margin-top: 10rem;
-        box-shadow: 1rem;
-      
+<style lang="scss" scoped>
+  .login-container {
+    margin: 0;
+    padding: 0;
+    height: 99.5vh;
+    background: url("../assets/images/bg.gif") 50% 50% no-repeat;
+    background-size: cover;
+    z-index: 2;
+
+    .login-header {
+      width: 100%;
+      text-align: center;
+
+      color:rgb(255, 255, 255);
     }
-   .login-btn {
-        width: 22.5rem ;  
-        
+
+    .overlay {
+      height: 99.5vh;
+      margin: 0;
+      padding: 0;
+      background-color: rgba(36, 40, 46, 0.8);
+      overflow: hidden;
+      .title{
+        // margin-top: 10rem;
+        margin-top:4rem;
+      }
+      h1{
+        margin: 0;
+        word-spacing: 3rem;
+      }
 
     }
+
+
+  }
+
+  .login-card {
+
+    background-color: rgba(26, 25, 25, 0.8) !important;
+    border: 1px rgba(27, 25, 25, 0.1) solid;
+    color: aliceblue;
+    width: 25rem;
+    margin: 8rem auto;
+    margin-top: -35rem;
+    box-shadow: 1rem;
+    z-index: 999;
+
+  }
+
+  .login-btn {
+    width: 22.5rem;
+
+
+  }
 </style>

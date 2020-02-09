@@ -3,9 +3,10 @@
 <template>
   <div>
     <el-container style="height: 100vh; border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu router :default-openeds="['1','3']" unique-opened :default-active="$route.path">
+      <el-aside width="200px" style="background-color: rgba(238, 241, 246)">
+        <el-menu router :default-openeds="['1']" unique-opened :default-active="$route.path">
           <!-- 默认展开第一个，一次只能展开一个，被点击的高亮 -->
+
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-menu"></i>内容管理</template>
             <el-menu-item-group>
@@ -55,20 +56,24 @@
 
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
+         
+    <el-tooltip class="item" effect="dark" content="暂未实现" placement="bottom">
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
-            <el-dropdown-menu slot="dropdown">
+            <!-- <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>查看</el-dropdown-item>
               <el-dropdown-item>新增</el-dropdown-item>
               <el-dropdown-item>退出</el-dropdown-item>
-            </el-dropdown-menu>
+            </el-dropdown-menu> -->
           </el-dropdown>
+           </el-tooltip>
           <span>{{model.username}}</span>
         </el-header>
 
         <el-main>
+           
           <router-view :key="$route.path"></router-view>
-
+         
         </el-main>
       </el-container>
     </el-container>
@@ -93,7 +98,7 @@
     data() {
       return {
         model: {
-          username:'jake',
+          username: 'jake',
         },
       }
     },
@@ -104,10 +109,10 @@
         this.model.username = res.data.user.username;
 
       },
-      created() {  
+      created() {
         this.login()
-    
-    }
+
+      }
     }
   }
 </script>
