@@ -22,6 +22,9 @@ body {
 a {
     color: #999;
 }
+p{
+  line-height: 1.5em;
+}
 
 @each $colorkey,
 $color in $colors {
@@ -43,6 +46,12 @@ $color in $colors {
 
 }
 
+@each $dir in (top,right,bottom,left) {
+  .border-#{$dir}{
+    border-#{$dir}:1px solid $border-color;
+  }
+  
+}
 @each $sizekey,
 $size in $font-sizes {
 

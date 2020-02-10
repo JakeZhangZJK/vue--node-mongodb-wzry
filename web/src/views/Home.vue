@@ -34,11 +34,31 @@
     <!-- m-card component newsCats-->
     <m-list-card icon="menu" title="新闻资讯" :categories="newsCats">
       <template #items="{category}">
-        <div class="py-2 fs-lg d-flex" v-for="(news,i) in category.newsList" :key="i">
+        <router-link
+        tag="div"
+        :to="`/articles/${news._id}`"
+         class="py-2 fs-lg d-flex" v-for="(news,i) in category.newsList" :key="i">
           <span class="text-dark-2">[{{news.categoryName}}]</span>
-          <span class="px-2">|</span>
+          <span class="px-1">|</span>
           <span class="text-dark flex-1 text-ellipsis pr-5">{{news.title}}</span>
           <span class="time fs-sm">{{news.createdAt | date}}</span>
+        </router-link>
+      </template>
+    </m-list-card>
+
+    <!-- m-card component heroCats-->
+    <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
+      <!-- <template>
+        <div>
+           <img class="w-100 p-1" src="https://ossweb-img.qq.com/upload/webplat/info/yxzj/20200108/20796372351730.jpg" alt="">
+        </div>
+      </template> -->
+      <template #items="{category}">
+        <div class="d-flex flex-wrap   mar">
+          <div class="p-2 text-center" style="width:20%" v-for="(hero,i) in category.heroList" :key="i">
+            <img :src="hero.avatar" alt="" class="w-100">
+            <div>{{hero.name}}</div>
+          </div>
         </div>
       </template>
     </m-list-card>
@@ -49,19 +69,20 @@
 
   </div>
 </template>
+
 <script>
-// Introduce dayjs(需要安装)
-import dayjs from 'dayjs'
+  // Introduce dayjs(需要安装)
+  import dayjs from 'dayjs'
   export default {
-    filters:{
-      date(val){
+    filters: {
+      date(val) {
         return dayjs(val).format('MM/DD')
       }
     },
     data() {
       return {
         newsCats: [],
-
+        heroCats: [],
         icons: [{
             'icon': 'sprite-news',
             'title': '爆料站'
@@ -124,19 +145,34 @@ import dayjs from 'dayjs'
       }
     },
     methods: {
+      // 新闻资讯列表
       async getNewsCats() {
         const res = await this.$http.get('news/list')
         this.newsCats = res.data
+
+      },
+      // 英雄列表
+      async getHeroCats() {
+        const res = await this.$http.get('heroes/list')
+        this.heroCats = res.data
 
       }
     },
     created() {
       this.getNewsCats()
+      this.getHeroCats()
     }
   }
 </script>
 <style lang="scss">
   @import '../assets/scss/_variables';
+
+  .mar {
+    margin-left: -.5rem;
+    margin-right: -.5rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
 
   .pagination-home {
     .swiper-pagination-bullet {

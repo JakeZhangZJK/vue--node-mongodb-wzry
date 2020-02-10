@@ -1,4 +1,5 @@
 <template>
+
   <m-card :icon="icon" :title="title">
     <div class="nav jc-between">
       <div class="nav-item" :class="{active: active === i}"
@@ -8,7 +9,7 @@
       </div>
     </div>
     <div class="pt-3">
-      <swiper ref="list" 
+      <swiper ref="list" :options="{autoHeight:true}"
       @slide-change="() => active = $refs.list.swiper.realIndex">
         <swiper-slide v-for="(category, i) in categories" :key="i">
           <slot name="items" :category="category"></slot>

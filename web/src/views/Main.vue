@@ -38,6 +38,7 @@
     methods: {}
   }
 </script>
+
 <style lang="scss" scoped>
   .topbar {
     position: sticky; // 吸顶效果
