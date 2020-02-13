@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
 import Article from '../views/Article.vue'
+import Hero from '../views/Hero.vue'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,13 @@ const routes = [{
         props: true
       }
     ]
-  },
+},
+{
+  path: '/heroes/:id',
+  name: 'hero',
+  component: Hero,
+  props: true
+},
   {
     path: '/about',
     name: 'about',

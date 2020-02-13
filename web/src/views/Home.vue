@@ -3,14 +3,8 @@
   <div>
     <swiper :options="swiperOption">
       <!-- swiper-slide -->
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/1.jpeg" alt="">
-      </swiper-slide>
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/2.jpeg" alt="">
-      </swiper-slide>
-      <swiper-slide>
-        <img class="w-100" src="../assets/images/3.jpeg" alt="">
+      <swiper-slide v-for="(slide, index) in swiperSlides" :key="index">  
+        <img class="w-100" :src="slide" alt="">
       </swiper-slide>
       <!-- pagination -->
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" slot="pagination"></div>
@@ -18,16 +12,23 @@
 
     <!-- 导航菜单 -->
     <div class="nav-icons bg-white mt-3 text-center pt-4 text-dark-1">
-      <div class="d-flex flex-wrap">
-        <div class="nav-item mb-3" v-for="(value,key) in icons" :key="key">
+      <div class="d-flex flex-wrap show-hide" :class="{'nav-icon-active':!show}">
+        <router-link tag="div" to="/" class="nav-item mb-3" v-for="(value,key) in icons" :key="key">
           <i class="sprite" :class="value.icon"></i>
           <div class="py-1 fs-sm">{{value.title}}</div>
-        </div>
+        </router-link >
       </div>
-      <div class="bg-light py-2 fs-sm">
+         <div class="bg-light py-2 fs-sm" v-if="show" @click="show = !show">
+        <i class="iconfont icon-arrow_double_down text-grey" style="margin-left:-.2rem;"></i>
+        <span>展开</span>
+      </div>
+       
+         <div class="bg-light py-2 fs-sm" v-if="!show" @click="show = !show">
         <i class="sprite sprite-arrow mr-1"></i>
         <span>收起</span>
       </div>
+     
+      
     </div>
     <!-- end of nav icons -->
 
@@ -54,18 +55,21 @@
         </div>
       </template> -->
       <template #items="{category}">
-        <div class="d-flex flex-wrap   mar">
-          <div class="p-2 text-center" style="width:20%" v-for="(hero,i) in category.heroList" :key="i">
+        <div class="d-flex flex-wrap mar " v-if="category.heroList">
+          <router-link
+          
+          tag="div"
+          :to="`/heroes/${hero._id}`"
+           class="p-2 text-center" style="width:20%" v-for="(hero,i) in category.heroList" :key="i">
             <img :src="hero.avatar" alt="" class="w-100">
             <div>{{hero.name}}</div>
-          </div>
+          </router-link>
         </div>
       </template>
     </m-list-card>
 
-    <m-card icon="menu" title="英雄列表"></m-card>
-    <m-card icon="menu" title="精彩视频"></m-card>
-    <m-card icon="menu" title="图文攻略"></m-card>
+    <m-card icon="vidoe" title="精彩视频"></m-card>
+    <m-card icon="text" title="图文攻略"></m-card>
 
   </div>
 </template>
@@ -81,6 +85,7 @@
     },
     data() {
       return {
+        show:true,
         newsCats: [],
         heroCats: [],
         icons: [{
@@ -138,11 +143,29 @@
 
         ],
         swiperOption: {
+          centeredSlides: true,
+          effect: 'fade',//1. 渐变切换
+         
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+          },
           pagination: {
-            el: '.pagination-home'
-          }
+            el: '.pagination-home',
+            clickable: true
+          },
+          // navigation: {
+          //   nextEl: '.swiper-button-next',
+          //   prevEl: '.swiper-button-prev'
+          // }
         },
+        swiperSlides: [
+          require("../assets/images/1.jpeg"),
+          require("../assets/images/2.jpeg"),
+          require("../assets/images/3.jpeg"),]
       }
+    },
+    mounted() {
     },
     methods: {
       // 新闻资讯列表
@@ -190,6 +213,13 @@
   .nav-icons {
     border-top: 1px solid $border-color;
     border-bottom: 1px solid $border-color;
+    .show-hide{
+      overflow: hidden;
+      height: 4rem;
+    }
+    .nav-icon-active{
+    height: 18rem;
+  }
 
     .nav-item {
       width: 25%;

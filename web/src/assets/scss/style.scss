@@ -67,6 +67,12 @@ $size in $font-sizes {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.text-ellipsis2{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+}
 
 //width,height
 .w-100 {
@@ -171,6 +177,25 @@ $type in $spacing-types {
     border-radius: 0.1538rem; //2px
     font-size: map-get($map:$font-sizes, $key:'xs') * $base-font-size;
     padding: 0.4rem 0.8rem;
+    &.btn-lg{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: .8rem 1rem;
+      border-radius: .4rem;
+      background: map-get($map: $colors, $key:'white-1' );
+      border:1px solid map-get($map:$colors, $key:'white-2' );
+     
+      font-size: 1rem;
+i{
+  color: map-get($map: $colors, $key: 'primary');
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-right: .5rem;
+
+}
+
+    }
 }
 
 // nav
@@ -336,4 +361,7 @@ $type in $spacing-types {
     position:absolute;
     right: .01rem;
     color: map-get($map: $colors, $key:'grey-2' );
+}
+.skill-border{
+  border-radius: 50%;
 }

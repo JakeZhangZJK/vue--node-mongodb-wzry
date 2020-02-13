@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const schema = new mongoose.Schema({
   name: { type: String },// 名称
   avatar: { type: String },// 头像
-  title: { type: String },
+  title: { type: String },// 称号
+  banner: { type: String },// 背景图
   categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }],// 所属分类
   scores: {// 英雄评分
     difficult: { type: Number },// 难度
@@ -15,6 +16,8 @@ const schema = new mongoose.Schema({
   skills: [{// 技能
     icon: { type: String },//图标
     name: { type: String },// 名称
+    delay: { type: String },// 冷却值
+    cost: { type: String },// 消耗
     description: { type: String },// 技能描述
     tips: { type: String },// 小提示
   }],
@@ -25,7 +28,7 @@ const schema = new mongoose.Schema({
   usageTips: { type: String },// 使用技巧
   battleTips: { type: String },// 对抗技巧
   teamTips: { type: String },// 团战思路
-  partner: [{// 最佳搭档
+  partners: [{// 最佳搭档
     hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },// 搭档英雄
     description: {type:String},// 搭档英雄的描述
   }],
