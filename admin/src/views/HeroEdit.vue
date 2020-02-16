@@ -18,22 +18,16 @@
             </el-select>
           </el-form-item>
           <el-form-item label="头像">
-            <el-upload class="avatar-uploader"  
-             :action="upLoadUrl" 
-             :headers="getAuthHeaders()"
-             :show-file-list="false"
-             :on-success="afterUpload" :before-upload="beforeAvatarUpload">
+            <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()" :show-file-list="false"
+              :on-success="afterUpload" :before-upload="beforeAvatarUpload">
               <img v-if="model.avatar" :src="model.avatar" class="avatar">
 
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
-           <el-form-item label="背景图">
-            <el-upload class="avatar-uploader"  
-             :action="upLoadUrl" 
-             :headers="getAuthHeaders()"
-             :show-file-list="false"
-             :on-success="res => model.banner = res.url" :before-upload="beforeAvatarUpload">
+          <el-form-item label="背景图">
+            <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()" :show-file-list="false"
+              :on-success="res => model.banner = res.url" :before-upload="beforeAvatarUpload">
               <img v-if="model.banner" :src="model.banner" class="avatar">
 
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -62,79 +56,295 @@
             </el-select>
           </el-form-item>
           <el-form-item label="使用技巧">
-            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.usageTips" clearable maxlength="500" show-word-limit></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.usageTips" clearable
+              maxlength="500" show-word-limit></el-input>
           </el-form-item>
           <el-form-item label="对抗技巧">
-            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.battleTips" clearable maxlength="500" show-word-limit></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.battleTips" clearable
+              maxlength="500" show-word-limit></el-input>
           </el-form-item>
           <el-form-item label="团战思路">
-            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.teamTips" clearable maxlength="500" show-word-limit></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="model.teamTips" clearable
+              maxlength="500" show-word-limit></el-input>
           </el-form-item>
 
         </el-tab-pane>
+        <!-- 英雄介绍tab -->
+        <el-tab-pane label="英雄介绍" name="introductions">
+          <el-tabs value="basic">
+            <el-tab-pane label="图文介绍" name="basic">
+              <el-form-item label="图文介绍">
+                <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()"
+                  :show-file-list="false" :on-success="res => $set(model, 'photo', res.url)"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="model.photo" :src="model.photo" class="avatar">
+
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+              </el-form-item>
+            </el-tab-pane>
+            <el-tab-pane label="视频介绍" name="videos">
+              <el-button style="margin-bottom:5px" size="small" @click="model.introductions.push({})"><i
+                  class="el-icon-plus"></i>添加英雄视频</el-button>
+              <el-row type="flex" style="flex-wrap:wrap;">
+                <el-col  v-for="(item,i) in model.introductions" :key="i">
+                  <el-form-item label="英雄：">
+                    <el-select v-model="item.hero" filterable>
+                      <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="标题：">
+                    <el-input v-model="item.title" clearable></el-input>
+                  </el-form-item>
+                  <el-form-item label="视频：">
+                    <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="item.video"></vue-editor>
+                  </el-form-item>
+                  <el-form-item label="投稿：">
+                    <el-input v-model="item.submit" clearable></el-input>
+                  </el-form-item>
+
+                  <el-form-item label="粉丝：">
+                    <el-input v-model="item.fan" clearable></el-input>
+                  </el-form-item>
+                  <el-form-item label="观看次数：">
+                    <el-input v-model="item.view" clearable></el-input>
+                  </el-form-item>
+
+                  <el-form-item>
+                    <el-button size="small" type="danger" @click="model.introductions.splice(i,1)">删除</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+            <!-- <el-tab-pane label="英雄皮肤" name="skins">
+              <el-button style="margin-bottom:5px" size="small" @click="model.skins.push({})"><i
+                  class="el-icon-plus"></i>添加皮肤</el-button>
+              <el-row type="flex" style="flex-wrap:wrap;">
+                <el-col :md="12" v-for="(item,i) in model.skins" :key="i">
+                  <el-form-item label="皮肤名称">
+                    <el-input v-model="item.name" clearable maxlength="8" show-word-limit></el-input>
+                  </el-form-item>
+
+                  <el-form-item label="皮肤图片">
+                    <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()"
+                      :show-file-list="false" :on-success="res => $set(item, 'photo', res.url)">
+                      <img v-if="item.photo" :src="item.photo" class="avatar">
+
+                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button size="small" type="danger" @click="model.skins.splice(i,1)">删除</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane> -->
+
+          </el-tabs>
+        </el-tab-pane>
+
+
+
+
+
         <!-- 技能tab -->
-        <el-tab-pane label="技能" name="skills">
-          <el-button style="margin-bottom:5px" size="small" @click="model.skills.push({})"><i class="el-icon-plus"></i>添加技能</el-button>
+        <el-tab-pane label="英雄技能" name="skills">
+          <el-button style="margin-bottom:5px" size="small" @click="model.skills.push({})"><i
+              class="el-icon-plus"></i>添加技能</el-button>
           <el-row type="flex" style="flex-wrap:wrap;">
             <el-col :md="12" v-for="(item,i) in model.skills" :key="i">
               <el-form-item label="名称：">
                 <el-input v-model="item.name" clearable maxlength="8" show-word-limit></el-input>
               </el-form-item>
+
               <el-form-item label="图标：">
-                <el-upload class="avatar-uploader"
-              :action="upLoadUrl" 
-             :headers="getAuthHeaders()"
-             :show-file-list="false"
-             :on-success="res => $set(item, 'icon', res.url)">
+                <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()"
+                  :show-file-list="false" :on-success="res => $set(item, 'icon', res.url)">
                   <img v-if="item.icon" :src="item.icon" class="avatar">
 
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
               <el-form-item label="冷却：">
-            <el-input v-model="item.delay" clearable maxlength="50" show-word-limit></el-input>
-          </el-form-item>
-          <el-form-item label="消耗：">
-            <el-input v-model="item.cost" clearable maxlength="4" show-word-limit></el-input>
-          </el-form-item>
+                <el-input v-model="item.delay" clearable maxlength="50" show-word-limit></el-input>
+              </el-form-item>
+              <el-form-item label="消耗：">
+                <el-input v-model="item.cost" clearable maxlength="4" show-word-limit></el-input>
+              </el-form-item>
               <el-form-item label="描述：">
-                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.description" clearable maxlength="1000" show-word-limit></el-input>
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.description" clearable
+                  maxlength="1000" show-word-limit></el-input>
               </el-form-item>
               <el-form-item label="小提示：">
-                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.tips" clearable maxlength="200" show-word-limit></el-input>
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.tips" clearable
+                  maxlength="200" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item >
-               <el-button size="small" type="danger"
-               @click="model.skills.splice(i,1)">删除</el-button>
+              <el-form-item>
+                <el-button size="small" type="danger" @click="model.skills.splice(i,1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
         </el-tab-pane>
+              <el-tab-pane label="英雄皮肤" name="skins">
+              <el-button style="margin-bottom:5px" size="small" @click="model.skins.push({})"><i
+                  class="el-icon-plus"></i>添加皮肤</el-button>
+              <el-row type="flex" style="flex-wrap:wrap;">
+                <el-col :md="12" v-for="(item,i) in model.skins" :key="i">
+                  <el-form-item label="皮肤名称">
+                    <el-input v-model="item.name" clearable maxlength="8" show-word-limit></el-input>
+                  </el-form-item>
+
+                  <el-form-item label="皮肤图片">
+                    <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()"
+                      :show-file-list="false" :on-success="res => $set(item, 'photo', res.url)">
+                      <img v-if="item.photo" :src="item.photo" class="avatar">
+
+                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button size="small" type="danger" @click="model.skins.splice(i,1)">删除</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
 
 
-        <!-- 英雄关系tab -->
         <el-tab-pane label="英雄关系" name="partners">
-          <el-button style="margin-bottom:5px" size="small" @click="model.partners.push({})"><i class="el-icon-plus"></i>最佳搭档</el-button>
+          <el-tabs value="basic">
+            <el-tab-pane label="最佳搭档" name="basic">
+              <el-button style="margin-bottom:5px" size="small" @click="model.partners.push({})"><i
+                  class="el-icon-plus"></i>最佳搭档</el-button>
+              <el-row type="flex" style="flex-wrap:wrap;">
+                <el-col :md="12" v-for="(item,i) in model.partners" :key="i">
+                  <el-form-item label="英雄：">
+                    <el-select v-model="item.hero" filterable>
+                      <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="描述：">
+                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description"
+                      clearable maxlength="1000" show-word-limit></el-input>
+                  </el-form-item>
+
+                  <el-form-item>
+                    <el-button size="small" type="danger" @click="model.partners.splice(i,1)">删除</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+
+            <el-tab-pane label="被谁克制" name="restrained">
+              <el-button style="margin-bottom:5px" size="small" @click="model.restrained.push({})"><i
+                  class="el-icon-plus"></i>被谁克制</el-button>
+              <el-row type="flex" style="flex-wrap:wrap;">
+                <el-col :md="12" v-for="(item,i) in model.restrained" :key="i">
+                  <el-form-item label="英雄：">
+                    <el-select v-model="item.hero" filterable>
+                      <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="描述：">
+                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description"
+                      clearable maxlength="1000" show-word-limit></el-input>
+                  </el-form-item>
+
+                  <el-form-item>
+                    <el-button size="small" type="danger" @click="model.restrained.splice(i,1)">删除</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+            <el-tab-pane label="克制谁" name="restraints">
+              <el-button style="margin-bottom:5px" size="small" @click="model.restraints.push({})"><i
+                  class="el-icon-plus"></i>克制谁</el-button>
+              <el-row type="flex" style="flex-wrap:wrap;">
+                <el-col :md="12" v-for="(item,i) in model.restraints" :key="i">
+                  <el-form-item label="英雄：">
+                    <el-select v-model="item.hero" filterable>
+                      <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="描述：">
+                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description"
+                      clearable maxlength="1000" show-word-limit></el-input>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button size="small" type="danger" @click="model.restraints.splice(i,1)">删除</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+
+          </el-tabs>
+        </el-tab-pane>
+        <!-- 英雄攻略tab -->
+        <!-- <el-tab-pane label="英雄攻略" name="raiders">
+          <el-button style="margin-bottom:5px" size="small" @click="model.raiders.push({})"><i
+              class="el-icon-plus"></i>最佳搭档</el-button>
+          <el-row type="flex" style="flex-wrap:wrap;">
+            <el-col :md="12" v-for="(item,i) in model.raiders" :key="i">
+              <el-form-item label="英雄：">
+                <el-select v-model="item.hero" filterable>
+                  <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id"></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="描述：">
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description" clearable
+                  maxlength="1000" show-word-limit></el-input>
+              </el-form-item>
+
+              <el-form-item>
+                <el-button size="small" type="danger" @click="model.partners.splice(i,1)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-button style="margin-bottom:5px" size="small" @click="model.partners.push({})"><i
+              class="el-icon-plus"></i>被谁克制</el-button>
           <el-row type="flex" style="flex-wrap:wrap;">
             <el-col :md="12" v-for="(item,i) in model.partners" :key="i">
               <el-form-item label="英雄：">
                 <el-select v-model="item.hero" filterable>
-              <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id"></el-option>
-            </el-select>
+                  <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id"></el-option>
+                </el-select>
               </el-form-item>
-              
+
               <el-form-item label="描述：">
-                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 8}" v-model="item.description" clearable maxlength="1000" show-word-limit></el-input>
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description" clearable
+                  maxlength="1000" show-word-limit></el-input>
               </el-form-item>
-              
-              <el-form-item >
-               <el-button size="small" type="danger"
-               @click="model.partners.splice(i,1)">删除</el-button>
+
+              <el-form-item>
+                <el-button size="small" type="danger" @click="model.partners.splice(i,1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
-        </el-tab-pane>
+          <el-button style="margin-bottom:5px" size="small" @click="model.partners.push({})"><i
+              class="el-icon-plus"></i>克制谁</el-button>
+          <el-row type="flex" style="flex-wrap:wrap;">
+            <el-col :md="12" v-for="(item,i) in model.partners" :key="i">
+              <el-form-item label="英雄：">
+                <el-select v-model="item.hero" filterable>
+                  <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id"></el-option>
+                </el-select>
+              </el-form-item>
 
+              <el-form-item label="描述：">
+                <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description" clearable
+                  maxlength="1000" show-word-limit></el-input>
+              </el-form-item>
+
+              <el-form-item>
+                <el-button size="small" type="danger" @click="model.partners.splice(i,1)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane> -->
 
       </el-tabs>
 
@@ -146,32 +356,55 @@
   </div>
 </template>
 <script>
+  // 导入富文本编辑器
+  import {
+    VueEditor
+  } from "vue2-editor";
   export default {
     props: {
       id: {}
     },
+    components: {
+      VueEditor
+    },
     data() {
       return {
         items: [], // 装备列表
-        heroes:[],//英雄列表
+        heroes: [], //英雄列表
         categories: [], // 英雄分类
         model: {
           name: '',
           avatar: '',
           banner: '',
+          photo: '',
           scores: {
             difficult: 0,
             skills: 0,
             attack: 0,
             survive: 0
           },
-          skills:[
+          skills: [
 
           ],
-          partners:[{
-             hero:null,// 搭档英雄
-             description: '',// 搭档英
+          partners: [{
+            hero: null, // 搭档英雄
+            description: '', // 搭档英
+          }],
+          restraints: [{
+            hero: null, // 搭档英雄
+            description: '', // 搭档英
+          }],
+          restrainted: [{
+            hero: null, // 搭档英雄
+            description: '', // 搭档英
+          }],
+          introductions: [{ // 介绍视频
+            hero: null, // 英雄
+            video: '', // 
+            submit: '', // 投稿
+            fan: '' // 粉丝
           }]
+
         },
       };
     },
@@ -228,11 +461,18 @@
         const res = await this.$http.get(`rest/items`);
         this.items = res.data;
       },
-       // 获取英雄列表（后期做优化）
+      // 获取英雄列表（后期做优化）
       async getHeroes() {
         const res = await this.$http.get(`rest/heroes`);
         this.heroes = res.data;
       },
+      async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await this.$http.post("upload", formData);
+        Editor.insertEmbed(cursorLocation, "image", res.data.url);
+        resetUploader();
+      }
     },
     created() {
       this.getItems();

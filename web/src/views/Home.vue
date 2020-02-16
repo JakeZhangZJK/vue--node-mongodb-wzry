@@ -49,11 +49,6 @@
 
     <!-- m-card component heroCats-->
     <m-list-card icon="card-hero" title="英雄列表" :categories="heroCats">
-      <!-- <template>
-        <div>
-           <img class="w-100 p-1" src="https://ossweb-img.qq.com/upload/webplat/info/yxzj/20200108/20796372351730.jpg" alt="">
-        </div>
-      </template> -->
       <template #items="{category}">
         <div class="d-flex flex-wrap mar " v-if="category.heroList">
           <router-link
@@ -68,7 +63,8 @@
       </template>
     </m-list-card>
 
-    <m-card icon="vidoe" title="精彩视频"></m-card>
+    <m-card icon="vidoe" title="精彩视频">
+    </m-card>
     <m-card icon="text" title="图文攻略"></m-card>
 
   </div>
@@ -83,6 +79,7 @@
         return dayjs(val).format('MM/DD')
       }
     },
+    name: 'Home',
     data() {
       return {
         show:true,

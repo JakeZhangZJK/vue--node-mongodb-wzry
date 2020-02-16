@@ -365,3 +365,12 @@ i{
 .skill-border{
   border-radius: 50%;
 }
+// topBar
+.topbar {
+  position: sticky; // 吸顶效果
+  top: 0;
+  z-index: 999;
+}
+.border-all{
+  border: 1x solid #dcdcdc !important;// #dcdcdc
+}

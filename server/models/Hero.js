@@ -5,6 +5,7 @@ const schema = new mongoose.Schema({
   avatar: { type: String },// 头像
   title: { type: String },// 称号
   banner: { type: String },// 背景图
+  photo:{ type: String },// 图文介绍
   categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }],// 所属分类
   scores: {// 英雄评分
     difficult: { type: Number },// 难度
@@ -21,6 +22,12 @@ const schema = new mongoose.Schema({
     description: { type: String },// 技能描述
     tips: { type: String },// 小提示
   }],
+  skins: [{// 皮肤
+    name: { type: String },// 名称
+    photo: { type: String },//图片
+    
+  }],
+
 
   items1: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Item' }],// 顺风出装
   items2: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Item' }],// 逆风出装
@@ -32,6 +39,25 @@ const schema = new mongoose.Schema({
     hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },// 搭档英雄
     description: {type:String},// 搭档英雄的描述
   }],
+  restrained: [{// 被谁克制
+    hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },// 英雄
+    description: {type:String},// 英雄的描述
+  }],
+  restraints: [{// 克制谁
+    hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },
+    description: {type:String},// 英雄的描述
+  }],
+ 
+
+  introductions: [{// 介绍视频
+    hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },// 英雄
+    title:{type:String},// 视频标题
+    video:{ type: String },// 
+    submit: { type: String },// 投稿
+    fan: { type: String },// 粉丝
+    view:{type:String}// 观看次数
+  }],
+
   
 })
 

@@ -3,6 +3,19 @@ import App from './App.vue'
 import './assets/scss/style.scss'
 import router from './router'
 
+
+import 'vant/lib/index.css';
+import '@vant/touch-emulator';
+import { Popup } from 'vant';
+import { Lazyload } from 'vant';
+import { Swipe, SwipeItem } from 'vant';
+
+Vue.use(Swipe);
+Vue.use(SwipeItem);
+Vue.use(Lazyload);
+Vue.use(Popup);
+
+
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 // require swiper styles
 import 'swiper/dist/css/swiper.css'

@@ -13,38 +13,56 @@
         </div>
         <div class="bg-primary pt-3 pb-2">
           <div class="nav nav-inverse pb-1 jc-around">
-            <div class="nav-item active">
-              <router-link class="nav-link" tag="div" to="/">首页</router-link>
-            </div>
-            <div class="nav-item">
-              <router-link class="nav-link" tag="div" to="/">攻略中心</router-link>
-            </div>
-            <div class="nav-item">
-              <router-link class="nav-link" tag="div" to="/">赛事中心</router-link>
-            </div>
+            <div class="nav-item" :class="{active: active === i}" v-for="(item,i) in tabs" :key="i" @click="$refs.list.swiper.slideTo(i)">
+            <div class="nav-link">{{item}}</div>
+          </div>
           </div>
         </div>
-        <router-view />
+        <swiper ref="list"
+      @slide-change="() => active = $refs.list.swiper.realIndex">
+          <swiper-slide>
+            <!-- 首页 -->
+            <Home></Home>
+          </swiper-slide>
+          <swiper-slide>
+            <!-- 攻略中心 -->
+            <Raiders></Raiders>
+          </swiper-slide>
+          <swiper-slide>
+            <!-- 赛事中心 -->
+            <Match></Match>
+          </swiper-slide>
+        </swiper>
       </div>
     </div>
 
   </div>
 </template>
 <script>
+import Home from './Home'
+import Raiders from './Raiders'
+import Match from './Match'
   export default {
     data() {
-      return {}
+      return {
+        tabs:['首页','攻略中心','赛事中心'],
+        active:0
+      }
+    },
+    components:{
+      Home,
+      Raiders,
+      Match
+
+
+
     },
     methods: {}
   }
 </script>
 
 <style lang="scss" scoped>
-  .topbar {
-    position: sticky; // 吸顶效果
-    top: 0;
-    z-index: 999;
-  }
+  
 
   .inner-box {
     -ms-overflow-style: none;  // IE 10+

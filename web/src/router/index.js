@@ -15,20 +15,24 @@ const routes = [{
         name: 'home',
         component: Home
       },
-      {
-        path: '/articles/:id',
-        name: 'article',
-        component: Article,
-        props: true
-      }
+      
     ]
 },
+  // 英雄
 {
   path: '/heroes/:id',
   name: 'hero',
   component: Hero,
   props: true
-},
+  },
+  // 新闻资讯
+  {
+    path: '/articles/:id',
+    name: 'article',
+    component: Article,
+    props: true
+  },
+
   {
     path: '/about',
     name: 'about',
