@@ -187,12 +187,7 @@
 <style lang="scss">
   @import '../assets/scss/_variables';
 
-  .mar {
-    margin-left: -.5rem;
-    margin-right: -.5rem;
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
+
 
   .pagination-home {
     .swiper-pagination-bullet {

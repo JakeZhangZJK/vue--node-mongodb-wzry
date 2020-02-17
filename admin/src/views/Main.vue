@@ -64,8 +64,8 @@
             </el-menu-item-group>
              <el-menu-item-group>
               <template slot="title">攻略</template>
-              <el-menu-item index="/raiders/create">新建攻略</el-menu-item>
-              <el-menu-item index="/raiders/list">攻略列表</el-menu-item>
+              <el-menu-item index="/guides/create">新建攻略</el-menu-item>
+              <el-menu-item index="/guides/list">攻略列表</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
               <template slot="title">赛事</template>

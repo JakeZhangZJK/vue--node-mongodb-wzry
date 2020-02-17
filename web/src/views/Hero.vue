@@ -26,7 +26,7 @@
               <span class=" ani-4">生存</span>
               <span class="badge bg-dark fs-xxs text-grey   ani-4">{{model.scores.survive}}</span>
             </div>
-            <div class="text-grey fs-sm  show-text" @click="showSkins = true"> 皮肤：{{model.skills.length}} &gt;</div>
+            <div class="text-grey fs-sm  show-text" @click="showSkins = true"> 皮肤：{{model.skins.length}} &gt;</div>
           </div>
         </div>
       </div>
@@ -87,6 +87,8 @@
                   </div>
                 </div>
               </m-card>
+              <!-- 推荐出装card end -->
+
               <m-card plain icon="menu" title="使用技巧">
                 <p class="m-0">{{model.usageTips}}</p>
               </m-card>
@@ -132,6 +134,7 @@
         </swiper>
       </div>
     </div>
+
     <!-- 英雄介绍视频弹层 -->
     <van-popup close-icon="close" position="top" v-model="showVideo">
       <div class="topbar bg-black py-2 px-3 d-flex ai-center text-white">
@@ -166,16 +169,18 @@
         alt="" @click="showPhoto = false">
     </van-popup>
     <!-- 英雄皮肤弹层 -->
-    <van-popup position="right" v-model="showSkins">
-      <van-swipe :autoplay="3000">
-        <van-swipe-item v-for="(item, i) in model.skills" :key="i">
-          <img v-lazy="item.icon" />
-          <p>{{item.name}}</p>
+    <van-popup position="top" v-model="showSkins">
+      <div class="d-flex py-3 px-2 border-bottom bg-white ai-center">
+        <div @click="showSkins = false" class="iconfont icon-back  pb-1 text-blue"></div>
+        <strong class="flex-1 fs-lg text-ellipsis pl-2 text-blue">{{model.name}} ·皮肤</strong>
+      </div>
+      <van-swipe :autoplay="3000" class="skins-container bg-light">
+        <van-swipe-item class="d-flex flex-column ai-center" v-for="(item, i) in model.skins" :key="i">
+          <img class=" hero-skin p-2" v-lazy="item.photo" />
+          <p class="pb-3 fs-xl">{{item.name}}</p>
         </van-swipe-item>
       </van-swipe>
-       <!-- <div v-for="(item, index) in model.skills" :key="index">
-          <img :src="item.icon" />
-        </div> -->
+
     </van-popup>
   </div>
 </template>
@@ -192,6 +197,7 @@
           introductions: [],
           skills: [],
           skins: [],
+          skins2: [],
 
         },
         showVideo: false,
@@ -223,8 +229,6 @@
 <style lang="scss">
   @import '../assets/scss/_variables.scss';
 
-
-
   .hero-video-container {
     margin: 0;
     height: 94vh;
@@ -238,18 +242,28 @@
     .hero-video {
       iframe {
         width: 100%;
-        height: 110%;
-
-
+        height: auto;
       }
 
       p {
         margin: 0;
+        padding: 0;
       }
 
     }
 
 
+  }
+
+  .skins-container {
+    width: 100%;
+    height: 100%;
+
+    img.hero-skin {
+      width: 100%;
+      height: 100%;
+    }
+  
   }
 
 

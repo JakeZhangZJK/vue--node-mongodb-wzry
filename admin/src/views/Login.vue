@@ -75,7 +75,7 @@
       }
 
     }
-
+   
 
   }
 
@@ -95,6 +95,20 @@
   .login-btn {
     width: 22.5rem;
 
+
+  }
+  .login-container >>> .login-input{
+    background-color: rgba(27, 25, 25, 0.8);
+
+  }
+
+</style>
+<style>
+
+.login-card  .el-input__inner {
+    background-color: rgba(59, 55, 55, 0.8) !important;
+    background-image: none;
+    border-radius: 4px;
 
   }
 </style>

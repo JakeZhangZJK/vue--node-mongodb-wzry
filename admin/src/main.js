@@ -6,6 +6,12 @@ import router from './router'
 import './style.css'
 import http from './http'
 
+ // 导入富文本编辑器
+ import {
+  VueEditor
+} from "vue2-editor";
+Vue.use(VueEditor)
+
 Vue.config.productionTip = false
 
 

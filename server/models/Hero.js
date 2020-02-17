@@ -28,6 +28,12 @@ const schema = new mongoose.Schema({
     
   }],
 
+  // skins2: [{// 皮肤
+  //   name: { type: String },// 名称
+  //   photo: { type: String },//图片
+    
+  // }],
+
 
   items1: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Item' }],// 顺风出装
   items2: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Item' }],// 逆风出装

@@ -75,8 +75,7 @@
             <el-tab-pane label="图文介绍" name="basic">
               <el-form-item label="图文介绍">
                 <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()"
-                  :show-file-list="false" :on-success="res => $set(model, 'photo', res.url)"
-                  :before-upload="beforeAvatarUpload">
+                  :show-file-list="false" :on-success="res => $set(model, 'photo', res.url)">
                   <img v-if="model.photo" :src="model.photo" class="avatar">
 
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -87,7 +86,7 @@
               <el-button style="margin-bottom:5px" size="small" @click="model.introductions.push({})"><i
                   class="el-icon-plus"></i>添加英雄视频</el-button>
               <el-row type="flex" style="flex-wrap:wrap;">
-                <el-col  v-for="(item,i) in model.introductions" :key="i">
+                <el-col v-for="(item,i) in model.introductions" :key="i">
                   <el-form-item label="英雄：">
                     <el-select v-model="item.hero" filterable>
                       <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
@@ -117,7 +116,7 @@
                 </el-col>
               </el-row>
             </el-tab-pane>
-            <!-- <el-tab-pane label="英雄皮肤" name="skins">
+            <el-tab-pane label="英雄皮肤" name="skins">
               <el-button style="margin-bottom:5px" size="small" @click="model.skins.push({})"><i
                   class="el-icon-plus"></i>添加皮肤</el-button>
               <el-row type="flex" style="flex-wrap:wrap;">
@@ -139,14 +138,10 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            </el-tab-pane> -->
+            </el-tab-pane>
 
           </el-tabs>
         </el-tab-pane>
-
-
-
-
 
         <!-- 技能tab -->
         <el-tab-pane label="英雄技能" name="skills">
@@ -186,31 +181,6 @@
             </el-col>
           </el-row>
         </el-tab-pane>
-              <el-tab-pane label="英雄皮肤" name="skins">
-              <el-button style="margin-bottom:5px" size="small" @click="model.skins.push({})"><i
-                  class="el-icon-plus"></i>添加皮肤</el-button>
-              <el-row type="flex" style="flex-wrap:wrap;">
-                <el-col :md="12" v-for="(item,i) in model.skins" :key="i">
-                  <el-form-item label="皮肤名称">
-                    <el-input v-model="item.name" clearable maxlength="8" show-word-limit></el-input>
-                  </el-form-item>
-
-                  <el-form-item label="皮肤图片">
-                    <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()"
-                      :show-file-list="false" :on-success="res => $set(item, 'photo', res.url)">
-                      <img v-if="item.photo" :src="item.photo" class="avatar">
-
-                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button size="small" type="danger" @click="model.skins.splice(i,1)">删除</el-button>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-tab-pane>
-
-
         <el-tab-pane label="英雄关系" name="partners">
           <el-tabs value="basic">
             <el-tab-pane label="最佳搭档" name="basic">
@@ -347,8 +317,6 @@
         </el-tab-pane> -->
 
       </el-tabs>
-
-
       <el-form-item>
         <el-button type="primary" native-type="submit" style="margin-top:1rem;">保存</el-button>
       </el-form-item>
