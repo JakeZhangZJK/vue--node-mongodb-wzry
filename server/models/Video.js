@@ -9,5 +9,7 @@ const schema = new mongoose.Schema({
   fan: { type: String },// 粉丝
   see:{type:String},// 观看次数
 
+}, {
+  timestamps:true// 创建时间
 })
 module.exports = mongoose.model('Video',schema)

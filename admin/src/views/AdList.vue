@@ -1,8 +1,10 @@
 <!---->
 <template>
   <div>
+   
     <h1>广告列表</h1>
-    <el-table :data="items" border  stripe>
+     <div><el-button type="primary" size="small" @click='$router.push("/ads/create")' style="margin-bottom:.5rem;"><i class="el-icon-plus"></i>添加广告</el-button></div>
+    <el-table :data="items" height="250" border  stripe>
       <el-table-column prop="_id" label="ID" width="230"></el-table-column>
       <el-table-column prop="name" label="广告名称"></el-table-column>
         <el-table-column

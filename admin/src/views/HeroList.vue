@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>英雄列表</h1>
-    <el-table :data="heroes" border stripe height="550">
+    <div><el-button type="primary" size="small" @click='$router.push("/heroes/create")' style="margin-bottom:.5rem;"><i class="el-icon-plus"></i>添加</el-button></div>
+    <el-table :data="heroes" border stripe height="600">
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="_id" label="ID" width="230"></el-table-column>
       <el-table-column prop="name" label="英雄名称"></el-table-column>

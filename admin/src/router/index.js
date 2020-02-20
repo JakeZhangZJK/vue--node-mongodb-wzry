@@ -15,7 +15,10 @@ import ArticleList from '../views/ArticleList.vue'
 import AdEdit from '../views/AdEdit.vue'
 import AdList from '../views/AdList.vue'  
 import AdminUserEdit from '../views/AdminUserEdit.vue'
-import AdminUserList from '../views/AdminUserList.vue'    
+import AdminUserList from '../views/AdminUserList.vue'  
+
+import ModelEdit from '../views/ModelEdit.vue'
+import ModelList from '../views/ModelList.vue'  
 
 import VideoEdit from '../views/VideoEdit.vue'
 import VideoList from '../views/VideoList.vue'      
@@ -23,7 +26,10 @@ import VideoList from '../views/VideoList.vue'
 import GuideEdit from '../views/GuideEdit.vue'
 import GuideList from '../views/GuideList.vue' 
 
+import MatchEdit from '../views/MatchEdit.vue'
+import MatchList from '../views/MatchList.vue' 
 
+import Welcome from '../views/Welcome.vue' 
 
 
 Vue.use(Router)
@@ -37,8 +43,11 @@ const router =  new Router({
       
     path: '/',
     name: 'main',
-    component: Main,
-    children: [
+      component: Main,
+    redirect:'/welcome',
+      children: [
+       // 分类子路由
+       { path: '/welcome', component: Welcome },
       // 分类子路由
       { path: '/categories/create', component: CategoryEdit },
       { path: '/categories/edit/:id', component: CategoryEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
@@ -68,16 +77,27 @@ const router =  new Router({
        { path: '/admin_users/create', component: AdminUserEdit },
        { path: '/admin_users/edit/:id', component: AdminUserEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
        { path: '/admin_users/list', component: AdminUserList },
+       // 左侧菜单栏路由
+       { path: '/models/create', component: ModelEdit },
+       { path: '/models/edit/:id', component: ModelEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
+       { path: '/models/list', component: ModelList },
+       
+
        
         // 视频分类路由
         { path: '/Videos/create', component: VideoEdit },
         { path: '/Videos/edit/:id', component: VideoEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
         { path: '/Videos/list', component: VideoList },
         
-       // 图文攻略路由R
+       // 图文攻略路由
        { path: '/guides/create', component: GuideEdit },
        { path: '/guides/edit/:id', component: GuideEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-       { path: '/guides/list', component: GuideList },
+      { path: '/guides/list', component: GuideList },
+       
+       // 赛事中心路由
+       { path: '/matches/create', component: MatchEdit },
+       { path: '/matches/edit/:id', component: MatchEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
+       { path: '/matches/list', component: MatchList },
     ]
 
   }]

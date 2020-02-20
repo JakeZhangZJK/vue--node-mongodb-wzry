@@ -1,7 +1,6 @@
 module.exports = app => {
   const express = require("express")
   const jwt = require('jsonwebtoken')
-  const assert = require('http-assert') //error提示包
   const AdminUser = require('../../models/AdminUser')
   const router = express.Router({
     mergeParams: true // 合并url参数
@@ -27,14 +26,30 @@ module.exports = app => {
   // 通用获取列表接口
   router.get('/', async (req, res) => {
 
-        const queryOptions = {}
+    const queryOptions = {}
+    let pageNum = req.query.pageNum;
+    let pageSize = req.query.pageSize;
+    let count = await req.Model.find().count()// 总条数
+    let items = ''
+    let obj = ''
         // 为了通用性，这里不单独写Category的接口，因为Category要特殊获取上级分类，
         // 所以这里将它设置为动态参数传进去，以后类似的特殊请求都可以这样处理
-        if (req.Model.modelName === 'Category') {
+        if (req.Model.modelName === 'Category' || req.Model.modelName ==='Model') {
           queryOptions.populate = 'parent'
-        }
-        const items = await req.Model.find().setOptions(queryOptions).limit(300)
-        res.send(items)
+    }
+    if (pageNum) {
+      items = await req.Model.find()
+        .setOptions(queryOptions)
+        .skip(parseInt(pageSize) * parseInt(pageNum))
+        .limit(parseInt(pageSize));
+      obj = {
+        count,
+        items
+      }
+    } else {
+      obj = await req.Model.find().setOptions(queryOptions).limit(count)
+    }
+    res.send(obj)
       })
   // 通用获取一条数据接口
   router.get('/:id', async (req, res) => {

@@ -2,8 +2,9 @@
 <!---->
 <template>
   <div>
-    <h1>装备列表</h1>
-    <el-table :data="videos" border  stripe>
+    <h1>视频列表</h1>
+    <div><el-button type="primary" size="small" @click='$router.push("/videos/create")' style="margin-bottom:.5rem;"><i class="el-icon-plus"></i>添加</el-button></div>
+    <el-table :data="videos" height="600" border  stripe>
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="_id" label="ID" width="230"></el-table-column>
       <el-table-column prop="title" label="视频标题"></el-table-column>

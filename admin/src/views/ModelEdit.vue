@@ -1,40 +1,32 @@
-<!--新建和编辑分类公用这一个页面-->
+<!--新建和编辑公用这一个页面-->
 <template>
-  <div>
-    <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
-    <el-card>
+  <div class="about">
+    <h1>{{id?'编辑':'新建'}}模块</h1>
     <el-form label-width="80px" @submit.native.prevent="save">
-      <el-form-item label="上级分类">
+      <el-form-item label="上级模块">
         <el-select v-model="model.parent">
           <el-option v-for="item in parents" :key="item._id"
           :label="item.name" :value="item._id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="名称">
-        <el-input class="el-input-width" v-model="model.name" clearable maxlength="10"></el-input>
+      <el-form-item label="模块名称">
+        <el-input v-model="model.name" clearable maxlength="10"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
     </el-form>
-    </el-card>
   </div>
 </template>
 <script>
-import Breadcrumb from '../components/Breadcrumb'
   export default {
-    components:{
-     Breadcrumb
-    },
     props: {
       id: {}
     },
     data() {
       return {
         model: {},
-        parents: [],
-        breadcrumbItem:['内容管理','分类管理',`${this.id ? '编辑分类':'新建分类'}`],
-
+        parents: []
       };
     },
     methods: {
@@ -42,13 +34,13 @@ import Breadcrumb from '../components/Breadcrumb'
       async save() {
         let res
         if (this.id) {
-          res = await this.$http.put(`rest/categories/${this.id}`, this.model);
+          res = await this.$http.put(`rest/models/${this.id}`, this.model);
           this.model = res.data;
         } else {
-          res = await this.$http.post('rest/categories', this.model)
+          res = await this.$http.post('rest/models', this.model)
           this.model = res.data;
         }
-        this.$router.push('/categories/list')
+        this.$router.push('/models/list')
         if (this.id) {
           this.$message({
             type: 'success',
@@ -63,12 +55,12 @@ import Breadcrumb from '../components/Breadcrumb'
       },
       // 向后台请求需要编辑的数据
       async fetch() {
-        const res = await this.$http.get(`rest/categories/${this.id}`);
+        const res = await this.$http.get(`rest/models/${this.id}`);
         this.model = res.data;
       },
-      // 获取父级分类列表
+      // 获取父级列表
       async fetchParents() {
-        const res = await this.$http.get(`rest/categories`);
+        const res = await this.$http.get(`rest/models`);
         this.parents = res.data;
       }
     },

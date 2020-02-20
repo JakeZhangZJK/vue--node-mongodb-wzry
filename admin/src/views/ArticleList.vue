@@ -1,8 +1,9 @@
 <!---->
 <template>
   <div>
-    <h1>文章列表</h1>
-    <el-table :data="items" border  stripe>
+    <h1>文章管理</h1>
+     <div><el-button type="primary" size="small" @click='$router.push("/articles/create")' style="margin-bottom:.5rem;"><i class="el-icon-plus"></i>添加</el-button></div>
+    <el-table :data="items" height="600" border  stripe>
       <el-table-column prop="_id" label="ID" width="230"></el-table-column>
       <el-table-column prop="title" label="文章标题"></el-table-column>
         <el-table-column

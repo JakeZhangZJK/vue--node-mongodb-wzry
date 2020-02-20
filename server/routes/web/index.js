@@ -538,9 +538,9 @@ module.exports = app => {
       },
       {
         $lookup: {
-          from: 'articles', // 关联articles
+          from: 'articles', // articles表
           localField: '_id',
-          foreignField: 'categories', // 外键
+          foreignField: 'categories', // 通过id关联categories
           as: 'newsList' // 别名
         }
       },

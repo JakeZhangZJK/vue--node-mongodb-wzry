@@ -2,7 +2,8 @@
 <template>
   <div>
     <h1>装备列表</h1>
-    <el-table :data="items" border  stripe>
+    <div><el-button type="primary" size="small" @click='$router.push("/items/create")' style="margin-bottom:.5rem;"><i class="el-icon-plus"></i>添加</el-button></div>
+    <el-table :data="items" height="600" border  stripe>
       <el-table-column prop="_id" label="ID" width="230"></el-table-column>
       <el-table-column prop="name" label="装备名称"></el-table-column>
        <el-table-column prop="iocn" label="装备图片">

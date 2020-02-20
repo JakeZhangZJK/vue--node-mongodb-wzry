@@ -25,3 +25,20 @@
     height: 5rem;
     display: block;
   }
+
+  .el-breadcrumb{
+    margin-bottom: 1.5em;
+  }
+  .el-card{
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .15) !important;
+    
+  }
+  .el-table{
+    margin-top: .5em;
+  }
+  .el-input-width{
+    width: 50%;
+  }
+  .el-pagination{
+    margin-top: .5rem;
+  }
