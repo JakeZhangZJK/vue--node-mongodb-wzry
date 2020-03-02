@@ -1,11 +1,47 @@
-# vue--node-mongodb-wzry
-vue + node (Express + ElementUI) +mongodb全栈开发王者荣耀手机端官网和管理后台
-## 一、 准备
+# 简介
+vue--node-mongodb-wzry是一个移动端的高仿王者荣耀手机端官网和后台管理系统的开源全栈项目，它基于 vue + node (Express + ElementUI) +mongodb实现。借鉴于GitHub额开源项目，我在原有的基础上进行扩展和优化。本项目使用了最新的Vue全家桶技术栈，后台数据通过node+mongodb搭建。
+## 一、 环境准备
 1. 工具安装和环境搭建(nodejs,npm,mongodb)
-1. 初始化项目（通过vue-cli3创建两个vue项目（admin和web））；server数据接口安装express框架
+## 二、 项目启动
+### 1、克隆项目到本地
 
+```
+git clone git@github.com:JakeZhangZJK/vue--node-mongodb-wzry.git
+```
 
-## 二、 管理后台
+### 2、进入项目目录
+
+```
+cd vue-node-mongodb-wzry
+```
+
+### 3、安装依赖
+
+```
+npm install
+```
+
+### 4、启动服务
+
+#### （1）admin（后台管理系统）
+
+```
+npm run serve
+```
+#### （2）web 移动端
+```
+npm run serve
+```
+#### （3）server 服务端
+```
+npm run serve
+```
+#### （4）构建生产环境
+```
+npm run build
+```
+
+## 三、 管理后台
 1. 基于Element UI的后台管理基础界面搭建
 #### 后台管理系统主要有以下功能：
 1. 分类管理（无限级数）
@@ -15,12 +51,12 @@ vue + node (Express + ElementUI) +mongodb全栈开发王者荣耀手机端官网
 1. 首页广告管理
 1. 管理员账号管理 (bcrypt)
 1. 图片上传 (multer)
+1. 列表分页功能及模糊查询
 1. 登录模块使用接口 (jwt,jsonwebtoken)进行服务端登录校验
 1. 客户端路由限制 (beforeEach, meta)
 1. 上传文件的登录校验 (el-upload, headers)
 
 1. **ps：所有增删改查均使用通用 CRUD 接口；**
-         **上面所有用到的相关插件都需要手动安装；**
 
 
 
@@ -33,21 +69,50 @@ vue + node (Express + ElementUI) +mongodb全栈开发王者荣耀手机端官网
 1. 项目中一部分图标是扣取官方精灵图片 (sprite)，剩余部分使用字体图标 (阿里巴巴iconfont)
 1. 考虑到组件复用性，实现了卡片组件 (card)和列表卡片组件 (list-card, nav, swiper)，几乎可以用到除详情页外的所有布局，方便快捷
 
-#### 总体实现了以下功能：
+#### 总体实现了三大模块：
+1. 1.首页
+1. 首页新闻资讯及详情页展示
+1. 首页英雄列表及详情页展示
+1. 英雄攻略展示及详情
+1. 首页精彩视频列表及视频播放
+1. 2.攻略中心
+1. 攻略中心及详情页展示
+1. 3.赛事中心
+1. 赛事列表及详情页展示
+2. 
+## 页面部分截图
+#### 后台管理
 
-1. 首页新闻资讯及详情展示
-1. 首页英雄列表及详情展示
-1. 精彩视频列表及详情展示
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c9b4abd27932?w=1915&h=883&f=png&s=1463610)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c89b76a080d3?w=1918&h=920&f=png&s=91863)
 
-## 四、发布和部署 (阿里云)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8a56d6b8de3?w=1896&h=915&f=png&s=201827)
 
-1. 生产环境编译
-1. 购买域名和服务器
-1. 域名解析
-1. Nginx 安装和配置
-1. MongoDB数据库的安装和配置
-1. git 安装、配置ssh-key
-1. Node.js 安装、配置淘宝镜像
-1. 拉取代码，安装pm2并启动项目
-1. 配置 Nginx 的反向代理
-1. 迁移本地数据到服务器 (mongodump)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8b4a2ade9c5?w=1899&h=914&f=png&s=167743)
+
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8c857278311?w=1899&h=911&f=png&s=623036)
+
+#### web端
+
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8e652a2817a?w=429&h=762&f=png&s=253151)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8f34ae800f1?w=431&h=761&f=png&s=239362)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c958a2872848?w=433&h=745&f=png&s=442381)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c963bf587437?w=428&h=765&f=png&s=393922)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c902d5e38520?w=426&h=755&f=png&s=313654)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c91212479b4a?w=426&h=761&f=png&s=640268)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c944e57597ac?w=430&h=766&f=png&s=270453)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c93d5365a421?w=434&h=764&f=png&s=170273)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c91f50055982?w=428&h=757&f=png&s=243510)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c9291c3a2e81?w=426&h=757&f=png&s=533855)
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c96dfc101ee8?w=430&h=762&f=png&s=198204) 
+![](https://user-gold-cdn.xitu.io/2020/3/3/1709c982c58670c2?w=431&h=762&f=png&s=47140)
+
+
+## 免责声明
+本项目为高仿项目,仅做练手和学习使用,非官方App,禁止用于商业目的,产生的一切侵权著作法律后果,与本作者无关。
+
+## License
+
+[MIT](https://github.com/JakeZhangZJK/vue--node-mongodb-wzry/blob/master/LICENSE)
+
+Copyright (c) 2020 Jake Zhang
