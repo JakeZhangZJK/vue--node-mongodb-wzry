@@ -6,20 +6,20 @@
         <img src="../assets/images/logo1.png" alt="">
         <span>王者荣耀官网后台管理系统</span>
       </div>
-      <el-button type="info" size="small">退出</el-button>
+      <el-button type="text" size="middle" style="color:grey"> <i class="el-icon-switch-button"></i> 退出</el-button>
     </el-header>
     <el-container>
       <!-- 侧边栏 -->
-      <el-aside :width="isCollpase ? '50px':'200px'" style="background-color:#545c64">
+      <el-aside :width="isCollpase ? '52px':'200px'" style="background-color:#545c64">
         <div class="toggle-btn" @click="toggleCollpase">
           <i class="el-icon-d-arrow-left" v-if="!isCollpase"></i>
         <i class="el-icon-d-arrow-right" v-if="isCollpase"></i>
         </div>
          <!-- 默认展开第一个，一次只能展开一个，被点击的高亮 -->
-        <el-menu :collapse-transition="false"  router :default-openeds="['1']" unique-opened :collapse="isCollpase" :default-active="activePath" 
+        <el-menu :collapse-transition="false"  router  unique-opened :collapse="isCollpase" :default-active="activePath" 
           background-color="#545c64" text-color="#fff" active-text-color="#fdb933">
           <el-submenu :index="menu.index" v-for="(menu,i) in menus" :key="i">
-            <template slot="title"><i :class="menu.icon" style="margin-right:5px"></i>{{menu.name}}</template>
+            <template slot="title"><i :class="menu.icon" style="margin-right:8px"></i>{{menu.name}}</template>
                 <el-menu-item  v-for="(item,i) in menu.children" :key="i" :index="item.router" @click="saveNavState(item.router)"><i :class="item.icon"></i>{{item.name}}</el-menu-item>
             
           </el-submenu>
@@ -86,12 +86,12 @@
                 router:'/ads/list'
               },
               {
-                name:'新闻资讯',
+                name:'文章管理',
                 icon:'el-icon-menu',
                 router:'/articles/list'
               },
                 {
-                name:'精彩视频',
+                name:'视频管理',
                 icon:'el-icon-menu',
                 router:'/videos/list'
               },
@@ -99,18 +99,7 @@
                 name:'图文攻略',
                 icon:'el-icon-menu',
                 router:'/guides/list'
-              },
-                {
-                name:'英雄攻略',
-                icon:'el-icon-menu',
-                router:'/hero_guides/list'
-              },
-               {
-                name:'赛事中心',
-                icon:'el-icon-menu',
-                router:'/matches/list'
-              },
-
+              }
             ]
           },
              {
@@ -150,7 +139,6 @@
 <style  scoped>
 .main-container{
   height: 100vh;
-  overflow: hidden;
 }
 
 .el-header{
@@ -175,7 +163,7 @@ margin-left: 10px;
 }
 
 .toggle-btn{
-  background-color: #4a5064;
+  background-color: #545c64;
   font-size:12px;
   line-height: 24px;
   color: #fff;

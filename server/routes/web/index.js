@@ -5,6 +5,8 @@ module.exports = app => {
   const Category = require('../../models/Category')
   const Article = require('../../models/Article')
   const Hero = require('../../models/Hero')
+  const Video = require('../../models/Video')
+  const Guide = require('../../models/Guide')
 
   //向数据库导入英雄数据
   router.get('/heroes/init', async (req, res) => {
@@ -608,7 +610,6 @@ module.exports = app => {
         }
       }).limit(10).lean()
     })
-  
     res.send(cats)
 
   })
@@ -628,9 +629,237 @@ module.exports = app => {
   // 英雄详情接口
   router.get('/heroes/:id', async (req, res) => {
     const data = await Hero.findById(req.params.id)
-      .populate('categories items1 items2 partners.hero restrained.hero  restraints.hero  introductions.hero ').lean()
+      .populate('categories items1 items2 partners.hero restrained.hero  restraints.hero  introductions.hero heroGuides.hero').lean()
     res.send(data)
   })
 
+
+  // 首页视频数据接口
+  router.get('/videos/list', async (req, res) => {
+
+
+    const parent = await Category.findOne({
+      name: '视频分类'
+    })
+    //使用聚合查询
+    const cats = await Category.aggregate([{
+        $match: {
+          parent: parent._id
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos', // heroes
+          localField: '_id',
+          foreignField: 'categories', // 外键
+          as: 'videoList' // 别名
+        }
+      },
+      {
+        $addFields: {
+          videoList: {
+            $slice: ['$videoList', 4]
+          }
+        }
+      }
+    ])
+    res.send(cats)
+
+  })
+
+  // 攻略中心精品栏目数据接口
+  router.get('/wonderful_sections/list', async (req, res) => {
+
+
+    const parent = await Category.findOne({
+      name: '精品栏目'
+    })
+    //使用聚合查询
+    const cats = await Category.aggregate([{
+        $match: {
+          parent: parent._id
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos', // heroes
+          localField: '_id',
+          foreignField: 'categories', // 外键
+          as: 'videoList' // 别名
+        }
+      },
+      {
+        $addFields: {
+          videoList: {
+            $slice: ['$videoList', 4]
+          }
+        }
+      }
+    ])
+    res.send(cats)
+
+  })
+
+  // 攻略中心赛事精品数据接口
+  router.get('/wonderful_matches/list', async (req, res) => {
+
+
+    const parent = await Category.findOne({
+      name: '赛事精品'
+    })
+    //使用聚合查询
+    const cats = await Category.aggregate([{
+        $match: {
+          parent: parent._id
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos', // heroes
+          localField: '_id',
+          foreignField: 'categories', // 外键
+          as: 'videoList' // 别名
+        }
+      },
+      {
+        $addFields: {
+          videoList: {
+            $slice: ['$videoList', 4]
+          }
+        }
+      }
+    ])
+    res.send(cats)
+
+  })
+
+// 攻略中心精彩视频数据接口
+router.get('/wonderful_videos/list', async (req, res) => {
+
+
+  const parent = await Category.findOne({
+    name: '精彩视频'
+  })
+  //使用聚合查询
+  const cats = await Category.aggregate([{
+      $match: {
+        parent: parent._id
+      }
+    },
+    {
+      $lookup: {
+        from: 'videos', // heroes
+        localField: '_id',
+        foreignField: 'categories', // 外键
+        as: 'videoList' // 别名
+      }
+    },
+    {
+      $addFields: {
+        videoList: {
+          $slice: ['$videoList', 4]
+        }
+      }
+    }
+  ])
+  res.send(cats)
+
+})
+
+    // 视频详情接口
+    router.get('/videos/:id', async (req, res) => {
+      const data = await Video.findById(req.params.id).lean()
+      data.related = await Video.find().where({
+        categories: {
+          $in : data.categories
+        }
+      }).limit(2)
+      res.send(data)
+    })
+
+    // 图文攻略数据接口
+    router.get('/guides/list', async (req, res) => {
+
+
+      const parent = await Category.findOne({
+        name: '图文攻略'
+      })
+      //使用聚合查询
+      const cats = await Category.aggregate([{
+          $match: {
+            parent: parent._id
+          }
+        },
+        {
+          $lookup: {
+            from: 'guides',
+            localField: '_id',
+            foreignField: 'categories', // 外键
+            as: 'guideList' // 别名
+          }
+        },
+        {
+          $addFields: {
+            videoList: {
+              $slice: ['$guideList', 20]
+            }
+          }
+        }
+      ])
+      //热门数据的处理
+      const subCats = cats.map(v => v._id)
+      cats.unshift({
+        name: '热门',
+        guideList: await Guide.find().where({
+          categories: {
+            $in: subCats
+          }
+        }).limit(10).lean()
+      })
+      res.send(cats)
+    })
+  // 攻略详情接口
+  router.get('/guides/:id', async (req, res) => {
+    const data = await Guide.findById(req.params.id).lean()
+    data.related = await Guide.find().where({
+      categories: {
+        $in : data.categories
+      }
+    }).limit(2)
+    res.send(data)
+  })
+
+
+    // 赛事中心数据接口
+    router.get('/matches/list', async (req, res) => {
+      const parent = await Category.findOne({
+        name: '赛事中心'
+      })
+      //使用聚合查询
+      const cats = await Category.aggregate([{
+          $match: {
+            parent: parent._id
+          }
+        },
+        {
+          $lookup: {
+            from: 'articles', // articles表
+            localField: '_id',
+            foreignField: 'categories', // 通过id关联categories
+            as: 'matchList' // 别名
+          }
+        },
+        {
+          $addFields: {
+            newsList: {
+              $slice: ['$matchList', 10]
+            }
+          }
+        }
+      ])
+      res.send(cats)
+  
+    })
+  
   app.use('/web/api', router)
 }

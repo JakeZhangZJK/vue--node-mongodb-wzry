@@ -26,7 +26,7 @@ module.exports = {
       "no-caller": 1,//禁止使用arguments.caller或arguments.callee
       "no-catch-shadow": 2,//禁止catch子句参数与外部作用域变量同名
       "no-class-assign": 2,//禁止给类赋值
-      "no-cond-assign": 2,//禁止在条件表达式中使用赋值语句
+      "no-cond-assign": 0,//禁止在条件表达式中使用赋值语句
       "no-console": "off",//禁止使用console
       "no-const-assign": 2,//禁止修改const声明的变量
       "no-constant-condition": 2,//禁止在条件中使用常量表达式 if(true) if(1)
@@ -47,7 +47,7 @@ module.exports = {
       "no-extend-native": 2,//禁止扩展native对象
       "no-extra-bind": 2,//禁止不必要的函数绑定
       "no-extra-boolean-cast": 2,//禁止不必要的bool转换
-      "no-extra-parens": 2,//禁止非必要的括号
+      "no-extra-parens": 0,//禁止非必要的括号
       "no-extra-semi": 2,//禁止多余的冒号
       "no-fallthrough": 1,//禁止switch穿透
       "no-floating-decimal": 2,//禁止省略浮点数中的0 .5 3.
@@ -79,7 +79,7 @@ module.exports = {
       "no-new-object": 2,//禁止使用new Object()
       "no-new-require": 2,//禁止使用new require
       "no-new-wrappers": 2,//禁止使用new创建包装实例，new String new Boolean new Number
-      "no-obj-calls": 2,//不能调用内置的全局对象，比如Math() JSON()
+      "no-obj-calls": 0,//不能调用内置的全局对象，比如Math() JSON()
       "no-octal": 2,//禁止使用八进制数字
       "no-octal-escape": 2,//禁止使用八进制转义序列
       "no-param-reassign": 2,//禁止给参数重新赋值
@@ -101,7 +101,7 @@ module.exports = {
       "no-sparse-arrays": 2,//禁止稀疏数组， [1,,2]
       "no-sync": 0,//nodejs 禁止同步方法
       "no-ternary": 0,//禁止使用三目运算符
-      "no-trailing-spaces": 1,//一行结束后面不要有空格
+      "no-trailing-spaces": 0,//一行结束后面不要有空格
       "no-this-before-super": 0,//在调用super()之前不能使用this或super
       "no-throw-literal": 2,//禁止抛出字面量错误 throw "error";
       "no-undef": 1,//不能有未定义的变量

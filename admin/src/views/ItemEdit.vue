@@ -1,10 +1,12 @@
 <template>
   <div class="about">
-    <h1>{{id?'编辑':'新建'}}装备</h1>
+     <!-- 导航区 -->
+    <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
+    <el-card>
     <el-form label-width="80px" @submit.native.prevent="save">
 
       <el-form-item label="名称">
-        <el-input v-model="model.name" clearable maxlength="10"></el-input>
+        <el-input class="el-input-width" v-model="model.name" clearable maxlength="10"></el-input>
       </el-form-item>
       <el-form-item label="图标">
         <el-upload class="avatar-uploader" 
@@ -22,16 +24,22 @@
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
     </el-form>
+    </el-card>
   </div>
 </template>
 <script>
+import Breadcrumb from '../components/Breadcrumb'
   export default {
+    components:{
+      Breadcrumb
+    },
     props: {
       id: {}
     },
     data() {
       return {
         model: {},
+        breadcrumbItem: ['内容管理', '装备管理', `${this.id ? '编辑装备':'新建装备'}`],
       };
     },
     methods: {

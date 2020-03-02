@@ -70,10 +70,15 @@ $size in $font-sizes {
 .text-ellipsis2{
   display: inline-block;
   overflow: hidden;
+  height: 2.7rem;
   text-overflow: ellipsis;
-  white-space: pre-wrap;
 }
-
+.text-ellipsis3{
+  display: inline-block;
+  height: 3.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 //width,height
 .w-100 {
     width: 100%;
@@ -373,4 +378,23 @@ i{
 }
 .border-all{
   border: 1x solid #dcdcdc !important;// #dcdcdc
+}
+
+.video-border-radio{
+  border-radius: 3px;
+}
+
+.img-guide-width{
+  width:110px;
+}
+
+.all-video-width{
+  img{
+    width: 100%;
+    height: auto;
+  }
+  iframe {
+    width: 100%;
+    height: auto;
+  }
 }

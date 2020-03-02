@@ -30,7 +30,8 @@
             },
         },
         data() {
-            return {}
+            return {
+            }
         },
         methods: {}
     }

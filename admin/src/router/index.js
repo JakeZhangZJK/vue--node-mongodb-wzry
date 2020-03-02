@@ -26,10 +26,8 @@ import VideoList from '../views/VideoList.vue'
 import GuideEdit from '../views/GuideEdit.vue'
 import GuideList from '../views/GuideList.vue' 
 
-import MatchEdit from '../views/MatchEdit.vue'
-import MatchList from '../views/MatchList.vue' 
-
 import Welcome from '../views/Welcome.vue' 
+
 
 
 Vue.use(Router)
@@ -67,7 +65,7 @@ const router =  new Router({
        // 文章路由
        { path: '/articles/create', component: ArticleEdit },
        { path: '/articles/edit/:id', component: ArticleEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-      { path: '/articles/list', component: ArticleList },
+       { path: '/articles/list', component: ArticleList },
         // 广告路由
         { path: '/ads/create', component: AdEdit },
         { path: '/ads/edit/:id', component: AdEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
@@ -94,10 +92,6 @@ const router =  new Router({
        { path: '/guides/edit/:id', component: GuideEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
       { path: '/guides/list', component: GuideList },
        
-       // 赛事中心路由
-       { path: '/matches/create', component: MatchEdit },
-       { path: '/matches/edit/:id', component: MatchEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-       { path: '/matches/list', component: MatchList },
     ]
 
   }]

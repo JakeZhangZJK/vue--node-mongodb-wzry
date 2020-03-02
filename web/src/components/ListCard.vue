@@ -1,11 +1,11 @@
 <template>
 
   <m-card :icon="icon" :title="title">
-    <div class="nav jc-between">
-      <div class="nav-item" :class="{active: active === i}"
+    <div class="nav jc-between nav-width">
+      <div class="nav-item mx-1" :class="{active: active === i}"
       v-for="(category, i) in categories" :key="i"
       @click="$refs.list.swiper.slideTo(i)">
-        <div class="nav-link">{{category.name}}</div>
+        <div class=" ">{{category.name}}</div>
       </div>
     </div>  
     <div class="pt-3">
@@ -22,9 +22,9 @@
 <script>
 export default {
   props: {
-    icon: { type: String, required: true },
-    title: { type: String, required: true },
-    categories: { type: Array, required: true }
+    icon: { type: String },
+    title: { type: String },
+    categories: { type: Array}
   },
   data(){
     return {
@@ -35,4 +35,13 @@ export default {
 </script>
 
 <style>
+.nav-width{
+  overflow-x: scroll;
+  flex-wrap: nowrap;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.title-scroll{
+
+}
 </style>

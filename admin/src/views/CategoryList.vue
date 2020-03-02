@@ -8,7 +8,7 @@
       <el-row :gutter="20">
         <el-col :span="7">
           <el-input placeholder="请输入内容" clearable v-model="query" @clear="fetch()">
-            <el-button slot="append" icon="el-icon-search" @click="fetch()" ></el-button>
+            <el-button  slot="append" icon="el-icon-search" @click="fetch()" ></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -36,7 +36,7 @@
     @size-change="handleSizeChange" 
     @current-change="handleCurrentChange" 
     :current-page="pageNum"
-    :page-sizes="[10, 20, 30, 40, 50]" 
+    :page-sizes="[10, 15, 20 , 25,]" 
     :page-size="pageSize" 
     layout="total, sizes, prev, pager, next, jumper"
     :total="total" background>
@@ -62,13 +62,13 @@ import Breadcrumb from '../components/Breadcrumb'
       }
     },
     methods: {
-      // 获取分类列表
+      // 获取列表
       async fetch() {
-        const res = await this.$http.get(`rest/categories?pageNum=${this.pageNum}&pageSize=${this.pageSize}`);
+        const res = await this.$http.get(`rest/categories?pageNum=${this.pageNum}&pageSize=${this.pageSize}&query = ${this.query}`);
         this.items = res.data.items;
         this.total = res.data.count;
       },
-      // 删除分类
+      // 删除
       async remove(row) {
         this.$confirm(`是否删除分类"${row.name}"`, '提示', {
           confirmButtonText: '确定',
@@ -102,7 +102,7 @@ import Breadcrumb from '../components/Breadcrumb'
 
     },
     created() {
-      this.fetch(); // 在列表组件渲染成功后自动执行该方法获取数据库数据
+      this.fetch(); // 在列表组件渲染成功之前自动执行该方法获取数据库数据
     }
   }
 </script>

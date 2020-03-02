@@ -25,15 +25,7 @@ const schema = new mongoose.Schema({
   skins: [{// 皮肤
     name: { type: String },// 名称
     photo: { type: String },//图片
-    
   }],
-
-  // skins2: [{// 皮肤
-  //   name: { type: String },// 名称
-  //   photo: { type: String },//图片
-    
-  // }],
-
 
   items1: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Item' }],// 顺风出装
   items2: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Item' }],// 逆风出装
@@ -53,8 +45,6 @@ const schema = new mongoose.Schema({
     hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },
     description: {type:String},// 英雄的描述
   }],
- 
-
   introductions: [{// 介绍视频
     hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },// 英雄
     title:{type:String},// 视频标题
@@ -63,8 +53,15 @@ const schema = new mongoose.Schema({
     fan: { type: String },// 粉丝
     view:{type:String}// 观看次数
   }],
-
-  
+  heroGuides: [{// 英雄攻略视频
+    hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },// 英雄
+    title: { type: String },// 视频标题
+    cover:{type:String},
+    video:{ type: String },// 视频
+    submit: { type: String },// 投稿
+    fan: { type: String },// 粉丝
+    view: { type: String },// 观看次数
+  }],
 })
 
 module.exports = mongoose.model('Hero', schema,'heroes')

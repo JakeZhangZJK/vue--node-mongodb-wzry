@@ -1,43 +1,71 @@
 <template>
   <div>
-    <h1>英雄列表</h1>
-    <div><el-button type="primary" size="small" @click='$router.push("/heroes/create")' style="margin-bottom:.5rem;"><i class="el-icon-plus"></i>添加</el-button></div>
-    <el-table :data="heroes" border stripe height="600">
-      <el-table-column type="index" width="50"></el-table-column>
-      <el-table-column prop="_id" label="ID" width="230"></el-table-column>
-      <el-table-column prop="name" label="英雄名称"></el-table-column>
-      <el-table-column prop="title" label="英雄称号"></el-table-column>
-      <el-table-column prop="avatar" label="英雄头像">
-        <template slot-scope="scope">
-          <img :src="scope.row.avatar" alt="" style="height:3rem;">
-        </template>
-      </el-table-column>
-      <el-table-column fixed="right" label="操作" width="180">
-        <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" size="small" circle
-            @click="$router.push(`/heroes/edit/${scope.row._id}`)"></el-button>
-
-          <el-button type="danger" icon="el-icon-delete" size="small" circle @click="remove(scope.row)"></el-button>
-        </template>
-
-      </el-table-column>
-    </el-table>
+    <!-- 导航区 -->
+    <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
+    <!-- 内容区 -->
+    <el-card>
+      <el-row :gutter="20">
+        <el-col :span="7">
+          <el-input placeholder="请输入内容" clearable v-model="query" @clear="fetch()">
+            <el-button slot="append" icon="el-icon-search" @click="fetch()"></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="primary" @click='$router.push("/heroes/create")'>
+            <i class="el-icon-plus"></i>添加</el-button>
+        </el-col>
+      </el-row>
+      <el-table :data="heroes" border stripe height="550">
+        <el-table-column type="index" width="50"></el-table-column>
+        <el-table-column prop="_id" label="ID" width="230"></el-table-column>
+        <el-table-column prop="name" label="英雄名称"></el-table-column>
+        <el-table-column prop="title" label="英雄称号"></el-table-column>
+        <el-table-column prop="avatar" label="英雄头像">
+          <template slot-scope="scope">
+            <img :src="scope.row.avatar" alt="" style="height:3rem;">
+          </template>
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" width="180">
+          <template slot-scope="scope">
+            <el-button type="primary" icon="el-icon-edit" size="small" circle
+              @click="$router.push(`/heroes/edit/${scope.row._id}`)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" size="small" circle @click="remove(scope.row)"></el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 分页区 -->
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNum"
+        :page-sizes="[10, 15, 20 , 25,]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+        :total="total" background>
+      </el-pagination>
+    </el-card>
   </div>
 </template>
 <script>
+import Breadcrumb from '../components/Breadcrumb'
   export default {
+    components:{
+      Breadcrumb
+    },
     data() {
       return {
-        heroes: []
+        heroes: [],
+        breadcrumbItem: ['运营管理', '英雄管理'],
+        total: 0,
+        query: '',
+        pageNum: 1, // 当前页
+        pageSize: 10, // 页大小
       }
     },
     methods: {
-      // 获取分类列表
+      // 获取列表
       async fetch() {
-        const res = await this.$http.get('rest/heroes');
-        this.heroes = res.data;
+        const res = await this.$http.get(
+          `rest/heroes?pageNum=${this.pageNum}&pageSize=${this.pageSize}&query=${this.query}`);
+        this.heroes = res.data.items;
+        this.total = res.data.count;
       },
-      // 删除分类
+      // 删除
       async remove(row) {
         this.$confirm(`是否删除英雄"${row.name}"`, '提示', {
           confirmButtonText: '确定',
@@ -54,6 +82,19 @@
         }).catch(() => {
 
         });
+      },
+      // 监听页码值的改变
+      handleCurrentChange(newPage) {
+        this.pageNum = newPage
+        this.fetch()
+
+
+      },
+      // 监听页码大小
+      handleSizeChange(newSize) {
+        this.pageSize = newSize
+        this.fetch()
+
       }
     },
     created() {

@@ -25,22 +25,21 @@ module.exports = app => {
   })
   // 通用获取列表接口
   router.get('/', async (req, res) => {
-
     const queryOptions = {}
     let pageNum = req.query.pageNum;
     let pageSize = req.query.pageSize;
-    let count = await req.Model.find().count()// 总条数
+    let count = await req.Model.find().count() // 总条数
     let items = ''
     let obj = ''
-        // 为了通用性，这里不单独写Category的接口，因为Category要特殊获取上级分类，
-        // 所以这里将它设置为动态参数传进去，以后类似的特殊请求都可以这样处理
-        if (req.Model.modelName === 'Category' || req.Model.modelName ==='Model') {
-          queryOptions.populate = 'parent'
+    // 为了通用性，这里不单独写Category的接口，因为Category要特殊获取上级分类，
+    // 所以这里将它设置为动态参数传进去，以后类似的特殊请求都可以这样处理
+    if (req.Model.modelName === 'Category' || req.Model.modelName === 'Model') {
+      queryOptions.populate = 'parent'
     }
     if (pageNum) {
       items = await req.Model.find()
         .setOptions(queryOptions)
-        .skip(parseInt(pageSize) * parseInt(pageNum))
+        .skip(parseInt(pageSize) * parseInt(pageNum - 1))
         .limit(parseInt(pageSize));
       obj = {
         count,
@@ -50,7 +49,7 @@ module.exports = app => {
       obj = await req.Model.find().setOptions(queryOptions).limit(count)
     }
     res.send(obj)
-      })
+  })
   // 通用获取一条数据接口
   router.get('/:id', async (req, res) => {
     const model = await req.Model.findById(req.params.id)
@@ -64,7 +63,7 @@ module.exports = app => {
   const resourceMiddleWare = require('../../middleware/resource.js')
 
   // 资源路由
-  app.use('/admin/api/rest/:resource',authMiddleWare(), resourceMiddleWare(), router)
+  app.use('/admin/api/rest/:resource', authMiddleWare(), resourceMiddleWare(), router)
 
 
 
@@ -74,7 +73,7 @@ module.exports = app => {
     dest: __dirname + '/../../uploads'
   })
   // 上传中间件
-  app.post('/admin/api/upload',authMiddleWare(), upload.single('file'), async (req, res) => {
+  app.post('/admin/api/upload', authMiddleWare(), upload.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
@@ -107,14 +106,16 @@ module.exports = app => {
       return res.status(422).send({
         message: '密码错误！'
       })
-    } 
+    }
 
 
     // 3.返回token
 
     const token = jwt.sign({
       id: user._id
-    }, app.get('secret'), { expiresIn: '9999h'}) // 通过调用 sign 方法, 把 **用户信息**、**密钥** 生成token，并设置过期时间 
+    }, app.get('secret'), {
+      expiresIn: '9999h'
+    }) // 通过调用 sign 方法, 把 **用户信息**、**密钥** 生成token，并设置过期时间 
     res.send({
       user,
       token

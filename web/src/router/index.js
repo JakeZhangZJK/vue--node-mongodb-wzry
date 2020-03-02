@@ -2,9 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
-import Article from '../views/Article.vue'
-import Hero from '../views/Hero.vue'
-
 Vue.use(VueRouter)
 
 const routes = [{
@@ -18,20 +15,36 @@ const routes = [{
       
     ]
 },
+   // 视频
+   {
+    path: '/guides/:id',
+    name: 'guide',
+    component: () => import( /* webpackChunkName: "about" */ '../views/Guide.vue'),
+    props: true
+  },
+   // 视频
+   {
+    path: '/videos/:id',
+    name: 'video',
+    component: () => import( /* webpackChunkName: "about" */ '../views/Video.vue'),
+    props: true
+  },
   // 英雄
 {
   path: '/heroes/:id',
   name: 'hero',
-  component: Hero,
+  component:() => import('../views/Hero.vue') ,
   props: true
   },
   // 新闻资讯
   {
     path: '/articles/:id',
     name: 'article',
-    component: Article,
+    component: () => import( /* webpackChunkName: "about" */ '../views/Article.vue'),
     props: true
   },
+
+
 
   {
     path: '/about',

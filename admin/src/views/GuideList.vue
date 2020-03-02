@@ -1,9 +1,22 @@
 <!--攻略列表-->
 <template>
   <div>
-    <h1>攻略列表</h1>
-    <div><el-button type="primary" size="small" @click='$router.push("/guides/create")' style="margin-bottom:.5rem;"><i class="el-icon-plus"></i>添加</el-button></div>
-    <el-table :data="guides" border stripe height="600">
+   <!-- 导航区 -->
+    <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
+    <!-- 内容区 -->
+    <el-card>
+      <el-row :gutter="20">
+        <el-col :span="7">
+          <el-input placeholder="请输入内容" clearable v-model="query" @clear="fetch()">
+            <el-button slot="append" icon="el-icon-search" @click="fetch()"></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="primary" @click='$router.push("/guides/create")'>
+            <i class="el-icon-plus"></i>添加</el-button>
+        </el-col>
+      </el-row>
+    <el-table :data="guides" border stripe height="550">
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="_id" label="ID" width="230"></el-table-column>
       <el-table-column prop="title" label="攻略标题"></el-table-column>
@@ -22,22 +35,39 @@
 
       </el-table-column>
     </el-table>
+     <!-- 分页区 -->
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNum"
+        :page-sizes="[10, 15, 20 , 25,]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+        :total="total" background>
+      </el-pagination>
+    </el-card>
   </div>
 </template>
 <script>
+import Breadcrumb from '../components/Breadcrumb'
   export default {
+    components:{
+      Breadcrumb
+    },
+
     data() {
       return {
-        guides: []
+        guides: [],
+         breadcrumbItem: ['运营管理', '图文攻略'],
+        total: 0,
+        query: '',//用于做模糊查询的参数
+        pageNum: 1, // 当前页
+        pageSize: 10, // 页大小
       }
     },
     methods: {
-      // 获取分类列表
+     // 获取列表
       async fetch() {
-        const res = await this.$http.get('rest/guides');
-        this.guides = res.data;
+        const res = await this.$http.get(`rest/guides?pageNum=${this.pageNum}&pageSize=${this.pageSize}&query=${this.query}`);
+        this.guides = res.data.items;
+        this.total = res.data.count;
       },
-      // 删除分类
+      // 删除
       async remove(row) {
         this.$confirm(`是否删除图文攻略"${row.title}"`, '提示', {
           confirmButtonText: '确定',
@@ -54,6 +84,19 @@
         }).catch(() => {
 
         });
+      },
+      // 监听页码值的改变
+      handleCurrentChange(newPage) {
+        this.pageNum = newPage
+        this.fetch()
+
+
+      },
+      // 监听页码大小
+      handleSizeChange(newSize) {
+        this.pageSize = newSize
+        this.fetch()
+
       }
     },
     created() {

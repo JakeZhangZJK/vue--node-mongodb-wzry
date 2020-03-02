@@ -1,6 +1,8 @@
 <template>
   <div class="about">
-    <h1>{{id?'编辑':'新建'}}视频</h1>
+     <!-- 导航区 -->
+    <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
+    <el-card>
     <el-form label-width="80px" @submit.native.prevent="save">
       <el-form-item label="标题">
         <el-input v-model="model.title" clearable></el-input>
@@ -19,7 +21,7 @@
             </el-select>
           </el-form-item>
       <el-form-item label="视频">
-        <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="model.video"></vue-editor>
+        <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="model.video" class="video-container-style"></vue-editor>
       </el-form-item>
       <el-form-item label="投稿">
         <el-input v-model="model.submit" clearable></el-input>
@@ -35,9 +37,11 @@
         <el-button type="primary" style="margin-left:5rem;" native-type="submit">保存</el-button>
       </el-form-item>
     </el-form>
+    </el-card>
   </div>
 </template>
 <script>
+import Breadcrumb from '../components/Breadcrumb'
  // 导入富文本编辑器
   import {
     VueEditor
@@ -47,7 +51,8 @@
       id: {}
     },
      components: {
-      VueEditor
+      VueEditor,
+      Breadcrumb
     },
 
     data() {
@@ -61,6 +66,7 @@
           see:'',
         },
         categories: [],
+        breadcrumbItem: ['运营管理', '视频管理', `${this.id ? '编辑视频':'新建视频'}`],
 
       };
     },
@@ -128,5 +134,11 @@
     }
   };
 </script>
-<style lang='less' scoped>
+<style>
+/* // 富文本编辑器里面的播放器样式 */
+  .video-container-style iframe{
+    width: 100%;
+    height: auto;
+
+  }
 </style>

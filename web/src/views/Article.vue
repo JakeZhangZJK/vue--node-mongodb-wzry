@@ -1,13 +1,6 @@
 <template>
 <div>
-  <div class="topbar bg-black py-2 px-3 d-flex ai-center">
-          <img src="../assets/logo.png" alt="logo" height="30">
-          <div class="px-2 flex-1">
-            <div class="text-white ">王者荣耀</div>
-            <div class="text-grey-1 fs-xxs">团队成就更多</div>
-          </div>
-          <button class="btn bg-primary text-dark">立即下载</button>
-        </div>
+ <TopBar></TopBar>
   <div class="page-article " v-if="model">
     <div class="d-flex py-3 px-2 border-bottom ai-center">
       <div onclick="window.history.go(-1)" class="iconfont icon-back  pb-1 text-blue"></div>
@@ -34,6 +27,7 @@
 <script>
   // Introduce dayjs(需要安装)
   import dayjs from 'dayjs'
+  import TopBar from '../components/TopBar'
   export default {
     filters: {
       date(val) {
@@ -44,6 +38,9 @@
       id: {
         required: true
       },
+    },
+    components:{
+      TopBar
     },
     data() {
       return {

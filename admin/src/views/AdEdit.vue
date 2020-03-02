@@ -1,16 +1,17 @@
 <template>
-  <div class="about">
-    <h1>{{id?'编辑':'新建'}}广告位</h1>
+  <div>
+     <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
+     <el-card>
     <el-form label-width="80px" @submit.native.prevent="save">
       <el-form-item label="名称">
-        <el-input v-model="model.name" clearable></el-input>
+        <el-input class="el-input-width" v-model="model.name" clearable></el-input>
       </el-form-item>
       <el-form-item label="广告">
          <el-button size="small" @click="model.items.push({})"><i class="el-icon-plus"></i>添加广告</el-button>
           <el-row type="flex" style="flex-wrap:wrap;">
             <el-col :md="24" v-for="(item,i) in model.items" :key="i">
               <el-form-item label="跳转链接" style="margin-top:1rem">
-                <el-input v-model="item.url" clearable></el-input>
+                <el-input class="el-input-width" v-model="item.url" clearable></el-input>
               </el-form-item>
               <el-form-item label="图片" style="margin-top:1rem">
                 <el-upload class="avatar-uploader"  
@@ -36,18 +37,24 @@
         <el-button type="primary" style="margin-left:5rem;" native-type="submit">保存</el-button>
       </el-form-item>
     </el-form>
+    </el-card>
   </div>
 </template>
 <script>
+import Breadcrumb from '../components/Breadcrumb'
   export default {
+    components:{
+      Breadcrumb
+    },
     props: {
       id: {}
     },
     data() {
       return {
         model: {
-          items:[]
+          items:[],
         },
+         breadcrumbItem:['运营管理','广告管理',`${this.id ? '编辑广告':'新建广告'}`],
        
       };
     },

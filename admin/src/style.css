@@ -42,3 +42,10 @@
   .el-pagination{
     margin-top: .5rem;
   }
+  /* // 富文本编辑器里面的播放器样式 */
+  .video-container-style iframe{
+    width: 100%;
+    height: auto;
+
+  }
+  
