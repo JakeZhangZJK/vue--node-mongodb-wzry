@@ -8,7 +8,7 @@
       <el-row :gutter="20">
         <el-col :span="7">
           <el-input placeholder="请输入内容" clearable v-model="query" @clear="fetch()">
-            <el-button  slot="append" icon="el-icon-search" @click="fetch()" ></el-button>
+            <el-button slot="append" icon="el-icon-search" @click="fetch()"></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -25,46 +25,39 @@
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" size="small" circle
               @click="$router.push(`/categories/edit/${scope.row._id}`)"></el-button>
-
             <el-button type="danger" icon="el-icon-delete" size="small" circle @click="remove(scope.row)"></el-button>
           </template>
-
         </el-table-column>
       </el-table>
-         <!-- 分页区 -->
-    <el-pagination 
-    @size-change="handleSizeChange" 
-    @current-change="handleCurrentChange" 
-    :current-page="pageNum"
-    :page-sizes="[10, 15, 20 , 25,]" 
-    :page-size="pageSize" 
-    layout="total, sizes, prev, pager, next, jumper"
-    :total="total" background>
+      <!-- 分页区 -->
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNum"
+        :page-sizes="[10, 15, 20 , 25,]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+        :total="total" background>
       </el-pagination>
     </el-card>
- 
   </div>
 </template>
 <script>
-import Breadcrumb from '../components/Breadcrumb'
+  import Breadcrumb from '../components/Breadcrumb'
   export default {
-      components:{
-        Breadcrumb
+    components: {
+      Breadcrumb
     },
     data() {
       return {
-        breadcrumbItem:['内容管理','分类管理'],
+        breadcrumbItem: ['内容管理', '分类管理'],
         items: [],
-        total:0,
-        query:'',
-        pageNum:1,// 当前页
-        pageSize:10,// 页大小
+        total: 0,
+        query: '',
+        pageNum: 1, // 当前页
+        pageSize: 10, // 页大小
       }
     },
     methods: {
       // 获取列表
       async fetch() {
-        const res = await this.$http.get(`rest/categories?pageNum=${this.pageNum}&pageSize=${this.pageSize}&query = ${this.query}`);
+        const res = await this.$http.get(
+          `rest/categories?pageNum=${this.pageNum}&pageSize=${this.pageSize}&query = ${this.query}`);
         this.items = res.data.items;
         this.total = res.data.count;
       },
@@ -76,30 +69,23 @@ import Breadcrumb from '../components/Breadcrumb'
           type: 'warning'
         }).then(async () => {
           await this.$http.delete(`rest/categories/${row._id}`)
-
           this.$message({
             type: 'success',
             message: '删除成功!'
           });
           this.fetch(); // 刷新列表
-        }).catch(() => {
-
-        });
+        }).catch(() => {});
       },
       // 监听页码值的改变
-      handleCurrentChange(newPage){ 
+      handleCurrentChange(newPage) {
         this.pageNum = newPage
-         this.fetch()
-
-
+        this.fetch()
       },
       // 监听页码大小
-      handleSizeChange(newSize){
+      handleSizeChange(newSize) {
         this.pageSize = newSize
         this.fetch()
-
       }
-
     },
     created() {
       this.fetch(); // 在列表组件渲染成功之前自动执行该方法获取数据库数据

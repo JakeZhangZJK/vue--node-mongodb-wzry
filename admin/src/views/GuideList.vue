@@ -29,10 +29,8 @@
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" size="small" circle
             @click="$router.push(`/guides/edit/${scope.row._id}`)"></el-button>
-
           <el-button type="danger" icon="el-icon-delete" size="small" circle @click="remove(scope.row)"></el-button>
         </template>
-
       </el-table-column>
     </el-table>
      <!-- 分页区 -->
@@ -49,7 +47,6 @@ import Breadcrumb from '../components/Breadcrumb'
     components:{
       Breadcrumb
     },
-
     data() {
       return {
         guides: [],

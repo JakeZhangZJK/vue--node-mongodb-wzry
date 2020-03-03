@@ -30,7 +30,6 @@
       return {
         model: {},
         breadcrumbItem: ['系统设置', '管理员', `${this.id ? '编辑管理员':'新建管理员'}`],
-
       };
     },
     methods: {
@@ -62,11 +61,9 @@
         const res = await this.$http.get(`rest/admin_users/${this.id}`);
         this.model = res.data;
       },
-
     },
     created() {
-      this.id && this.fetch(); // 
-
+      this.id && this.fetch();
     }
   };
 </script>

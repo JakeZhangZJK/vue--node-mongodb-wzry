@@ -10,7 +10,7 @@
     </el-header>
     <el-container>
       <!-- 侧边栏 -->
-      <el-aside :width="isCollpase ? '52px':'200px'" style="background-color:#545c64">
+      <el-aside :width="isCollpase ? '52px':'199px'" style="background-color:#545c64;overflow:hidden">
         <div class="toggle-btn" @click="toggleCollpase">
           <i class="el-icon-d-arrow-left" v-if="!isCollpase"></i>
         <i class="el-icon-d-arrow-right" v-if="isCollpase"></i>
@@ -21,11 +21,8 @@
           <el-submenu :index="menu.index" v-for="(menu,i) in menus" :key="i">
             <template slot="title"><i :class="menu.icon" style="margin-right:8px"></i>{{menu.name}}</template>
                 <el-menu-item  v-for="(item,i) in menu.children" :key="i" :index="item.router" @click="saveNavState(item.router)"><i :class="item.icon"></i>{{item.name}}</el-menu-item>
-            
           </el-submenu>
-       
         </el-menu>
-
       </el-aside>
       <!-- 右侧主体 -->
       <el-main>
@@ -71,8 +68,6 @@
               //   icon:'el-icon-menu',
               //   router:'categories'
               // },
-               
-
             ]
           },
              {
@@ -112,11 +107,9 @@
                 icon:'el-icon-menu',
                 router:'/admin_users/list'
               },
-
             ]
           },
         ]
-
       }
     },
     methods: {
@@ -126,10 +119,7 @@
       saveNavState(activePath){
         window.sessionStorage.setItem('activePath',activePath)
         this.activePath = activePath
-
       }
-        
- 
     },
     created(){
       this.activePath = window.sessionStorage.getItem('activePath')
@@ -139,8 +129,8 @@
 <style  scoped>
 .main-container{
   height: 100vh;
+  overflow:hidden;
 }
-
 .el-header{
   background-color: #373d41;
   display: flex;
@@ -149,7 +139,6 @@
   align-items: center;
   color: #eaedf1;
   font-size: 20px;
-
 }
 .el-header div{
 display: flex;
@@ -161,7 +150,6 @@ margin-left: 10px;
 .el-menu{
   border-right: 0;
 }
-
 .toggle-btn{
   background-color: #545c64;
   font-size:12px;
@@ -176,6 +164,4 @@ margin-left: 10px;
 .el-main{
   background-color: #eaedf1;
 }
-
-
 </style>

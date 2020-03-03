@@ -233,6 +233,31 @@ i{
 
 }
 
+.nav2 {
+  display: flex;
+  background-color:  map-get($map: $colors, $key:'light-3');
+
+  .nav-item {
+      &.active {
+          color: map-get($map: $colors, $key:'white');
+          background-color: map-get($map: $colors, $key:'primary');
+        }
+  }
+  &.nav-inverse {
+      .nav-item {
+          color: map-get($map: $colors, $key:'white');
+  
+          &.active {
+  
+              border-bottom-color:  map-get($map: $colors, $key:'white');
+          }
+  
+  
+      }
+  }
+
+}
+
 
 
 // sprite
@@ -388,13 +413,18 @@ i{
   width:110px;
 }
 
-.all-video-width{
-  img{
+.hero-guide-video {
+  img {
     width: 100%;
     height: auto;
   }
   iframe {
     width: 100%;
     height: auto;
+  }
+
+  p {
+    margin: 0 10px;
+    padding: 0;
   }
 }

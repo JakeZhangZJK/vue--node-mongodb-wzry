@@ -85,14 +85,11 @@
       handleCurrentChange(newPage) {
         this.pageNum = newPage
         this.fetch()
-
-
       },
       // 监听页码大小
       handleSizeChange(newSize) {
         this.pageSize = newSize
         this.fetch()
-
       }
     },
     created() {

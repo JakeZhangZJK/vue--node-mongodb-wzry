@@ -7,7 +7,7 @@
         <strong class="flex-1 fs-lg text-ellipsis pl-2 text-blue">{{model.title}}</strong>
         <strong class="text-grey fs-xs">{{model.createdAt | date}}</strong>
       </div>
-      <div class=" video ml-2" v-html="model.video"></div>
+      <div class=" ml-2 hero-guide-video" v-html="model.video"></div>
       <div class=" title-box p-1   border-bottom border-top  border-right d-flex m-0">
         <img class="default-avatar" src="../assets/images/166.jpg" alt="">
         <div class="hero-video-info-sun ml-2 d-flex flex-column flex-1 ">
@@ -24,10 +24,7 @@
           <div class="px-2 text-dark">{{item.title}}</div>
         </router-link>
       </div>
-
     </div>
-
-
   </div>
 </template>
 <script>
@@ -71,33 +68,9 @@
   }
 </script>
 <style lang="scss" scoped>
-  .page-video {
-
-    .video {
-      img {
-        width: 100%;
-        height: auto;
-
-      }
-
-      iframe {
-        width: 130%;
-        height: auto;
-
-      }
-
-      p {
-        display: none;
-        margin: 0;
-        padding: 0;
-      }
-    }
-  }
-
   .default-avatar {
     width: 60px;
   }
-
   .title-box {
     margin-top: -5px;
   }

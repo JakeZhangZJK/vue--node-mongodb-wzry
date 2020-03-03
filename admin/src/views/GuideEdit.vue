@@ -4,11 +4,11 @@
     <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
     <el-card>
       <el-form label-width="120px" @submit.native.prevent="save">
-         <el-form-item label="攻略分类">
-        <el-select v-model="model.categories" multiple>
-          <el-option v-for="item in categories" :key="item._id" :label="item.name" :value="item._id"></el-option>
-        </el-select>
-      </el-form-item>
+        <el-form-item label="攻略分类">
+          <el-select v-model="model.categories" multiple>
+            <el-option v-for="item in categories" :key="item._id" :label="item.name" :value="item._id"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="标题">
           <el-input v-model="model.title" clearable></el-input>
         </el-form-item>
@@ -29,7 +29,6 @@
     </el-card>
   </div>
 </template>
-
 <script>
   // 导入富文本编辑器
   import {

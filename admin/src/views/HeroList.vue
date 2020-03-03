@@ -42,9 +42,9 @@
   </div>
 </template>
 <script>
-import Breadcrumb from '../components/Breadcrumb'
+  import Breadcrumb from '../components/Breadcrumb'
   export default {
-    components:{
+    components: {
       Breadcrumb
     },
     data() {
@@ -87,14 +87,11 @@ import Breadcrumb from '../components/Breadcrumb'
       handleCurrentChange(newPage) {
         this.pageNum = newPage
         this.fetch()
-
-
       },
       // 监听页码大小
       handleSizeChange(newSize) {
         this.pageSize = newSize
         this.fetch()
-
       }
     },
     created() {

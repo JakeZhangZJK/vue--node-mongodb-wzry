@@ -15,7 +15,7 @@ const routes = [{
       
     ]
 },
-   // 视频
+   // 攻略视频
    {
     path: '/guides/:id',
     name: 'guide',

@@ -576,6 +576,11 @@ module.exports = app => {
 
   })
 
+  //获取6条英雄数据
+  router.get('/heroes_6/list', async (req, res) => {
+    const heroes = await Hero.find().limit(6)
+    res.send(heroes)
+  })
 
    // 英雄数据接口
    router.get('/heroes/list', async (req, res) => {

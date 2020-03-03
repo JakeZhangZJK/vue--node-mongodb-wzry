@@ -1,36 +1,30 @@
 <template>
   <div class="about">
-     <!-- 导航区 -->
+    <!-- 导航区 -->
     <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
     <el-card>
-    <el-form label-width="80px" @submit.native.prevent="save">
-
-      <el-form-item label="名称">
-        <el-input class="el-input-width" v-model="model.name" clearable maxlength="10"></el-input>
-      </el-form-item>
-      <el-form-item label="图标">
-        <el-upload class="avatar-uploader" 
-          :action="upLoadUrl" 
-          :headers="getAuthHeaders()"
-          :show-file-list="false"
-          :on-success="afterUpload" 
-          :before-upload="beforeAvatarUpload">
-          <img v-if="model.icon" :src="model.icon" class="avatar">
-
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" native-type="submit">保存</el-button>
-      </el-form-item>
-    </el-form>
+      <el-form label-width="80px" @submit.native.prevent="save">
+        <el-form-item label="名称">
+          <el-input class="el-input-width" v-model="model.name" clearable maxlength="10"></el-input>
+        </el-form-item>
+        <el-form-item label="图标">
+          <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()" :show-file-list="false"
+            :on-success="afterUpload" :before-upload="beforeAvatarUpload">
+            <img v-if="model.icon" :src="model.icon" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" native-type="submit">保存</el-button>
+        </el-form-item>
+      </el-form>
     </el-card>
   </div>
 </template>
 <script>
-import Breadcrumb from '../components/Breadcrumb'
+  import Breadcrumb from '../components/Breadcrumb'
   export default {
-    components:{
+    components: {
       Breadcrumb
     },
     props: {
@@ -44,8 +38,7 @@ import Breadcrumb from '../components/Breadcrumb'
     },
     methods: {
       afterUpload(res) {
-        this.$set(this.model,'icon',res.url)
-       
+        this.$set(this.model, 'icon', res.url)
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';

@@ -26,7 +26,6 @@
       <el-form-item label="投稿">
         <el-input v-model="model.submit" clearable></el-input>
       </el-form-item>
-
       <el-form-item label="粉丝">
         <el-input v-model="model.fan" clearable></el-input>
       </el-form-item>
@@ -54,7 +53,6 @@ import Breadcrumb from '../components/Breadcrumb'
       VueEditor,
       Breadcrumb
     },
-
     data() {
       return {
         model: {
@@ -67,7 +65,6 @@ import Breadcrumb from '../components/Breadcrumb'
         },
         categories: [],
         breadcrumbItem: ['运营管理', '视频管理', `${this.id ? '编辑视频':'新建视频'}`],
-
       };
     },
     methods: {
@@ -125,12 +122,10 @@ import Breadcrumb from '../components/Breadcrumb'
         Editor.insertEmbed(cursorLocation, "image", res.data.url);
         resetUploader();
       }
-
     },
     created() {
       this.id && this.fetch(); //   
       this.getCategories()     
-
     }
   };
 </script>
@@ -139,6 +134,5 @@ import Breadcrumb from '../components/Breadcrumb'
   .video-container-style iframe{
     width: 100%;
     height: auto;
-
   }
 </style>

@@ -14,7 +14,6 @@
                 <span class="fs-xs">{{video.see}}</span>
               </div>
               <div>{{video.createdAt | date}}</div>
-
             </div>
           </router-link>
         </div>

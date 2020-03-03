@@ -3,7 +3,6 @@ import App from './App.vue'
 import './assets/scss/style.scss'
 import router from './router'
 
-
 import 'vant/lib/index.css';
 import '@vant/touch-emulator';
 import {
@@ -40,9 +39,13 @@ Vue.component('m-card', Card)
 import ListCard from './components/ListCard'
 Vue.component('m-list-card', ListCard)
 
-// Introduce ListCard component
+// Introduce mt-ListCard component
 import MatchCard from './components/MatchCard'
 Vue.component('mt-card', MatchCard)
+
+// Introduce mt-ListCard component
+import HeroGuideListCard from './components/HeroGuideListCard'
+Vue.component('guide-list-card', HeroGuideListCard)
 
 // Introduce axios
 import axios from 'axios'

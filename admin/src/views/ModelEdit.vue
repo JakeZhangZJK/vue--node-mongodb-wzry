@@ -67,7 +67,6 @@
     created() {
         this.fetchParents();
       this.id && this.fetch(); // 
-    
     }
   };
 </script>

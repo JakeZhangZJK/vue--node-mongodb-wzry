@@ -1,14 +1,7 @@
 <template>
   <div>
     <div class="page-hero" v-if="model">
-      <div class="topbar bg-black py-2 px-3 d-flex ai-center text-white">
-        <img src="../assets/logo.png" alt="logo" height="30">
-        <div class="px-2 flex-1">
-          <span>王者荣耀</span>
-          <span class="ml-3">攻略站</span>
-        </div>
-        <router-link to="/" tag="div" class="text-white fs-sm">更多英雄 &gt;</router-link>
-      </div>
+      <DetailTopBar></DetailTopBar>
       <div class="top-banner " :style="{'background-image': `url(${model.banner})`}">
         <div class="info text-white p-3 h-100 d-flex flex-column jc-end">
           <div class="fs-sm  show-text">{{model.title}}</div>
@@ -87,7 +80,6 @@
                 </div>
               </m-card>
               <!-- 推荐出装card end -->
-
               <m-card plain icon="menu" title="使用技巧">
                 <p class="m-0">{{model.usageTips}}</p>
               </m-card>
@@ -124,13 +116,14 @@
               </m-card>
             </div>
           </swiper-slide>
+          <!-- 英雄初识 tab  end -->
 
           <swiper-slide>
             <div class="hero-guide-plus bg-white">
               <div class="hero-guide-plus-container px-3 py-1">
                 <div class="hero-guide-item border-bottom  d-flex pb-3 mt-3" v-for="(item,i) in model.heroGuides"
-                  :key="i"  @click="showHeroGuide = true;curentGuideIndex = i">
-                  <img class="w-100 img-guide-width" :src="item.cover" alt="" >
+                  :key="i" @click="showHeroGuide = true;curentGuideIndex = i">
+                  <img class="w-100 img-guide-width" :src="item.cover" alt="">
                   <div class="hero-guide-info w-100 m-0 ml-3 d-flex flex-column jc-between text-left">
                     <p class="m-0 w-100">{{item.title}}</p>
                     <div class="see-and-time m-0   d-flex  fs-xxs text-grey ">
@@ -150,47 +143,33 @@
     </div>
     <!-- 英雄攻略视频弹层 -->
     <van-popup close-icon="close" position="top" v-model="showHeroGuide" class="van-popp-height">
-                <div class="topbar bg-black py-2 px-3 d-flex ai-center text-white">
-                  <img src="../assets/logo.png" alt="logo" height="30">
-                  <div class="px-2 flex-1">
-                    <span>王者荣耀</span>
-                    <span class="ml-3">攻略站</span>
-                  </div>
-                  <router-link to="/" tag="div" class="text-white fs-sm">更多英雄 &gt;</router-link>
-                </div>
-                <div class="m-0" v-if="curentHeroGuide">
-                  <div class="d-flex py-3 px-2 border-bottom bg-white ai-center">
-                    <div @click="showHeroGuide = false" class="iconfont icon-back  pb-1 text-blue"></div>
-                    <strong class="flex-1 fs-lg text-ellipsis pl-2 text-blue">{{curentHeroGuide.title}}</strong>
-                  </div>
-                  <div class="hero-video all-video-width m-0" v-html="curentHeroGuide.video"></div>
-                  <div class="p-1 px-2 mr-2 hero-video-info border-bottom border-top  border-right d-flex m-0">
-                    <img class="hero-avatar " :src="curentHeroGuide.hero.avatar" alt="" width="55" >
-                    <div class="hero-video-info-sun ml-2  flex-1 ">
-                      <p class="m-0 fs-lg ">{{curentHeroGuide.title}}</p>
-                      <p class="m-0  fs-xs">投稿：{{curentHeroGuide.submit}} 粉丝：{{curentHeroGuide.fan}}</p>
-                      <p class="m-0  fs-xs">个性签名：</p>
-                    </div>
-                  </div>
-                  <div class="mt-3 ml-2 pb-2" height="200"><i class="iconfont icon-xihuan-copy"></i> 猜您喜欢</div>
-                </div>
-              </van-popup>
+      <DetailTopBar></DetailTopBar>
+      <div class="m-0" v-if="curentHeroGuide">
+        <div class="d-flex py-3 px-2 border-bottom bg-white ai-center">
+          <div @click="showHeroGuide = false" class="iconfont icon-back  pb-1 text-blue"></div>
+          <strong class="flex-1 fs-lg text-ellipsis pl-2 text-blue">{{curentHeroGuide.title}}</strong>
+        </div>
+        <div class="hero-guide-video all-video-width m-0" v-html="curentHeroGuide.video"></div>
+        <div class="p-1 px-2 mr-2 hero-video-info border-bottom border-top  border-right d-flex m-0">
+          <img class="hero-avatar " :src="curentHeroGuide.hero.avatar" alt="" width="55">
+          <div class="hero-video-info-sun ml-2  flex-1 ">
+            <p class="m-0 fs-lg ">{{curentHeroGuide.title}}</p>
+            <p class="m-0  fs-xs">投稿：{{curentHeroGuide.submit}} 粉丝：{{curentHeroGuide.fan}}</p>
+            <p class="m-0  fs-xs">个性签名：</p>
+          </div>
+        </div>
+        <div class="mt-3 ml-2 pb-2" height="200"><i class="iconfont icon-xihuan-copy"></i> 猜您喜欢</div>
+      </div>
+    </van-popup>
     <!-- 英雄介绍视频弹层 -->
     <van-popup close-icon="close" position="top" v-model="showVideo">
-      <div class="topbar bg-black py-2 px-3 d-flex ai-center text-white">
-        <img src="../assets/logo.png" alt="logo" height="30">
-        <div class="px-2 flex-1">
-          <span>王者荣耀</span>
-          <span class="ml-3">攻略站</span>
-        </div>
-        <router-link to="/" tag="div" class="text-white fs-sm">更多英雄 &gt;</router-link>
-      </div>
+      <DetailTopBar></DetailTopBar>
       <div class="hero-video-container bg-white-3" v-for="(item,i) in model.introductions" :key="`6${i}`">
         <div class="d-flex py-3 px-2 border-bottom bg-white ai-center">
           <div @click="showVideo = false" class="iconfont icon-back  pb-1 text-blue"></div>
           <strong class="flex-1 fs-lg text-ellipsis pl-2 text-blue">{{item.title}}</strong>
         </div>
-        <div class="hero-video m-0 all-video-width" v-html="item.video"></div>
+        <div class="hero-guide-video m-0 all-video-width" v-html="item.video"></div>
         <div class="p-1 px-2 mr-2 hero-video-info border-bottom border-top  border-right d-flex m-0">
           <img class="hero-avatar" :src="item.hero.avatar" alt="">
           <div class="hero-video-info-sun ml-2 d-flex flex-column flex-1 ">
@@ -200,11 +179,8 @@
           </div>
         </div>
         <div class="mt-3 ml-2"><i class="iconfont icon-xihuan-copy"></i> 猜您喜欢</div>
-
       </div>
     </van-popup>
-
-
     <!-- 一图识英雄弹层 -->
     <van-popup position="top" closeable close-icon="close" v-model="showPhoto"><img class="photo" :src="model.photo"
         alt="" @click="showPhoto = false">
@@ -221,16 +197,19 @@
           <p class="pb-3 fs-xl">{{item.name}}</p>
         </van-swipe-item>
       </van-swipe>
-
     </van-popup>
   </div>
 </template>
 <script>
+  import DetailTopBar from '../components/DetailTopBar'
   export default {
     props: {
       id: {
         required: true
       },
+    },
+    components: {
+      DetailTopBar
     },
     data() {
       return {
@@ -239,8 +218,6 @@
           skills: [],
           skins: [],
           heroGuides: []
-
-
         },
         showVideo: false,
         showPhoto: false,
@@ -258,15 +235,12 @@
       },
       curentHeroGuide() {
         return this.model.heroGuides[this.curentGuideIndex]
-        
       }
-
     },
     methods: {
       async getHero() {
         const res = await this.$http.get(`/heroes/${this.id}`)
         this.model = res.data
-
       }
     },
     created() {
@@ -276,41 +250,20 @@
 </script>
 <style lang="scss">
   @import '../assets/scss/_variables.scss';
-    .hero-video {
-      img {
-        width: 100%;
-        height: auto;
-      }
-      iframe {
-        width: 100%;
-        height: auto;
-      }
-
-      p {
-        margin: 0 10px;
-        padding: 0;
-      }
-    }
-  .van-popp-height{
+  .van-popp-height {
     height: 100%;
   }
-
   .hero-video-container {
     margin: 0;
     height: 94vh;
-
     img {
       width: 60px;
       height: auto;
     }
-
-  
   }
-
   .skins-container {
     width: 100%;
     height: 100%;
-
     img.hero-skin {
       width: 100%;
       height: 100%;

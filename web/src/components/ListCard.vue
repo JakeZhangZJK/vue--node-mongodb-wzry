@@ -2,7 +2,7 @@
 
   <m-card :icon="icon" :title="title">
     <div class="nav jc-between nav-width">
-      <div class="nav-item mx-1" :class="{active: active === i}"
+      <div class="nav-item " :class="{active: active === i}"
       v-for="(category, i) in categories" :key="i"
       @click="$refs.list.swiper.slideTo(i)">
         <div class=" ">{{category.name}}</div>

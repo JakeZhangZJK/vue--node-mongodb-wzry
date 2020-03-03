@@ -20,6 +20,7 @@
       </div>
     </div>
     <!-- end of nav icons -->
+    
     <!-- m-card component newsCats-->
     <m-list-card icon="menu" title="新闻资讯" :categories="newsCats">
       <template #items="{category}">

@@ -31,12 +31,10 @@ beforeUploadVideo(file) {
         return false;
     }
 },
-
 uploadVideoProcess(event, file){
     this.videoFlag = true;
     this.videoUploadPercent = file.percentage.toFixed(0);
 },
-
 handleVideoSuccess(res) {
     this.videoFlag = false;
     this.videoUploadPercent = 0;
@@ -51,5 +49,4 @@ handleVideoSuccess(res) {
 }
 </script>
 <style lang='less' scoped>
-
 </style>

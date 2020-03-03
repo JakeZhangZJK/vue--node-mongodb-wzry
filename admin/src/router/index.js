@@ -16,35 +16,26 @@ import AdEdit from '../views/AdEdit.vue'
 import AdList from '../views/AdList.vue'  
 import AdminUserEdit from '../views/AdminUserEdit.vue'
 import AdminUserList from '../views/AdminUserList.vue'  
-
 import ModelEdit from '../views/ModelEdit.vue'
 import ModelList from '../views/ModelList.vue'  
-
 import VideoEdit from '../views/VideoEdit.vue'
 import VideoList from '../views/VideoList.vue'      
-
 import GuideEdit from '../views/GuideEdit.vue'
 import GuideList from '../views/GuideList.vue' 
-
 import Welcome from '../views/Welcome.vue' 
-
-
-
 Vue.use(Router)
 
 const router =  new Router({
   routes: [
     // 登录路由
     { path: '/login', name: 'login', component: Login, meta: { isPublic: true } },
-    // { path: '/login2', name: 'login2', component: Login2, meta: { isPublic: true } },
     {
-      
     path: '/',
     name: 'main',
       component: Main,
     redirect:'/welcome',
       children: [
-       // 分类子路由
+       // 首页子路由
        { path: '/welcome', component: Welcome },
       // 分类子路由
       { path: '/categories/create', component: CategoryEdit },
@@ -55,7 +46,6 @@ const router =  new Router({
       { path: '/items/create', component: ItemEdit },
       { path: '/items/edit/:id', component: ItemEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
       { path: '/items/list',component: ItemList},
-
 
       // 英雄路由
       { path: '/heroes/create', component: HeroEdit },
@@ -80,8 +70,6 @@ const router =  new Router({
        { path: '/models/edit/:id', component: ModelEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
        { path: '/models/list', component: ModelList },
        
-
-       
         // 视频分类路由
         { path: '/Videos/create', component: VideoEdit },
         { path: '/Videos/edit/:id', component: VideoEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
@@ -91,12 +79,10 @@ const router =  new Router({
        { path: '/guides/create', component: GuideEdit },
        { path: '/guides/edit/:id', component: GuideEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
       { path: '/guides/list', component: GuideList },
-       
     ]
 
   }]
 })
-
 //路由守卫
 router.beforeEach((to, from ,next) => {
   if (!to.meta.isPublic && !localStorage.token) {
