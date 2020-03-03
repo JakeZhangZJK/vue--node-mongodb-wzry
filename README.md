@@ -85,13 +85,13 @@ npm run build
 #### 后台管理
 
 ![](https://user-gold-cdn.xitu.io/2020/3/3/1709e800749eb6ec?w=1914&h=915&f=png&s=86686)
-![](https://user-gold-cdn.xitu.io/2020/3/3/1709c89b76a080d3?w=1918&h=920&f=png&s=91863)
 
 ![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8a56d6b8de3?w=1896&h=915&f=png&s=201827)
 
 ![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8b4a2ade9c5?w=1899&h=914&f=png&s=167743)
 
 ![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8c857278311?w=1899&h=911&f=png&s=623036)
+![](https://user-gold-cdn.xitu.io/2020/3/4/170a1315ff5812ee?w=1914&h=915&f=png&s=93617)
 
 #### web端
 ![](https://user-gold-cdn.xitu.io/2020/3/3/1709c8e652a2817a?w=429&h=762&f=png&s=253151)

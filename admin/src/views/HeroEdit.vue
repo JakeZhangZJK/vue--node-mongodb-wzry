@@ -318,6 +318,7 @@
             survive: 0
           },
           skills: [],
+          skins: [],
           partners: [{
             hero: null, // 搭档英雄
             description: '', // 搭档英
