@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <swiper ref="list" @slide-change="() => active = $refs.list.swiper.realIndex" :options="{ autoHeight:true }">
+    <swiper ref="list" @slide-change="() => active = $refs.list.swiper.realIndex">
       <swiper-slide>
         <!-- 首页 -->
         <Home></Home>

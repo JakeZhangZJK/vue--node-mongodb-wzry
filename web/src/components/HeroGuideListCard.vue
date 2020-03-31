@@ -73,14 +73,12 @@ export default {
   width: 41px;
 
 }
-.hero-guide-container-2{
-  .title-float-right{
+.title-float-right{
     float: right;
-
   }
-  .items-float-left{
+.items-float-left{
      float: left;
   }
 
-}
+
 </style>

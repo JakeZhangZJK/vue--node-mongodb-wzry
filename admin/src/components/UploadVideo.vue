@@ -2,7 +2,9 @@
 <template>
     <div>
        <!-- action必选参数, 上传的地址 -->
-    <el-upload class="avatar-uploader el-upload--text" :action="uploadUrl" :show-file-list="false" :on-success="handleVideoSuccess" :before-upload="beforeUploadVideo" :on-progress="uploadVideoProcess">
+    <el-upload class="avatar-uploader el-upload--text" :action="uploadUrl" :show-file-list="false" 
+    :on-success="handleVideoSuccess" 
+    :before-upload="beforeUploadVideo" :on-progress="uploadVideoProcess">
         <video v-if="videoForm.Video !='' && videoFlag == false" :src="videoForm.Video" class="avatar" controls="controls">您的浏览器不支持视频播放</video>
         <i v-else-if="videoForm.Video =='' && videoFlag == false" class="el-icon-plus avatar-uploader-icon"></i>
         <el-progress v-if="videoFlag == true" type="circle" :percentage="videoUploadPercent" style="margin-top:30px;"></el-progress>

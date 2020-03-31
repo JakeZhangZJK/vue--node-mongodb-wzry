@@ -61,10 +61,10 @@
       padding: 0;
       background-color: rgba(36, 40, 46, 0.6);
       overflow: hidden;
-      background-image: linear-gradient(125deg, #fa983a, #6a89cc, #60a3bc, #e74c3c, #8e44ad); // 线性渐变
+      background-image: linear-gradient(125deg, #fa983a, #6a89cc, #60a3bc, #8e44ad); // 线性渐变
       // background-image: radial-gradient(circle, #324252, #27ae76, #2980b9, #e74c3c, #8e44ad);// 径向渐变
       background-size: 400%;
-      animation: bganimation 15s infinite;
+      animation: bganimation 30s infinite;
       .title {
         // margin-top: 10rem;
         margin-top: 4rem;

@@ -2,8 +2,9 @@
   <div class="about">
     <!-- 导航区 -->
     <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
+
     <el-form label-width="80px" @submit.native.prevent="save">
-      <el-tabs value="basic" type="border-card">
+      <el-tabs value="basic" type="border-card" class="right-main">
         <!-- 基本信息tab -->
         <el-tab-pane label="基本信息" name="basic">
           <el-form-item label="名称">
@@ -83,26 +84,30 @@
                   class="el-icon-plus"></i>添加英雄介绍视频</el-button>
               <el-row type="flex" style="flex-wrap:wrap;">
                 <el-col v-for="(item,i) in model.introductions" :key="i">
-                  <el-form-item label="英雄：">
+                  <el-form-item label="英雄  ">
                     <el-select v-model="item.hero" filterable>
                       <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
                       </el-option>
                     </el-select>
                   </el-form-item>
-                  <el-form-item label="标题：">
+                  <el-form-item label="标题  ">
                     <el-input v-model="item.title" clearable></el-input>
                   </el-form-item>
-                  <el-form-item label="视频：">
-                    <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="item.video">
-                    </vue-editor>
+                  <el-form-item label="视频  ">
+                    <el-upload class="" :action="upLoadUrl" :headers="getAuthHeaders()" :show-file-list="false"
+                      :on-success="res => item.video = res.url" drag multiple>
+                      <video v-if="item.video" :src="item.video" width="355" controls></video>
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
                   </el-form-item>
-                  <el-form-item label="投稿：">
+                  <el-form-item label="投稿  ">
                     <el-input v-model="item.submit" clearable></el-input>
                   </el-form-item>
-                  <el-form-item label="粉丝：">
+                  <el-form-item label="粉丝  ">
                     <el-input v-model="item.fan" clearable></el-input>
                   </el-form-item>
-                  <el-form-item label="观看次数：">
+                  <el-form-item label="观看次数">
                     <el-input v-model="item.view" clearable></el-input>
                   </el-form-item>
                   <el-form-item>
@@ -140,27 +145,27 @@
               class="el-icon-plus"></i>添加技能</el-button>
           <el-row type="flex" style="flex-wrap:wrap;">
             <el-col :md="12" v-for="(item,i) in model.skills" :key="i">
-              <el-form-item label="名称：">
+              <el-form-item label="名称  ">
                 <el-input v-model="item.name" clearable maxlength="8" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="图标：">
+              <el-form-item label="图标  ">
                 <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()"
                   :show-file-list="false" :on-success="res => $set(item, 'icon', res.url)">
                   <img v-if="item.icon" :src="item.icon" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
-              <el-form-item label="冷却：">
+              <el-form-item label="冷却  ">
                 <el-input v-model="item.delay" clearable maxlength="50" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="消耗：">
+              <el-form-item label="消耗  ">
                 <el-input v-model="item.cost" clearable maxlength="4" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="描述：">
+              <el-form-item label="描述  ">
                 <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.description" clearable
                   maxlength="1000" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="小提示：">
+              <el-form-item label="小提示  ">
                 <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 5}" v-model="item.tips" clearable
                   maxlength="200" show-word-limit></el-input>
               </el-form-item>
@@ -177,13 +182,13 @@
                   class="el-icon-plus"></i>最佳搭档</el-button>
               <el-row type="flex" style="flex-wrap:wrap;">
                 <el-col :md="12" v-for="(item,i) in model.partners" :key="i">
-                  <el-form-item label="英雄：">
+                  <el-form-item label="英雄  ">
                     <el-select v-model="item.hero" filterable>
                       <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
                       </el-option>
                     </el-select>
                   </el-form-item>
-                  <el-form-item label="描述：">
+                  <el-form-item label="描述  ">
                     <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description"
                       clearable maxlength="1000" show-word-limit></el-input>
                   </el-form-item>
@@ -198,13 +203,13 @@
                   class="el-icon-plus"></i>被谁克制</el-button>
               <el-row type="flex" style="flex-wrap:wrap;">
                 <el-col :md="12" v-for="(item,i) in model.restrained" :key="i">
-                  <el-form-item label="英雄：">
+                  <el-form-item label="英雄  ">
                     <el-select v-model="item.hero" filterable>
                       <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
                       </el-option>
                     </el-select>
                   </el-form-item>
-                  <el-form-item label="描述：">
+                  <el-form-item label="描述  ">
                     <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description"
                       clearable maxlength="1000" show-word-limit></el-input>
                   </el-form-item>
@@ -219,13 +224,13 @@
                   class="el-icon-plus"></i>克制谁</el-button>
               <el-row type="flex" style="flex-wrap:wrap;">
                 <el-col :md="12" v-for="(item,i) in model.restraints" :key="i">
-                  <el-form-item label="英雄：">
+                  <el-form-item label="英雄  ">
                     <el-select v-model="item.hero" filterable>
                       <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
                       </el-option>
                     </el-select>
                   </el-form-item>
-                  <el-form-item label="描述：">
+                  <el-form-item label="描述  ">
                     <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 10}" v-model="item.description"
                       clearable maxlength="1000" show-word-limit></el-input>
                   </el-form-item>
@@ -243,10 +248,10 @@
               class="el-icon-plus"></i>添加英雄攻略</el-button>
           <el-row type="flex" style="flex-wrap:wrap;">
             <el-col v-for="(item,i) in model.heroGuides" :key="i">
-              <el-form-item label="标题：">
+              <el-form-item label="标题  ">
                 <el-input v-model="item.title" clearable></el-input>
               </el-form-item>
-              <el-form-item label="英雄：">
+              <el-form-item label="英雄  ">
                 <el-select v-model="item.hero" filterable>
                   <el-option v-for="hero of heroes" :key="hero._id" :label="hero.name" :value="hero._id">
                   </el-option>
@@ -259,18 +264,21 @@
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
-              <el-form-item label="视频：">
-                <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="item.video"
-                  class="video-container-style">
-                </vue-editor>
+              <el-form-item label="视频  ">
+               <el-upload class="" :action="upLoadUrl" :headers="getAuthHeaders()" :show-file-list="false"
+                      :on-success="res => item.video = res.url" drag multiple>
+                      <video v-if="item.video" :src="item.video" width="355" controls></video>
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                    </el-upload>
               </el-form-item>
-              <el-form-item label="投稿：">
+              <el-form-item label="投稿  ">
                 <el-input v-model="item.submit" clearable></el-input>
               </el-form-item>
-              <el-form-item label="粉丝：">
+              <el-form-item label="粉丝  ">
                 <el-input v-model="item.fan" clearable></el-input>
               </el-form-item>
-              <el-form-item label="观看次数：">
+              <el-form-item label="观看次数  ">
                 <el-input v-model="item.view" clearable></el-input>
               </el-form-item>
               <el-form-item>
@@ -280,6 +288,7 @@
           </el-row>
         </el-tab-pane>
       </el-tabs>
+
       <el-form-item>
         <el-button type="primary" native-type="submit" style="margin-top:1rem;">保存</el-button>
       </el-form-item>
@@ -288,16 +297,11 @@
 </template>
 <script>
   import Breadcrumb from '../components/Breadcrumb'
-  // 导入富文本编辑器
-  import {
-    VueEditor
-  } from "vue2-editor";
   export default {
     props: {
       id: {}
     },
     components: {
-      VueEditor,
       Breadcrumb,
     },
     data() {
@@ -428,5 +432,10 @@
   .video-container-style iframe {
     width: 100%;
     height: auto;
+  }
+
+  .right-main {
+    height: auto;
+    overflow: auto;
   }
 </style>

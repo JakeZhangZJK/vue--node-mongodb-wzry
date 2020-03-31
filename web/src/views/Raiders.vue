@@ -39,7 +39,8 @@
           require("../assets/images/guide-2.jpg"),
           require("../assets/images/guide-3.jpg"),
           require("../assets/images/guide-4.jpg")
-        ]
+        ],
+
       }
     },
     methods: {

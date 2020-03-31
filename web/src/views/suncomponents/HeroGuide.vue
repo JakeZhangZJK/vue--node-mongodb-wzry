@@ -7,7 +7,7 @@
           <div tag="div" class="p-2 text-center" style="width:25%"
             v-for="(hero,i) in category.heroList" :key="i">
             <img :src="hero.avatar" alt="" class="w-100">
-            <div>{{hero.name}}</div>
+            <div>{{hero.name}}</div>  
           </div>
         </div>
       </template>

@@ -8,8 +8,12 @@
         <el-input v-model="model.title" clearable></el-input>
       </el-form-item>
         <el-form-item label="封面图">
-            <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()" :show-file-list="false"
-              :on-success="res => model.image = res.url" :before-upload="beforeAvatarUpload">
+            <el-upload class="avatar-uploader" 
+            :action="upLoadUrl" 
+            :headers="getAuthHeaders()" 
+            :show-file-list="false"
+              :on-success="res => model.image = res.url" 
+              :before-upload="beforeAvatarUpload">
               <img v-if="model.image" :src="model.image" class="avatar">
 
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -21,7 +25,18 @@
             </el-select>
           </el-form-item>
       <el-form-item label="视频">
-        <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="model.video" class="video-container-style"></vue-editor>
+      <el-upload
+        class=""
+        :action="upLoadUrl" 
+        :headers="getAuthHeaders()" 
+        :show-file-list="false"
+        :on-success="res => model.video = res.url" 
+        drag
+        multiple>
+        <video v-if="model.video" :src="model.video" width="355" controls></video>
+  <i class="el-icon-upload"></i>
+  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+</el-upload>
       </el-form-item>
       <el-form-item label="投稿">
         <el-input v-model="model.submit" clearable></el-input>
@@ -41,16 +56,11 @@
 </template>
 <script>
 import Breadcrumb from '../components/Breadcrumb'
- // 导入富文本编辑器
-  import {
-    VueEditor
-  } from "vue2-editor";
   export default {
     props: {
       id: {}
     },
      components: {
-      VueEditor,
       Breadcrumb
     },
     data() {

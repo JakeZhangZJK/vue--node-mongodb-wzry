@@ -117,7 +117,7 @@
             </div>
           </swiper-slide>
           <!-- 英雄初识 tab  end -->
-          
+
           <swiper-slide>
             <div class="hero-guide-plus bg-white">
               <div class="hero-guide-plus-container px-3 py-1">
@@ -149,7 +149,9 @@
           <div @click="showHeroGuide = false" class="iconfont icon-back  pb-1 text-blue"></div>
           <strong class="flex-1 fs-lg text-ellipsis pl-2 text-blue">{{curentHeroGuide.title}}</strong>
         </div>
-        <div class="hero-guide-video all-video-width m-0" v-html="curentHeroGuide.video"></div>
+        <div class="video-container-all">
+          <video class=" ml-2 hero-guide-video-all" :src="curentHeroGuide.video" controls></video>
+        </div>
         <div class="p-1 px-2 mr-2 hero-video-info border-bottom border-top  border-right d-flex m-0">
           <img class="hero-avatar " :src="curentHeroGuide.hero.avatar" alt="" width="55">
           <div class="hero-video-info-sun ml-2  flex-1 ">
@@ -169,7 +171,9 @@
           <div @click="showVideo = false" class="iconfont icon-back  pb-1 text-blue"></div>
           <strong class="flex-1 fs-lg text-ellipsis pl-2 text-blue">{{item.title}}</strong>
         </div>
-        <div class="hero-guide-video m-0 all-video-width" v-html="item.video"></div>
+        <div class="video-container-all">
+          <video class=" ml-2 hero-guide-video-all" :src="item.video" controls></video>
+        </div>
         <div class="p-1 px-2 mr-2 hero-video-info border-bottom border-top  border-right d-flex m-0">
           <img class="hero-avatar" :src="item.hero.avatar" alt="">
           <div class="hero-video-info-sun ml-2 d-flex flex-column flex-1 ">
@@ -250,20 +254,25 @@
 </script>
 <style lang="scss">
   @import '../assets/scss/_variables.scss';
+
   .van-popp-height {
     height: 100%;
   }
+
   .hero-video-container {
     margin: 0;
     height: 94vh;
+
     img {
       width: 60px;
       height: auto;
     }
   }
+
   .skins-container {
     width: 100%;
     height: 100%;
+
     img.hero-skin {
       width: 100%;
       height: 100%;

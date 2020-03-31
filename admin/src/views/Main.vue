@@ -25,9 +25,11 @@
         </el-menu>
       </el-aside>
       <!-- 右侧主体 -->
-      <el-main>
+      
+      <el-main class="mian-right">
         <router-view></router-view>
       </el-main>
+     
     </el-container>
   </el-container>
 </template>
@@ -129,7 +131,10 @@
 <style  scoped>
 .main-container{
   height: 100vh;
-  overflow:hidden;
+   
+}
+.mian-right{
+  overflow-y: auto;
 }
 .el-header{
   background-color: #373d41;
