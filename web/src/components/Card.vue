@@ -3,7 +3,7 @@
     <div>
         <!-- card component -->
         <div class="card bg-white px-4 mt-3">
-            <div class="card-header ai-center d-flex pt-3" :calss="{'border-bottom':!plain,'pb-3':!plain}">
+            <div class="card-header ai-center d-flex pt-3 pb-2 border-bottom">
                 <i class="iconfont" :class="`icon-${icon}`"></i>
                 <div class="text fs-xl flex-1 px-2"><strong>{{title}}</strong></div>
                 <i class="iconfont icon-moreread" v-if="!plain"></i>

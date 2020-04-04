@@ -114,15 +114,13 @@ module.exports = app => {
     const token = jwt.sign({
       id: user._id
     }, app.get('secret'), {
-      expiresIn: '9999h'
+      expiresIn: '24h'
     }) // 通过调用 sign 方法, 把 **用户信息**、**密钥** 生成token，并设置过期时间 
     res.send({
       user,
       token
     })
   })
-
-
   //错处统一处理函数
   app.use(async (err, req, res, next) => {
     res.status(err.statusCode || 500).send({

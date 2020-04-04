@@ -6,7 +6,7 @@
         <div class="d-flex flex-wrap" v-if="category.heroList">
           <div tag="div" class="p-2 text-center" style="width:25%"
             v-for="(hero,i) in category.heroList" :key="i">
-            <img :src="hero.avatar" alt="" class="w-100">
+            <img :src="hero.avatar" alt="" class="w-100" :class="{active:currentHeroAvatarIndex===i}" @click="currentHeroAvatarIndex = i">
             <div>{{hero.name}}</div>  
           </div>
         </div>
@@ -25,7 +25,9 @@
       }
     },
     data() {
-      return {}
+      return {
+        currentHeroAvatarIndex:0
+      }
     },
   }
 </script>

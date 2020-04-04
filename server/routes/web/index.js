@@ -581,6 +581,10 @@ module.exports = app => {
     const heroes = await Hero.find().limit(6)
     res.send(heroes)
   })
+  router.get('/heroes_all/list', async (req, res) => {
+    const heroesAll = await Hero.find()
+    res.send(heroesAll)
+  })
 
    // 英雄数据接口
    router.get('/heroes/list', async (req, res) => {

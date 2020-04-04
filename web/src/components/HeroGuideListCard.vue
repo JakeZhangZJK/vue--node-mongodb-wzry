@@ -4,10 +4,10 @@
       <div class="m-1 " v-for="(hero,i) in heroes6" :key="`hero${i}`"> 
         <img :src="hero.avatar" alt="" class="w-100 hero-avatar-size">
       </div>
-      <button class="show-list-btn ml-1 py-1 px-2  fs-xs" v-if="!show" @click="show = !show">展开</button>
-      <button class="show-list-btn ml-1 py-1 px-2  fs-xs" v-if="show" @click="show = !show">收起</button>
+      <button class="show-list-btn ml-1 py-1 px-2  fs-xs" v-if="show" @click="show = !show">展开</button>
+      <button class="show-list-btn ml-1 py-1 px-2  fs-xs" v-if="!show" @click="show = !show">收起</button>
     </div>
-    <div class="m-0 hero-guide-container-2" v-show="show">
+    <div class="m-0 hero-guide-container-2" v-show="!show">
     <ul class="nav2 m-0 title-float-right flex-column jc-between ai-end">
       <li class="nav-item  px-4 py-3" :class="{active: active === i}"
       v-for="(category, i) in categories" :key="i"
@@ -20,6 +20,7 @@
       @slide-change="() => active = $refs.list.swiper.realIndex">
         <swiper-slide v-for="(category, i) in categories" :key="i">
           <slot name="items2" :category="category"></slot>
+          <slot name="items3" :category="category"></slot>
         </swiper-slide>
       </swiper>
     </div>

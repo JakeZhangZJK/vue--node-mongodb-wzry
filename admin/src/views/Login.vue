@@ -24,7 +24,9 @@
   export default {
     data() {
       return {
-        logindata: {}
+        logindata: {
+          
+        }
       }
     },
     methods: {
@@ -39,6 +41,7 @@
           message: username + '，欢迎您！'
         })
       },
+    
     }
   }
 </script>

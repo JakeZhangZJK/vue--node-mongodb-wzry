@@ -81,13 +81,13 @@
               </m-card>
               <!-- 推荐出装card end -->
               <m-card plain icon="menu" title="使用技巧">
-                <p class="m-0">{{model.usageTips}}</p>
+                <p class="m-0 py-1">{{model.usageTips}}</p>
               </m-card>
               <m-card plain icon="VS" title="对抗技巧">
-                <p class="m-0">{{model.battleTips}}</p>
+                <p class="m-0 py-1">{{model.battleTips}}</p>
               </m-card>
               <m-card plain icon="idea" title="团战思路">
-                <p class="m-0">{{model.teamTips}}</p>
+                <p class="m-0 py-1">{{model.teamTips}}</p>
               </m-card>
               <m-card plain icon="team" title="英雄关系">
                 <div class="fs-xl mt-2">最佳搭档</div>
@@ -117,10 +117,10 @@
             </div>
           </swiper-slide>
           <!-- 英雄初识 tab  end -->
-
+          <!-- 英雄进阶攻略 tab   -->
           <swiper-slide>
             <div class="hero-guide-plus bg-white">
-              <div class="hero-guide-plus-container px-3 py-1">
+              <div class="hero-guide-plus-container px-3 py-1" v-if="model.heroGuides">
                 <div class="hero-guide-item border-bottom  d-flex pb-3 mt-3" v-for="(item,i) in model.heroGuides"
                   :key="i" @click="showHeroGuide = true;curentGuideIndex = i">
                   <img class="w-100 img-guide-width" :src="item.cover" alt="">

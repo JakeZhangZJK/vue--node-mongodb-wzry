@@ -6,7 +6,7 @@
         <img src="../assets/images/logo1.png" alt="">
         <span>王者荣耀官网后台管理系统</span>
       </div>
-      <el-button type="text" size="middle" style="color:grey"> <i class="el-icon-switch-button"></i> 退出</el-button>
+      <el-button type="text" size="middle" style="color:grey" @click="outLogin"> <i class="el-icon-switch-button" style="color:#fdb933"></i> 退出</el-button>
     </el-header>
     <el-container>
       <!-- 侧边栏 -->
@@ -115,6 +115,18 @@
       }
     },
     methods: {
+        outLogin(){
+           this.$confirm(`是否退出当前账户`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          window.localStorage.clear()
+          this.$router.push('/login')
+        })
+         
+        
+      },
       toggleCollpase(){
         this.isCollpase = !this.isCollpase;
       },

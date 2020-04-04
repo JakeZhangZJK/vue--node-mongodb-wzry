@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
+  index:{ type: Number },
   name: { type: String },// 名称
   avatar: { type: String },// 头像
   title: { type: String },// 称号

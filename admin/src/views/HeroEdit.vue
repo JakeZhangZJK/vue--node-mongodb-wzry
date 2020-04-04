@@ -18,6 +18,9 @@
               <el-option v-for="item of categories" :key="item._id" :label="item.name" :value="item._id"></el-option>
             </el-select>
           </el-form-item>
+          <el-form-item label="Index">
+             <el-input-number v-model="model.index" :step="1" :min="0"></el-input-number>
+          </el-form-item>
           <el-form-item label="头像">
             <el-upload class="avatar-uploader" :action="upLoadUrl" :headers="getAuthHeaders()" :show-file-list="false"
               :on-success="afterUpload" :before-upload="beforeAvatarUpload">
