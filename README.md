@@ -1,5 +1,5 @@
 # 简介
-vue--node-mongodb-wzry是一个移动端的仿王者荣耀手机端官网和后台管理系统的全栈开源项目，它基于 vue + node (Express + ElementUI) +mongodb实现。参照于Johnny老师的GitHub开源项目（[node-vue-moba]( https://github.com/topfullstack/node-vue-moba)），在这里非常感谢Johnny老师提供的教程，一路下来，从业务流程、编码规范、逻辑思维到新知识的学习，还是学到了许多，我在原有的基础上进行了原有模块完善和扩展了新的模块以及界面美化。本项目使用了最新的Vue全家桶技术栈，后台数据通过node+mongodb搭建。
+vue--node-mongodb-wzry是一个移动端的仿王者荣耀手机端官网和后台管理系统的全栈开源项目，它基于 vue + node (Express + ElementUI) +mongodb实现。本项目使用了最新的Vue全家桶技术栈，后台数据通过node+mongodb搭建。
 ## 一、 环境准备
 1. 工具安装和环境搭建(nodejs,npm,mongodb)
 
