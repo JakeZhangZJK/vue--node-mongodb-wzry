@@ -1,7 +1,7 @@
 <!---->
 <template>
   <div>
-    <!-- 导航区 -->
+    <!-- 导航区域 -->
     <Breadcrumb :breadcrumbItem="breadcrumbItem"></Breadcrumb>
     <el-card>
       <el-row :gutter="20">
