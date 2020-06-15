@@ -1,0 +1,225 @@
+@import "./normalize";
+
+@import "./varible";
+
+// 媒体查询-----------------------------------------------------------------------
+
+html {
+  font-size: 1rem;
+}
+
+@each $var in $screen_width {
+  @media screen and (min-width: #{$var}) {
+    html {
+      font-size: $var/$servings;
+    }
+  }
+}
+
+// 定义工具类----------------------------------------------------------------------
+
+// 定义flex布局
+.d-flex {
+  display: flex;
+}
+
+.f-column {
+  flex-direction: column;
+}
+
+.f-wrap {
+  flex-wrap: wrap;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.border-p {
+  border-color: $base_color !important;
+}
+
+@each $key, $value in $flex_jc {
+  .jc-#{$key} {
+    justify-content: $value;
+  }
+}
+
+@each $key, $value in $flex_ai {
+  .ai-#{$key} {
+    align-items: $value;
+  }
+}
+
+// 定义字体大小
+@each $key, $value in $fs {
+  .#{$key} {
+    font-size: $value;
+  }
+}
+
+// 定义背景颜色
+@each $key, $value in $bgc {
+  .bgc-#{$key} {
+    background-color: $value;
+  }
+}
+
+// 定义边距
+@each $key1, $value1 in $spcing_diretion {
+  @each $key2, $value2 in $spacing_size {
+    .m#{$key1}#{$key2} {
+      margin-#{$value1}: $value2;
+    }
+    .p#{$key1}#{$key2} {
+      padding-#{$value1}: $value2;
+    }
+  }
+}
+
+@each $key, $value in $spacing_size {
+  .m#{$key} {
+    margin: $value;
+  }
+  .m0-#{$key} {
+    margin: 0 $value;
+  }
+  .m#{$key}-0 {
+    margin: $value 0;
+  }
+  .p#{$key} {
+    padding: $value;
+  }
+  .p0-#{$key} {
+    padding: 0 $value;
+  }
+  .p#{$key}-0 {
+    padding: $value 0;
+  }
+}
+
+@each $key, $value in $font_color {
+  .fc-#{$key} {
+    color: $value;
+  }
+}
+
+.l {
+  float: left;
+}
+
+.r {
+  float: right;
+}
+
+//清除浮动
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.clearfix {
+  *zoom: 1;
+}
+
+// 文字居中样式
+.t-center {
+  text-align: center;
+}
+// 文字一行显示
+.t-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.t-ellipsis-2 {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.w100 {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.b-bottom {
+  border-bottom: 0.04rem solid #d4d9de;
+}
+
+.d-block {
+  display: block;
+}
+
+// 初始化样式样式---------------------------------------------
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  max-width: $servings * 1rem;
+  margin: 0 auto;
+  background-color: #ededed;
+  font: 0.48rem/1.5 "Helvetica Neue", Helvetica, STHeiTi, "\5FAE\8F6F\96C5\9ED1", sans-serif;
+}
+
+div,
+i,
+a,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+i {
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+li {
+  list-style: none;
+}
+
+a,
+a:hover,
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+}

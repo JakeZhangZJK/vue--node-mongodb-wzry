@@ -1,22 +1,22 @@
 const mongoose = require('mongoose')
 
-const schema = new mongoose.Schema({
+const categorySchema = new mongoose.Schema({
   name: { type: String },
-  parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
-  title: { type: String },
-  banner: {type: String},
+  parent: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'Category',
+    default: null
+  },
+  desc: { type: String }
 })
-schema.virtual('children', {
+
+categorySchema.virtual('children', {
   localField: '_id',
   foreignField: 'parent',
   justOne: false,
-  ref:'Category'
-})
-schema.virtual('newsList', {
-  localField: '_id',
-  foreignField: 'categories',
-  justOne: false,
-  ref:'Article'
+  ref: 'Category'
 })
 
-module.exports = mongoose.model('Category', schema)
+const Category = mongoose.model('Category', categorySchema)
+
+module.exports = Category

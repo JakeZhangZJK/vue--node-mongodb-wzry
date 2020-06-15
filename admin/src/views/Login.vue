@@ -1,115 +1,160 @@
 <template>
-  <div class="login-container">
-    <!-- 遮罩层 -->
-    <div class="overlay"></div>
-    <el-card header="管理员登录" class="box-card login-card" shadow="hover">
-      <el-form @submit.native.prevent="login">
-        <el-form-item>
-          <el-input class="login-input" placeholder="用户名" v-model="logindata.username" prefix-icon="el-icon-user"
-            clearable></el-input>
+  <div class="login">
+    <!-- 登陆表单区域 -->
+    <el-card class="login-card">
+      <el-form
+        label-width="0"
+        ref="loginFormRef"
+        :rules="LoginRules"
+        :model="LoginForm"
+        class="login-form"
+      >
+        <h3 class="title">管理员登录</h3>
+
+        <el-form-item class="username" prop="username">
+          <!-- 用户名 -->
+          <el-input
+            @keyup.native.enter="login"
+            v-model="LoginForm.username"
+            prefix-icon="el-icon-user-solid"
+            placeholder="用户名"
+          ></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input type="password" placeholder="密码" class="login-input" v-model="logindata.password"
-            prefix-icon="el-icon-unlock" show-password>
-          </el-input>
+
+        <el-form-item class="password" prop="password">
+          <!-- 密码 -->
+          <el-input
+            @keyup.native.enter="login"
+            v-model="LoginForm.password"
+            prefix-icon="el-icon-lock"
+            type="password"
+            placeholder="密码"
+          ></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button class="login-btn" type="primary" native-type="submit">登录</el-button>
+
+        <el-form-item class="btns">
+          <el-button   type="primary" @click="login()">登陆</el-button>
+          <el-button type="info" @click="resetLoginForm()">重置</el-button>
         </el-form-item>
       </el-form>
     </el-card>
   </div>
 </template>
+ 
 <script>
-  export default {
-    data() {
-      return {
-        logindata: {
-          
-        }
-      }
-    },
-    methods: {
-      async login() {
-        const res = await this.$http.post('login', this.logindata)
-        // sessionStorage.token = res.data.token
-        localStorage.token = res.data.token;
-        const username = res.data.user.username;
-        this.$router.push('/')
-        this.$message({
-          type: 'success',
-          message: username + '，欢迎您！'
-        })
+//导入网络请求
+import { loginReq } from 'network/admin/login'
+
+export default {
+  name: 'Login',
+  data() {
+    let checkUsername = (rule, value, callback) => {
+      const regUsername = /^[a-zA-Z][\w]{2,9}$/
+      if (regUsername.test(value)) return callback()
+      callback(new Error('请输入合法的用户名'))
+    }
+
+    let checkPassword = (rule, value, callback) => {
+      const regPsw = /^[\w.]{6,15}$/
+      if (regPsw.test(value)) return callback()
+      callback(new Error('请输入合法的登陆密码'))
+    }
+
+    return {
+      //登陆表单的数据绑定对象
+      LoginForm: {
+        username: 'test',
+        password: '123456'
       },
-    
+      //表单验证规则
+      LoginRules: {
+        username: [
+          {
+            required: true,
+            message: '请输入用户名',
+            trigger: 'blur'
+          },
+          {
+            validator: checkUsername,
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: '请输入登陆密码',
+            trigger: 'blur'
+          },
+          {
+            validator: checkPassword,
+            trigger: 'blur'
+          }
+        ],
+      }
+    }
+  },
+  methods: {
+    //点击按钮,重置表单
+    resetLoginForm() {
+      this.$refs.loginFormRef.resetFields()
+    },
+    login() {
+
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return this.$message.error('请输入格式正确的用户名和密码')
+
+        const res = await loginReq(this.LoginForm)
+        if (!res) return
+
+        this.$message.success('登陆成功')
+        // 保存token
+        sessionStorage.setItem('token', res.data.token)
+        // 跳转到main
+        this.$router.push('/')
+
+      })
+
     }
   }
+}
 </script>
-<style lang="scss" scoped>
-  .login-container {
-    margin: 0;
-    padding: 0;
-    height: 99.5vh;
-    // background: url("../assets/images/bg.gif") 50% 50% no-repeat;
-    background-size: cover;
-    z-index: 0;
-    .login-header {
-      width: 100%;
-      text-align: center;
-      color: rgb(255, 255, 255);
-    }
-    .overlay {
-      height: 99.5vh;
-      margin: 0;
-      padding: 0;
-      background-color: rgba(36, 40, 46, 0.6);
-      overflow: hidden;
-      background-image: linear-gradient(125deg, #fa983a, #6a89cc, #60a3bc, #8e44ad); // 线性渐变
-      // background-image: radial-gradient(circle, #324252, #27ae76, #2980b9, #e74c3c, #8e44ad);// 径向渐变
-      background-size: 400%;
-      animation: bganimation 30s infinite;
-      .title {
-        // margin-top: 10rem;
-        margin-top: 4rem;
-      }
-      h1 {
-        margin: 0;
-        word-spacing: 3rem;
-      }
-    }
-    .login-card {
-      background-color: rgba(26, 25, 25, 0.3) !important;
-      border: 1px solid rgba(165, 159, 159, 0.5) !important;
-      color: rgb(204, 221, 236);
-      width: 25rem;
-      margin: 8rem auto;
-      margin-top: -40rem;
-      z-index: 999;
-    }
-    .login-btn {
-      width: 22.5rem;
-      background-color: rgba(16, 177, 142, 0.5) !important;
-    }
-    @keyframes bganimation {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-  }
-</style>
-<style>
-/* 修改element 输入框的默认样式 */
-  .login-card .el-input__inner {
-    color: rgb(204, 221, 236);
-    background-color: rgba(26, 25, 25, 0.1) !important;
-    background-image: none;
-    border-radius: 4px;
-    border: 1px solid rgba(165, 159, 159, 0.8) !important;
-  }
+ 
+<style  scoped>
+.title {
+  width: 100%;
+  text-align: center;
+}
+.login {
+  width: 100%;
+  height: 100%;
+  background: url("../assets/img/login/login-bg.jpg") no-repeat 0 0;
+  background-size: cover;
+}
+.login-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 30px;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  height: 30%;
+  min-width: 400px;
+  min-height: 230px;
+}
+.btns {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+.login-form {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+}
+.username,
+.password {
+  margin-bottom: 30px;
+}
 </style>

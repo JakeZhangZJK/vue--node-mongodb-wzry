@@ -1,131 +1,178 @@
 module.exports = app => {
-  const express = require("express")
-  const jwt = require('jsonwebtoken')
-  const AdminUser = require('../../models/AdminUser')
-  const router = express.Router({
-    mergeParams: true // 合并url参数
+  const express = require('express')
+  const router = express.Router()
+  const assert = require('http-assert')
+
+  //登录验证中间件
+  const auth = require('../../middlleware/validateMiddleWear')
+  const access = require('../../middlleware/access')
+
+  // 监听所有通用接口-----------------------------------------------------------
+  app.use('/admin/api/rest/:resource', auth(app), async (req, res, next) => {
+    const modelName = require('inflection').classify(req.params.resource)
+    req.Model = require(`../../models/${modelName}`)
+    next()
+  }, router)
+
+  //创建
+  router.post('/', access(app), async (req, res) => {
+    try {
+      const model = await req.Model.create(req.body)
+      res.send(model)
+    } catch (error) {
+      res.status(400).send({ message: '传入的参数有误' })
+    }
+
   })
 
-  // 通用新增接口
-  router.post('/', async (req, res) => {
-    const model = await req.Model.create(req.body)
-    res.send(model)
-  })
-  // 通用修改接口
-  router.put('/:id', async (req, res) => {
-    const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
-    res.send(model)
-  })
-  // 通用删除接口
-  router.delete('/:id', async (req, res) => {
-    await req.Model.findByIdAndDelete(req.params.id)
-    res.send({
-      success: true
-    })
-  })
-  // 通用获取列表接口
-  router.get('/', async (req, res) => {
-    const queryOptions = {}
-    let pageNum = req.query.pageNum;
-    let pageSize = req.query.pageSize;
-    let count = await req.Model.find().count() // 总条数
-    let items = ''
-    let obj = ''
-    // 为了通用性，这里不单独写Category的接口，因为Category要特殊获取上级分类，
-    // 所以这里将它设置为动态参数传进去，以后类似的特殊请求都可以这样处理
-    if (req.Model.modelName === 'Category' || req.Model.modelName === 'Model') {
-      queryOptions.populate = 'parent'
-    }
-    if (pageNum) {
-      items = await req.Model.find()
-        .setOptions(queryOptions)
-        .skip(parseInt(pageSize) * parseInt(pageNum - 1))
-        .limit(parseInt(pageSize));
-      obj = {
-        count,
-        items
-      }
+
+  //获取列表
+  router.get('/', async (req, res, next) => {
+
+    // if (Object.keys(req.query).length === 0) return next()
+    if (!(req.query.pagenum || req.query.pagesize)) return next()
+    const pagenum = Number(req.query.pagenum)
+    const pagesize = Number(req.query.pagesize)
+    const skipNum = (pagenum - 1) * pagesize
+    const total = await req.Model.countDocuments()
+    let data
+    if (req.query.query) {
+      data = await req.Model.find({ name: req.query.query }).skip(skipNum).limit(pagesize).populate('cate')
     } else {
-      obj = await req.Model.find().setOptions(queryOptions).limit(count)
+      data = await req.Model.find().skip(skipNum).limit(pagesize).populate('cate')
     }
-    res.send(obj)
+    res.send({
+      total,
+      data
+    })
+
+  }, async (req, res) => {
+
+    if (req.Model.modelName === 'Category') {
+      const parents = await req.Model.find().where({
+        parent: null
+      }).lean()
+
+      // const tree = async parents => {
+      //   return await parents.map(async item => {
+      //     const children = await req.Model.aggregate([
+      //       { $match: { parent: item._id } },
+      //       {
+      //         $lookup: {
+      //           from: 'Category',
+      //           localField: '_id',
+      //           foreignField: 'parent',
+      //           as: 'children'
+      //         }
+      //       }
+      //     ])
+
+      //     if(children.length < 1) return item
+
+      //     item.children = children
+      //     tree(item.children)
+
+      //     return item
+
+      //   })
+
+      // }
+      // const data = await Promise.all(tree(parents))
+
+      // return res.send(data)
+
+      for (let i = 0; i < parents.length; i++) {
+
+        parents[i].children = await req.Model.aggregate([
+          { $match: { parent: parents[i]._id } },
+          {
+            $lookup: {
+              from: 'Category',
+              localField: '_id',
+              foreignField: 'parent',
+              as: 'children'
+            }
+          }
+        ])
+
+        const lenth = parents[i].children.length
+
+        for (let j = 0; j < lenth; j++) {
+          // console.log((parents[i].children)[j]);
+
+          (parents[i].children)[j].children = await req.Model.aggregate([
+            { $match: { parent: (parents[i].children)[j]._id } },
+            {
+              $lookup: {
+                from: 'Category',
+                localField: '_id',
+                foreignField: 'parent',
+                as: 'children'
+              }
+            }
+          ])
+        }
+
+      }
+
+      return res.send(parents)
+
+    }
+
+    const queryOptions = {}
+    if (req.Model.modelName === 'Article') {
+      queryOptions.populate = 'cate'
+    }
+
+    if (req.Model.modelName === 'Hero') {
+      if (req.query.query) {
+        const model = await Hero.find({ name: req.query.query })
+        res.send(model)
+      } else {
+        const model = await req.Model.find().setOptions(queryOptions)
+        return res.send(model)
+      }
+    }
+    const model = await req.Model.find().setOptions(queryOptions)
+    res.send(model)
+
   })
-  // 通用获取一条数据接口
+
+  // 通过id查找
   router.get('/:id', async (req, res) => {
     const model = await req.Model.findById(req.params.id)
     res.send(model)
   })
 
-
-  // 登录校验中间件
-  const authMiddleWare = require('../../middleware/auth.js')
-  // 资源匹配中间件
-  const resourceMiddleWare = require('../../middleware/resource.js')
-
-  // 资源路由
-  app.use('/admin/api/rest/:resource', authMiddleWare(), resourceMiddleWare(), router)
-
-
-
-  // 图片上传接口
-  const multer = require('multer') // 导入上传文件中间件的依赖包，需要先安装
-  const upload = multer({
-    dest: __dirname + '/../../uploads'
-  })
-  // 上传中间件
-  app.post('/admin/api/upload', authMiddleWare(), upload.single('file'), async (req, res) => {
-    const file = req.file
-    file.url = `http://localhost:3000/uploads/${file.filename}`
-    res.send(file)
+  //编辑提交
+  router.put('/:id', access(app), async (req, res) => {
+    const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
+    res.send(model)
   })
 
+  //根据id删除
+  router.delete('/:id', access(app), async (req, res) => {
+    // 禁止删除有子分类的父级分类
+    if (req.Model.modelName === 'Category') {
 
-  // 登录接口
-  app.post('/admin/api/login', async (req, res) => {
-    const {
-      username,
-      password
-    } = req.body;
-    // 1.根据用户名找用户
+      const parent = await req.Model.findById(req.params.id)
 
-    const user = await AdminUser.findOne({
-      username
-    }).select('+password')
-    // assert(user, 422, {
-    //   message: '用户不存在！'
-    // })
-    if (!user) {
-      return res.status(422).send({
-        message: '用户不存在！'
-      })
-    }
-    // 2.校验密码
-    const isValid = require('bcryptjs').compareSync(password, user.password)
-    // assert(isValid, 422, { message:'密码错误！'})
-    if (!isValid || isValid == '') {
-      return res.status(422).send({
-        message: '密码错误！'
-      })
+      const children = await req.Model.aggregate([
+        { $match: { parent: parent._id } },
+        {
+          $lookup: {
+            from: 'Category',
+            localField: '_id',
+            foreignField: 'cate',
+            as: 'children'
+          }
+        }
+      ])
+
+      assert(children.length < 1, 403, '无法删除')
     }
 
-
-    // 3.返回token
-
-    const token = jwt.sign({
-      id: user._id
-    }, app.get('secret'), {
-      expiresIn: '24h'
-    }) // 通过调用 sign 方法, 把 **用户信息**、**密钥** 生成token，并设置过期时间 
-    res.send({
-      user,
-      token
-    })
+    await req.Model.findByIdAndDelete(req.params.id)
+    res.send({ message: '删除成功' })
   })
-  //错处统一处理函数
-  app.use(async (err, req, res, next) => {
-    res.status(err.statusCode || 500).send({
-      message: err.message
-    })
-  })
-
 }

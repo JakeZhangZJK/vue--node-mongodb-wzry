@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"irectoryperdb.items"}],"uuid":"a55d3bbbf14b43d6950a5125b0cde6e8"}

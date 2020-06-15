@@ -1,0 +1,81 @@
+//定义精灵图地址
+$sprite_url: "~assets/img/sprite/index.png";
+
+$base_color: #db9e3f;
+
+//定义基础字体大小
+$base_font: 25;
+
+//定义分成多少等份
+$servings: 15;
+
+//定义媒体查询屏幕尺寸
+$screen_width: (320px, 360px, 375px, 384px, 400px, 411px, 414px, 424px, 480px, 540px, 720px, 750px, 768px, 1024px);
+
+$flex_jc: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+);
+
+$flex_ai: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  stretch: stretch,
+);
+
+//定义字体大小
+$fs: (
+  fs12: 0.48rem,
+  fs13: 0.52rem,
+  fs14: 0.56rem,
+  fs15: 0.6rem,
+  fs16: 0.64rem,
+  fs17: 0.68rem,
+  fs18: 0.72rem,
+  fs20: 0.8rem,
+);
+
+//定义背景颜色
+$bgc: (
+  p: #db9e3f,
+  w: #fff,
+);
+
+//定义边距
+$spcing_diretion: (
+  t: top,
+  b: bottom,
+  l: left,
+  r: right,
+);
+$spacing_size: (
+  -8: -0.32rem,
+  -5: -0.2rem,
+  3: 0.16rem,
+  5: 0.2rem,
+  6: 0.24rem,
+  7: 0.28rem,
+  8: 0.32rem,
+  9: 0.36rem,
+  10: 0.4rem,
+  12: 0.48rem,
+  15: 0.6rem,
+  20: 0.8rem
+);
+
+//定义字体颜色
+$font_color: (
+  p: #db9e3f,
+  w: #fff,
+  2: #222,
+  3: #343440,
+  6: #666,
+  7: #7a7a80,
+  8: #868686,
+  9: #999,
+  10:#4394e4,
+);

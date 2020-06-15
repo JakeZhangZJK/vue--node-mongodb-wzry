@@ -1,93 +1,90 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Main from '../views/Main.vue'
-import Login from '../views/Login.vue'
-// import Login2 from '../views/Login2.vue'
+import VueRouter from 'vue-router'
 
-import CategoryEdit from '../views/CategoryEdit.vue'
-import CategoryList from '../views/CategoryList.vue'
-import ItemEdit from '../views/ItemEdit.vue'
-import ItemList from '../views/ItemList.vue'
-import HeroEdit from '../views/HeroEdit.vue'
-import HeroList from '../views/HeroList.vue'
-import ArticleEdit from '../views/ArticleEdit.vue'
-import ArticleList from '../views/ArticleList.vue'
-import AdEdit from '../views/AdEdit.vue'
-import AdList from '../views/AdList.vue'  
-import AdminUserEdit from '../views/AdminUserEdit.vue'
-import AdminUserList from '../views/AdminUserList.vue'  
-import ModelEdit from '../views/ModelEdit.vue'
-import ModelList from '../views/ModelList.vue'  
-import VideoEdit from '../views/VideoEdit.vue'
-import VideoList from '../views/VideoList.vue'      
-import GuideEdit from '../views/GuideEdit.vue'
-import GuideList from '../views/GuideList.vue' 
-import Welcome from '../views/Welcome.vue' 
-Vue.use(Router)
+import Main from 'views/Main'
 
-const router =  new Router({
-  routes: [
-    // 登录路由
-    { path: '/login', name: 'login', component: Login, meta: { isPublic: true } },
-    {
+Vue.use(VueRouter)
+
+const routes = [{
+    path: '/login',
+    component: () => import('../views/Login.vue'),
+    meta: {
+      noRequiredAuth: true
+    }
+  },
+  {
     path: '/',
-    name: 'main',
-      component: Main,
-    redirect:'/welcome',
-      children: [
-       // 首页子路由
-       { path: '/welcome', component: Welcome },
-      // 分类子路由
-      { path: '/categories/create', component: CategoryEdit },
-      { path: '/categories/edit/:id', component: CategoryEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-      { path: '/categories/list', component: CategoryList },
-      
-      // 装备路由
-      { path: '/items/create', component: ItemEdit },
-      { path: '/items/edit/:id', component: ItemEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-      { path: '/items/list',component: ItemList},
-
-      // 英雄路由
-      { path: '/heroes/create', component: HeroEdit },
-      { path: '/heroes/edit/:id', component: HeroEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-      { path: '/heroes/list', component: HeroList },
-
-       // 文章路由
-       { path: '/articles/create', component: ArticleEdit },
-       { path: '/articles/edit/:id', component: ArticleEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-       { path: '/articles/list', component: ArticleList },
-        // 广告路由
-        { path: '/ads/create', component: AdEdit },
-        { path: '/ads/edit/:id', component: AdEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-        { path: '/ads/list', component: AdList },
-        
-       // 管理员路由
-       { path: '/admin_users/create', component: AdminUserEdit },
-       { path: '/admin_users/edit/:id', component: AdminUserEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-       { path: '/admin_users/list', component: AdminUserList },
-       // 左侧菜单栏路由
-       { path: '/models/create', component: ModelEdit },
-       { path: '/models/edit/:id', component: ModelEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-       { path: '/models/list', component: ModelList },
-       
-        // 视频分类路由
-        { path: '/Videos/create', component: VideoEdit },
-        { path: '/Videos/edit/:id', component: VideoEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-        { path: '/Videos/list', component: VideoList },
-        
-       // 图文攻略路由
-       { path: '/guides/create', component: GuideEdit },
-       { path: '/guides/edit/:id', component: GuideEdit,props:true },// 将路由里面的id注入到编辑页面，到前端页面去用props接受,这样就可以和“新建分类”公用一个页面
-      { path: '/guides/list', component: GuideList },
+    component: Main,
+    redirect: '/welcome',
+    children: [
+      //welcome
+      {
+        path: 'welcome',
+        component: () => import('../views/welcome/Welcome.vue')
+      },
+      //分类
+      {
+        path: 'category',
+        component: () => import('../views/category/Category.vue')
+      },
+      //物品
+      {
+        path: 'item',
+        component: () => import('../views/item/Item.vue')
+      },
+      //英雄
+      {
+        path: 'hero/create',
+        component: () => import('../views/hero/HeroEdit.vue')
+      },
+      {
+        path: 'hero/edit/:id',
+        component: () => import('../views/hero/HeroEdit.vue'),
+        props: true
+      },
+      {
+        path: 'hero/list',
+        component: () => import('../views/hero/HeroList.vue')
+      },
+      //文章
+      {
+        path: 'article/create',
+        component: () => import('../views/article/ArticleEdit.vue')
+      },
+      {
+        path: 'article/edit/:id',
+        component: () => import('../views/article/ArticleEdit.vue'),
+        props: true
+      },
+      {
+        path: 'article/list',
+        component: () => import('../views/article/ArticleList.vue')
+      },
+      //广告位
+      {
+        path: 'ad/list',
+        component: () => import('../views/ad/AdList.vue')
+      },
+      //用户
+      {
+        path: 'admin_user/list',
+        component: () => import('../views/adminUser/AdminUserList.vue')
+      }
     ]
-
-  }]
-})
-//路由守卫
-router.beforeEach((to, from ,next) => {
-  if (!to.meta.isPublic && !localStorage.token) {
-    return next('/login')
   }
-  next()
+]
+
+const router = new VueRouter({
+  routes,
+  mode: 'hash'
 })
+
+router.beforeEach((to, from, next) => {
+
+  if (!to.meta.noRequiredAuth && !sessionStorage.token) return next('/login')
+
+  return next()
+
+})
+
 export default router

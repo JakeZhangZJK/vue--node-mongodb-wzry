@@ -1,122 +1,140 @@
-<!---->
 <template>
-  <el-container class="main-container">
-    <el-header>
-      <div>
-        <img src="../assets/images/logo1.png" alt="">
-        <span>王者荣耀官网后台管理系统</span>
-      </div>
-      <el-button type="text" size="middle" style="color:grey" @click="outLogin"> <i class="el-icon-switch-button" style="color:#fdb933"></i> 退出</el-button>
+  <el-container style="height: 100vh">
+    <!-- 头部 -->
+    <el-header style="text-align: right; font-size: 12px">
+     <div class="logo-title">
+        <img src="../assets/img/home/logo1.png" alt="王者荣耀">
+        <h2>王者荣耀后台管理系统</h2>
+     </div>
+      <el-button type="text" size="middle" style="color:grey" @click="loginOut"> <i class="el-icon-switch-button" style="color:#fdb933"></i> 退出</el-button>
     </el-header>
+
     <el-container>
-      <!-- 侧边栏 -->
-      <el-aside :width="isCollpase ? '52px':'199px'" style="background-color:#545c64;overflow:hidden">
-        <div class="toggle-btn" @click="toggleCollpase">
-          <i class="el-icon-d-arrow-left" v-if="!isCollpase"></i>
-        <i class="el-icon-d-arrow-right" v-if="isCollpase"></i>
-        </div>
-         <!-- 默认展开第一个，一次只能展开一个，被点击的高亮 -->
-        <el-menu :collapse-transition="false"  router  unique-opened :collapse="isCollpase" :default-active="activePath" 
-          background-color="#545c64" text-color="#fff" active-text-color="#fdb933">
-          <el-submenu :index="menu.index" v-for="(menu,i) in menus" :key="i">
-            <template slot="title"><i :class="menu.icon" style="margin-right:8px"></i>{{menu.name}}</template>
-                <el-menu-item  v-for="(item,i) in menu.children" :key="i" :index="item.router" @click="saveNavState(item.router)"><i :class="item.icon"></i>{{item.name}}</el-menu-item>
+      <!-- 侧边栏菜单 -->
+      <el-aside width="201px" style="background-color: #252a40">
+        <el-menu router :default-active="activePath" unique-opened
+        background-color="#252a40" text-color="#fff" active-text-color="#fdb933">
+          <!-- 内容管理一级菜单 -->
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-s-fold"></i>分类管理
+            </template>
+            <!-- 内容管理二级菜单 -->
+            <el-menu-item-group>
+              <template slot="title">分类</template>
+              <el-menu-item index="/category">分类列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+
+          <!-- 物品管理一级菜单 -->
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="el-icon-menu"></i>物品管理
+            </template>
+            <!-- 物品管理二级菜单 -->
+            <el-menu-item-group>
+              <template slot="title">物品</template>
+              <el-menu-item index="/item">物品列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+
+          <!-- 英雄管理一级菜单 -->
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-s-help"></i>英雄管理
+            </template>
+            <!--英雄管理二级菜单 -->
+            <el-menu-item-group>
+              <template slot="title">英雄</template>
+              <el-menu-item
+                :index="$route.path"
+                v-if="$route.path==='/hero/create'||$route.path.indexOf('/hero/edit')!==-1"
+              >{{AddOrEdit}}</el-menu-item>
+              <el-menu-item index="/hero/list">英雄列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+
+          <!-- 文章管理 -->
+          <el-submenu index="4">
+            <template slot="title">
+              <i class="el-icon-document"></i>文章管理
+            </template>
+            <!--文章管理二级菜单 -->
+            <el-menu-item-group>
+              <template slot="title">文章</template>
+              <el-menu-item
+                :index="$route.path"
+                v-if="$route.path==='/article/create'||$route.path.indexOf('/article/edit')!==-1"
+              >{{AddOrEdit}}</el-menu-item>
+              <el-menu-item index="/article/list">文章列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+
+          <!-- 广告位管理 -->
+          <el-submenu index="5">
+            <template slot="title">
+              <i class="el-icon-s-opportunity"></i>广告位管理
+            </template>
+            <!--文章管理二级菜单 -->
+            <el-menu-item-group>
+              <template slot="title">广告位</template>
+              <el-menu-item index="/ad/list">广告位列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+
+          <!-- 用户管理 -->
+          <el-submenu index="6">
+            <template slot="title">
+              <i class="el-icon-user"></i>用户管理
+            </template>
+            <!--用户管理二级菜单 -->
+            <el-menu-item-group>
+              <template slot="title">用户</template>
+              <el-menu-item index="/admin_user/list">用户列表</el-menu-item>
+            </el-menu-item-group>
           </el-submenu>
         </el-menu>
       </el-aside>
-      <!-- 右侧主体 -->
-      
-      <el-main class="mian-right">
+      <!-- 内容主体区域 -->
+      <el-main>
         <router-view></router-view>
       </el-main>
-     
     </el-container>
   </el-container>
 </template>
+
 <script>
-  export default {
-    data() {
-      return {
-        isCollpase:false,//是否折叠菜单
-        activePath:'',
-        menus:[
-          {
-            name:'内容管理',
-            icon:'el-icon-message',
-            index:'1',
-            children:[
-              {
-                name:'分类管理',
-                icon:'el-icon-menu',
-                router:'/categories/list'
-              },
-               {
-                name:'英雄管理',
-                icon:'el-icon-menu',
-                router:'/heroes/list'
-              },
-              {
-                name:'装备管理',
-                icon:'el-icon-menu',
-                router:'/items/list'
-              },
-              //   {
-              //   name:'铭文管理',
-              //   icon:'el-icon-menu',
-              //   router:''
-              // },
-              //   {
-              //   name:'召唤师技能',
-              //   icon:'el-icon-menu',
-              //   router:'categories'
-              // },
-            ]
-          },
-             {
-            name:'运营管理',
-            icon:'el-icon-s-platform',
-            index:'2',
-            children:[
-              {
-                name:'广告管理',
-                icon:'el-icon-menu',
-                router:'/ads/list'
-              },
-              {
-                name:'文章管理',
-                icon:'el-icon-menu',
-                router:'/articles/list'
-              },
-                {
-                name:'视频管理',
-                icon:'el-icon-menu',
-                router:'/videos/list'
-              },
-                {
-                name:'图文攻略',
-                icon:'el-icon-menu',
-                router:'/guides/list'
-              }
-            ]
-          },
-             {
-            name:'系统设置',
-            icon:'el-icon-setting',
-            index:'3',
-            children:[
-              {
-                name:'管理员',
-                icon:'el-icon-menu',
-                router:'/admin_users/list'
-              },
-            ]
-          },
-        ]
-      }
+export default {
+  name: 'Main',
+  data() {
+    return {
+    }
+  },
+  computed: {
+    activePath() {
+      return this.$route.path
     },
-    methods: {
-        outLogin(){
-           this.$confirm(`是否退出当前账户`, '提示', {
+    AddOrEdit() {
+      if (this.$route.path.indexOf('/hero') !== -1) {
+        if (this.$route.path === '/hero/create') {
+          return '添加英雄'
+        } else if (this.$route.path.indexOf('/hero/edit') !== -1) {
+          return '编辑英雄'
+        }
+      } else {
+        if (this.$route.path === '/article/create') {
+          return '添加文章'
+        } else if (this.$route.path.indexOf('/article/edit') !== -1) {
+          return '编辑文章'
+        }
+      }
+
+    }
+  },
+  methods: {
+    // 退出登陆
+    loginOut() {
+      this.$confirm('是否退出当前账户?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -124,61 +142,23 @@
           window.localStorage.clear()
           this.$router.push('/login')
         })
-         
-        
-      },
-      toggleCollpase(){
-        this.isCollpase = !this.isCollpase;
-      },
-      saveNavState(activePath){
-        window.sessionStorage.setItem('activePath',activePath)
-        this.activePath = activePath
-      }
-    },
-    created(){
-      this.activePath = window.sessionStorage.getItem('activePath')
+      
     }
   }
+}
 </script>
-<style  scoped>
-.main-container{
-  height: 100vh;
-   
-}
-.mian-right{
-  overflow-y: auto;
-}
-.el-header{
-  background-color: #373d41;
+
+<style scoped>
+.el-header {
   display: flex;
   justify-content: space-between;
-  padding-left: 0;
   align-items: center;
-  color: #eaedf1;
-  font-size: 20px;
+  background: linear-gradient(#11131f, #252a40);
+  color: #eee;
 }
-.el-header div{
-display: flex;
-align-items: center;
-}
-.el-header div span{
-margin-left: 10px;
-}
-.el-menu{
-  border-right: 0;
-}
-.toggle-btn{
-  background-color: #545c64;
-  font-size:12px;
-  line-height: 24px;
-  color: #fff;
-  text-align: right;
-  cursor: pointer;
-}
-.toggle-btn i{
- margin-right: 10%;
-}
-.el-main{
-  background-color: #eaedf1;
+.logo-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

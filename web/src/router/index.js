@@ -1,63 +1,53 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Main from '../views/Main.vue'
+
+const Home = () => import('views/home/Home')
+const Article = () => import('views/home/childViews/Article')
+const Hero = () => import('views/home/childViews/Hero')
+
+const Strategy = () => import('views/strategy/Strategy')
+const MoreStrategies = () => import('views/strategy/childViews/MoreStrategies')
+
+const Race = () => import('views/race/Race')
+
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+  {
     path: '/',
-    component: Main,
-    children: [{
-        path: '/',
-        name: 'home',
-        component: Home
-      },
-      
-    ]
-},
-   // 攻略视频
-   {
-    path: '/guides/:id',
-    name: 'guide',
-    component: () => import( /* webpackChunkName: "about" */ '../views/Guide.vue'),
-    props: true
+    redirect: '/home'
   },
-   // 视频
-   {
-    path: '/videos/:id',
-    name: 'video',
-    component: () => import( /* webpackChunkName: "about" */ '../views/Video.vue'),
-    props: true
-  },
-  // 英雄
-{
-  path: '/heroes/:id',
-  name: 'hero',
-  component:() => import('../views/Hero.vue') ,
-  props: true
-  },
-  // 新闻资讯
   {
-    path: '/articles/:id',
-    name: 'article',
-    component: () => import( /* webpackChunkName: "about" */ '../views/Article.vue'),
+    path: '/home',
+    component: Home
+  },
+  {
+    path: '/article/:id',
+    component: Article,
     props: true
   },
-
-
-
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/hero/:id',
+    component: Hero,
+    props: true
+  },
+  {
+    path: '/strategy',
+    component: Strategy
+  },
+  {
+    path: '/more_strategies',
+    component: MoreStrategies
+  },
+  {
+    path: '/race',
+    component: Race
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'hash'
 })
 
 export default router

@@ -1,33 +1,15 @@
-/* eslint-disable */
 import Vue from 'vue'
-import App from './App.vue'
 import './plugins/element.js'
+import App from './App.vue'
 import router from './router'
-import './style.css'
-import http from './http'
-import VueScrollLock from 'vue-scroll-lock'
 
-Vue.use(VueScrollLock)
-// 导入富文本编辑器
- import { VueEditor} from "vue2-editor";
-Vue.use(VueEditor)
+import TreeTable from 'vue-table-with-tree-grid'
+Vue.component('tree-table', TreeTable)
+
+import 'nprogress/nprogress.css'
+
 Vue.config.productionTip = false
-Vue.prototype.$http = http
-Vue.mixin({
-  computed: {
-    upLoadUrl() { 
-      return this.$http.defaults.baseURL + '/upload'
-    }
-  },
-  methods: {
-    getAuthHeaders() {
-      return {
-        Authorization:`Bearer ${localStorage.token || ''}`
-      }
-     }
 
-  }
-})
 new Vue({
   router,
   render: h => h(App)

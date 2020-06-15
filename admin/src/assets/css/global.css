@@ -1,0 +1,91 @@
+/* 树表格 */
+
+.zk-table {
+  margin-top: 15px;
+}
+
+/* element-ui */
+
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  line-height: 60px;
+}
+
+.el-aside {
+  color: #333;
+}
+
+/* uploader */
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+.avatar {
+  width: 125px;
+  height: 125px;
+  display: block;
+}
+
+/* .el-icon-plus::before {
+  line-height: 125px;
+} */
+
+.el-card {
+  position: relative;
+  margin-top: 15px;
+  padding: 5px 15px;
+}
+
+.el-table {
+  margin-top: 15px;
+}
+
+.el-table tr td, .el-table tr th {
+  text-align: center !important;
+  font-size: 13px !important;
+}
+
+.el-dialog {
+  padding: 10px 35px;
+}
+
+.el-pagination {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.el-rate {
+  padding-top: 12px;
+}
+
+.el-dialog {
+  min-width: 500px;
+}
+.add-btn{
+  border: none;
+  background-color: #fdb933;
+}
+.add-btn:hover{
+  border: none;
+  background-color: #fdb933;
+  opacity: .8;
+}
