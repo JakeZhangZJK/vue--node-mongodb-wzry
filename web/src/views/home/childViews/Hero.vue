@@ -30,110 +30,116 @@
       </div>
     </div>
 
-    <hcard class="pt8" :data="['英雄初识','进阶攻略']" :padding="false" around navBorder>
-      <template slot-scope="scope">
-        <div v-if="scope.item === '英雄初识' ">
-          <div class="b-bottom p0-15">
-            <div class="hero-video d-flex jc-between">
-              <span @click="showVideo = true">
-                <i class="i-video"></i> 英雄介绍视频
-              </span>
-              <span @click="showPhoto = true">
-                <i class="i-photo"></i> 一图识英雄
-              </span>
+    <div class="main">
+      <div class="tip2" v-if="heroData.skills.length ==0">
+        <img class="" src="../../../assets/img/hero/tip.png" alt="">
+      </div>
+      <hcard class="pt8" :data="['英雄初识','进阶攻略']" :padding="false" around navBorder>
+        <template slot-scope="scope">
+          <div v-if="scope.item === '英雄初识' ">
+            <div class="b-bottom p0-15">
+              <div class="hero-video d-flex jc-between">
+                <span @click="showVideo = true">
+                  <i class="i-video"></i> 英雄介绍视频
+                </span>
+                <span @click="showPhoto = true">
+                  <i class="i-photo"></i> 一图识英雄
+                </span>
+              </div>
+              <!-- 技能图标 -->
+              <ul class="hero-skills m15-0">
+                <li :class="{active: currentIndex == i}" v-for="(item,i) in heroData.skills" :key="item._id"
+                  @click="currentIndex = i">
+                  <img :src="item.icon" />
+                </li>
+              </ul>
+              <!-- 技能介绍 -->
+              <div class="skill-info">
+                <h3 class="p3-0">
+                  <span class="fs15 bold mr15">{{currentSkill.name}}</span>
+                  <span class="fs12 fc-2"
+                    style="color: #7a7a80">(冷却值：{{currentSkill.delay}}消耗：{{currentSkill.cost}})</span>
+                </h3>
+                <p class="desc p15-0">{{currentSkill.desc}}</p>
+                <p class="detail p15-0">小提示：{{currentSkill.tips}}</p>
+              </div>
             </div>
-            <!-- 技能图标 -->
-            <ul class="hero-skills m15-0">
-              <li :class="{active: currentIndex == i}" v-for="(item,i) in heroData.skills" :key="item._id"
-                @click="currentIndex = i">
-                <img :src="item.icon" />
-              </li>
-            </ul>
-            <!-- 技能介绍 -->
-            <div class="skill-info">
-              <h3 class="p3-0">
-                <span class="fs15 bold mr15">{{currentSkill.name}}</span>
-                <span class="fs12 fc-2"
-                  style="color: #7a7a80">(冷却值：{{currentSkill.delay}}消耗：{{currentSkill.cost}})</span>
-              </h3>
-              <p class="desc p15-0">{{currentSkill.desc}}</p>
-              <p class="detail p15-0">小提示：{{currentSkill.tips}}</p>
+            <div class="suggest fs13">
+              <!-- 出装推荐 -->
+              <card title="出装推荐" bold>
+                <i slot="icon-l"></i>
+                <div slot="content">
+                  <div class="mt-8 down_wind b-bottom">
+                    <h5 class="pb8 fs15">顺风出装</h5>
+                    <ul class="d-flex jc-between">
+                      <li v-for="item in heroData.downWind.equipment" :key="item._id">
+                        <img :src="item.icon" alt />
+                        <div class="t-center">{{item.name}}</div>
+                      </li>
+                    </ul>
+                    <p class="p15-0" style="color:#7a7a80">小提示：{{heroData.downWind.tips}}</p>
+                  </div>
+                  <div class="mt8 up_wind">
+                    <h5 class="pb8 fs15">逆风出装</h5>
+                    <ul class="d-flex jc-between">
+                      <li v-for="item in heroData.upWind.equipment" :key="item._id">
+                        <img :src="item.icon" alt />
+                        <div class="t-center">{{item.name}}</div>
+                      </li>
+                    </ul>
+                    <p class="p15-0" style="color:#7a7a80">小提示：{{heroData.upWind.tips}}</p>
+                  </div>
+                </div>
+              </card>
+              <card title="使用技巧" bold>
+                <i slot="icon-l"></i>
+                <p class="pb8" slot="content">{{heroData.usageTips}}</p>
+              </card>
+              <card title="对抗技巧" bold>
+                <i slot="icon-l"></i>
+                <p class="pb8" slot="content">{{heroData.battleTips}}</p>
+              </card>
+              <card title="团战技巧" bold>
+                <i slot="icon-l"></i>
+                <p class="pb8" slot="content">{{heroData.teamTips}}</p>
+              </card>
+              <card title="英雄关系" bold>
+                <i slot="icon-l"></i>
+                <div slot="content">
+                  <div class="b-bottom">
+                    <h3>最佳搭档</h3>
+                    <div class="best-partners d-flex p5-0" v-for="item in heroData.partners" :key="item._id">
+                      <img :src="item.hero.avatar" alt />
+                      <p class="flex1 pl10">{{item.desc}}</p>
+                    </div>
+                  </div>
+                  <div class="b-bottom">
+                    <h3>被谁克制</h3>
+                    <div class="best-partners d-flex p5-0" v-for="item in heroData.restrained" :key="item._id">
+                      <img :src="item.hero.avatar" alt />
+                      <p class="flex1 pl10">{{item.desc}}</p>
+                    </div>
+                  </div>
+                  <div class="b-bottom">
+                    <h3>克制谁</h3>
+                    <div class="best-partners d-flex p5-0" v-for="item in heroData.restraint" :key="item._id">
+                      <img :src="item.hero.avatar" alt />
+                      <p class="flex1 pl10">{{item.desc}}</p>
+                    </div>
+                  </div>
+                </div>
+              </card>
             </div>
           </div>
-          <div class="suggest fs13">
-            <!-- 出装推荐 -->
-            <card title="出装推荐" bold>
-              <i slot="icon-l"></i>
-              <div slot="content">
-                <div class="mt-8 down_wind b-bottom">
-                  <h5 class="pb8 fs15">顺风出装</h5>
-                  <ul class="d-flex jc-between">
-                    <li v-for="item in heroData.downWind.equipment" :key="item._id">
-                      <img :src="item.icon" alt />
-                      <div class="t-center">{{item.name}}</div>
-                    </li>
-                  </ul>
-                  <p class="p15-0" style="color:#7a7a80">小提示：{{heroData.downWind.tips}}</p>
-                </div>
-                <div class="mt8 up_wind">
-                  <h5 class="pb8 fs15">逆风出装</h5>
-                  <ul class="d-flex jc-between">
-                    <li v-for="item in heroData.upWind.equipment" :key="item._id">
-                      <img :src="item.icon" alt />
-                      <div class="t-center">{{item.name}}</div>
-                    </li>
-                  </ul>
-                  <p class="p15-0" style="color:#7a7a80">小提示：{{heroData.upWind.tips}}</p>
-                </div>
-              </div>
-            </card>
-            <card title="使用技巧" bold>
-              <i slot="icon-l"></i>
-              <p class="pb8" slot="content">{{heroData.usageTips}}</p>
-            </card>
-            <card title="对抗技巧" bold>
-              <i slot="icon-l"></i>
-              <p class="pb8" slot="content">{{heroData.battleTips}}</p>
-            </card>
-            <card title="团战技巧" bold>
-              <i slot="icon-l"></i>
-              <p class="pb8" slot="content">{{heroData.teamTips}}</p>
-            </card>
-            <card title="英雄关系" bold>
-              <i slot="icon-l"></i>
-              <div slot="content">
-                <div class="b-bottom">
-                  <h3>最佳搭档</h3>
-                  <div class="best-partners d-flex p5-0" v-for="item in heroData.partners" :key="item._id">
-                    <img :src="item.hero.avatar" alt />
-                    <p class="flex1 pl10">{{item.desc}}</p>
-                  </div>
-                </div>
-                <div class="b-bottom">
-                  <h3>被谁克制</h3>
-                  <div class="best-partners d-flex p5-0" v-for="item in heroData.restrained" :key="item._id">
-                    <img :src="item.hero.avatar" alt />
-                    <p class="flex1 pl10">{{item.desc}}</p>
-                  </div>
-                </div>
-                <div class="b-bottom">
-                  <h3>克制谁</h3>
-                  <div class="best-partners d-flex p5-0" v-for="item in heroData.restraint" :key="item._id">
-                    <img :src="item.hero.avatar" alt />
-                    <p class="flex1 pl10">{{item.desc}}</p>
-                  </div>
-                </div>
-              </div>
-            </card>
+          <div class="strategy-plus" v-if="scope.item === '进阶攻略' ">
+            <!-- <img class="" src="../../../assets/img/hero/timg.gif" alt=""> -->
+            <img class="" src="../../../assets/img/hero/tip.png" alt="">
           </div>
-        </div>
-        <div class="strategy-plus" v-if="scope.item === '进阶攻略' ">
-          <!-- <img class="" src="../../../assets/img/hero/timg.gif" alt=""> -->
-          <img class="" src="../../../assets/img/hero/tip.png" alt="">
-        </div>
-      </template>
+        </template>
 
-    </hcard>
+      </hcard>
+    </div>
+
     <!-- 英雄介绍视频弹层 -->
     <van-popup close-icon="close" position="top" v-model="showVideo">
       <top-bar class="hero-nav fc-w">
@@ -249,13 +255,23 @@
 </script>
 
 <style lang="scss" scoped>
-.tip{
-  height: 100vh;
-  display: flex;
-  img{
-    margin: auto;
+  .tip {
+    height: 100vh;
+    display: flex;
+
+    img {
+      margin: auto;
+    }
   }
-}
+   .tip2 {
+    height: 63vh;
+    display: flex;
+
+    img {
+      margin: auto;
+    }
+  }
+
   .you-like {
     display: flex;
     align-items: center;
