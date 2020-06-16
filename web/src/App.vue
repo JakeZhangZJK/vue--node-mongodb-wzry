@@ -40,7 +40,7 @@ methods:{
   }
 },
 mounted(){
-  // this.tip()
+  this.tip()
 }
 
 }
