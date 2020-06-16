@@ -38,16 +38,16 @@ module.exports = (app, multer) => {
    const skin = multer({ dest: __dirname + '/../../uploads/skins' })
    router.post('/skin', skin.single('file'), async (req, res) => {
      const file = req.file
-    //  file.url = `http://101.201.199.139/uploads/skins/${file.filename}`
-     file.url = `http://localhost:3333/uploads/skins/${file.filename}`
+     file.url = `http://101.201.199.139/uploads/skins/${file.filename}`
+    //  file.url = `http://localhost:3333/uploads/skins/${file.filename}`
      res.send(file)
    })
    // 视频上传
    const introduction = multer({ dest: __dirname + '/../../uploads/introductions' })
    router.post('/introduction', introduction.single('file'), async (req, res) => {
      const file = req.file
-    //  file.url = `http://101.201.199.139/uploads/introductions/${file.filename}`
-     file.url = `http://localhost:3333/uploads/introductions/${file.filename}`
+     file.url = `http://101.201.199.139/uploads/introductions/${file.filename}`
+    //  file.url = `http://localhost:3333/uploads/introductions/${file.filename}`
      res.send(file)
    })
 
