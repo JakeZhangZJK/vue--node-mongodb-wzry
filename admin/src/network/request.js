@@ -8,7 +8,7 @@ import NProgress from 'nprogress'
 function GUID_req(config) {
 
   const instance = axios.create({
-    // baseURL: 'http://localhost:3000/admin/api/rest',
+    // baseURL: 'http://localhost:3333/admin/api/rest',
     baseURL: process.env.VUE_APP_API_URL_CRUD || '/admin/api/rest',
     timeout: 5000
   })
@@ -50,7 +50,7 @@ function GUID_req(config) {
 function upload(config) {
 
   const instance = axios.create({
-    // baseURL: 'http://localhost:3000/admin/api/upload',
+    // baseURL: 'http://localhost:3333/admin/api/upload',
     baseURL: process.env.VUE_APP_API_URL_UPLOAD || '/admin/api/upload',
     timeout: 5000
   })
@@ -85,7 +85,7 @@ function upload(config) {
 function login(config) {
 
   const instance = axios.create({
-    // baseURL: 'http://localhost:3000/admin/api',
+    // baseURL: 'http://localhost:3333/admin/api',
     baseURL: process.env.VUE_APP_API_URL_LOGIN || '/admin/api',
     timeout: 5000
   })

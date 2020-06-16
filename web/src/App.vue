@@ -8,9 +8,7 @@
 
     <!-- 路由 -->
     <transition name="slide" mode="out-in">
-      <keep-alive>
         <router-view class="view" />
-      </keep-alive>
     </transition>
   </div>
 </template>
@@ -42,7 +40,7 @@ methods:{
   }
 },
 mounted(){
-  this.tip()
+  // this.tip()
 }
 
 }

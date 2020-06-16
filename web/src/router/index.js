@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 const Home = () => import('views/home/Home')
-const Article = () => import('views/home/childViews/Article')
-const Hero = () => import('views/home/childViews/Hero')
+const Article = () => import('views/home/Article')
+const Hero = () => import('views/home/Hero')
 
 const Strategy = () => import('views/strategy/Strategy')
 const MoreStrategies = () => import('views/strategy/childViews/MoreStrategies')
@@ -19,17 +19,20 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    meta: { keepAlive: true }
   },
   {
     path: '/article/:id',
     component: Article,
-    props: true
+    props: true,
+    meta: { keepAlive: false }
   },
   {
     path: '/hero/:id',
     component: Hero,
-    props: true
+    props: true,
+    meta: { keepAlive: false }
   },
   {
     path: '/strategy',

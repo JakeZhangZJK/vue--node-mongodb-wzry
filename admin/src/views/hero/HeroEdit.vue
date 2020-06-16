@@ -54,7 +54,7 @@
               </el-upload>
             </el-form-item>
             <!-- 图文介绍 -->
-            <el-form-item label="">
+            <el-form-item label="图文介绍">
               <el-upload class="avatar-uploader" :action="action+'hero'" :headers="token" :show-file-list="false"
                 :on-success="res=>$set(model, 'photo', res.url)" :on-error="uploadErrHandler">
                 <img v-if="model.photo" :src="model.photo" class="banner" />
@@ -92,7 +92,7 @@
             <el-form-item label="视频">
               <el-upload  class="avatar-uploader" :action="action+'introduction'" :headers="token" :show-file-list="false"
                 :on-success="res => $set(model.shipin, 'video', res.url)" :on-error="uploadErrHandler">
-                <video class="banner"  v-if="model.shipin.video" :src="model.shipin.video"/>
+                <video class="banner" controls  v-if="model.shipin.video" :src="model.shipin.video"/>
                <i v-else class="el-icon-upload avatar-uploader-icon"></i>  
                
               </el-upload>

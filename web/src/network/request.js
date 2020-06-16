@@ -3,7 +3,7 @@ import axios from 'axios'
 function request(config) {
 
   const instance = axios.create({
-    // baseURL: 'http://47.105.164.155/web/api',
+    // baseURL: 'http://101.201.199.139/web/api',
     baseURL: process.env.VUE_APP_API_URL || '/web/api',
     timeout: 5000
   })

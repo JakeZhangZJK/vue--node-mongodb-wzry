@@ -11,8 +11,8 @@ module.exports = (app, multer) => {
   const item = multer({ dest: __dirname + '/../../uploads/items' })
   router.post('/item', item.single('file'), async (req, res) => {
     const file = req.file
-    file.url = `http://101.201.199.139/uploads/items/${file.filename}`
-    // file.url = `http://localhost:3000/uploads/items/${file.filename}`
+    // file.url = `http://101.201.199.139/uploads/items/${file.filename}`
+    file.url = `http://localhost:3333/uploads/items/${file.filename}`
     res.send(file)
   })
 
@@ -20,8 +20,8 @@ module.exports = (app, multer) => {
   const hero = multer({ dest: __dirname + '/../../uploads/heros' })
   router.post('/hero', hero.single('file'), async (req, res) => {
     const file = req.file
-    file.url = `http://101.201.199.139/uploads/heros/${file.filename}`
-    // file.url = `http://localhost:3000/uploads/heros/${file.filename}`
+    // file.url = `http://101.201.199.139/uploads/heros/${file.filename}`
+    file.url = `http://localhost:3333/uploads/heros/${file.filename}`
     res.send(file)
   })
 
@@ -29,8 +29,8 @@ module.exports = (app, multer) => {
   const skill = multer({ dest: __dirname + '/../../uploads/skills' })
   router.post('/skill', skill.single('file'), async (req, res) => {
     const file = req.file
-    file.url = `http://101.201.199.139/uploads/skills/${file.filename}`
-    // file.url = `http://localhost:3000/uploads/skills/${file.filename}`
+    // file.url = `http://101.201.199.139/uploads/skills/${file.filename}`
+    file.url = `http://localhost:3333/uploads/skills/${file.filename}`
     res.send(file)
   })
 
@@ -38,16 +38,16 @@ module.exports = (app, multer) => {
    const skin = multer({ dest: __dirname + '/../../uploads/skins' })
    router.post('/skin', skin.single('file'), async (req, res) => {
      const file = req.file
-     file.url = `http://101.201.199.139/uploads/skins/${file.filename}`
-    //  file.url = `http://localhost:3000/uploads/skins/${file.filename}`
+    //  file.url = `http://101.201.199.139/uploads/skins/${file.filename}`
+     file.url = `http://localhost:3333/uploads/skins/${file.filename}`
      res.send(file)
    })
    // 视频上传
    const introduction = multer({ dest: __dirname + '/../../uploads/introductions' })
    router.post('/introduction', introduction.single('file'), async (req, res) => {
      const file = req.file
-     file.url = `http://101.201.199.139/uploads/introductions/${file.filename}`
-    //  file.url = `http://localhost:3000/uploads/introductions/${file.filename}`
+    //  file.url = `http://101.201.199.139/uploads/introductions/${file.filename}`
+     file.url = `http://localhost:3333/uploads/introductions/${file.filename}`
      res.send(file)
    })
 
@@ -55,8 +55,8 @@ module.exports = (app, multer) => {
   const article = multer({ dest: __dirname + '/../../uploads/articles' })
   router.post('/article', article.single('file'), async (req, res) => {
     const file = req.file
-    file.url = `http://101.201.199.139/uploads/articles/${file.filename}`
-    // file.url = `http://localhost:3000/uploads/articles/${file.filename}`
+    // file.url = `http://101.201.199.139/uploads/articles/${file.filename}`
+    file.url = `http://localhost:3333/uploads/articles/${file.filename}`
     res.send(file)
   })
 
@@ -64,8 +64,8 @@ module.exports = (app, multer) => {
   const ad = multer({ dest: __dirname + '/../../uploads/ads' })
   router.post('/ad', ad.single('file'), async (req, res) => {
     const file = req.file
-    file.url = `http://101.201.199.139/uploads/ads/${file.filename}`
-    // file.url = `http://localhost:3000/uploads/ads/${file.filename}`
+    // file.url = `http://101.201.199.139/uploads/ads/${file.filename}`
+    file.url = `http://localhost:3333/uploads/ads/${file.filename}`
     res.send(file)
   })
 }
