@@ -1,14 +1,26 @@
 module.exports = (app, multer) => {
   const express = require('express')
   const router = express.Router()
-
+// const MAO = require('multer-aliyun-oss')
   const auth = require('../../middlleware/validateMiddleWear')
   const access = require('../../middlleware/access')
 
   app.use('/admin/api/upload', auth(app), access(app), router)
 
   //物品图片上传
-  const item = multer({ dest: __dirname + '/../../uploads/items' })
+  const item = multer({
+    dest: __dirname + '/../../uploads/items'
+    // 替换为阿里云存储
+  //   storage: MAO({
+  //     config: {
+  //         region: 'oss-cn-beijing',
+  //         accessKeyId: 'LTAI4G5Nk12EQWfEajo9gEAD',
+  //         accessKeySecret: 'qpLegIjTQCYeWx81AmxwMflmUTVjTl',
+  //         bucket: 'my-moba'
+  //     }
+  // })
+  })
+
   router.post('/item', item.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://101.201.199.139/uploads/items/${file.filename}`
