@@ -91,7 +91,7 @@
             </el-form-item>
             <el-form-item label="视频">
               <el-upload  class="avatar-uploader" :action="action+'introduction'" :headers="token" :show-file-list="false"
-                :on-success="res => $set(model.shipin, 'video', res.url)" :before-upload="beforeUpload">
+                :on-success="res => $set(model.shipin, 'video', res.url)" :on-error="uploadErrHandler" :before-upload="beforeUpload">
                 <video class="banner" controls  v-if="model.shipin.video" :src="model.shipin.video"/>
                <i v-else class="el-icon-upload avatar-uploader-icon"></i>  
                
